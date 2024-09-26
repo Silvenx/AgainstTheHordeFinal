@@ -15,14 +15,17 @@ public class GameManager : MonoBehaviour
     public GameObject cardPrefab;
     //[HideInInspector]
     public GameObject cardObjectPool;
-    
+
 
     [Header("Turn Details")]
     public int turnCount = 0;
     public TurnPhase currentTurn = TurnPhase.STARTROUND;
-    public int maxMana;
-    public int currentMana = 0;
-    public TextMeshProUGUI currentManaText;
+    public int maxEnergy;
+    public int currentEnergy = 0;
+    public int energyGrowthCap = 10;
+    public TextMeshProUGUI currentEnergyText;
+    public TextMeshProUGUI maxEnergyText;
+    public TextMeshProUGUI turnCountText;
 
     public enum TurnPhase
     {
@@ -162,10 +165,14 @@ public class GameManager : MonoBehaviour
     {
         //Increase Round Counter
         turnCount += 1;
-        //Increase Player Mana Cap
-        maxMana += 1;
+        //Increase Player Mana Cap if it's under the growth cap
+        if (maxEnergy < energyGrowthCap)
+        {
+            maxEnergy += 1;
+        }
         //Sets refreshes current mana value and updates UI
-        SetCurrentMana(maxMana);
+        SetCurrentEnergy(maxEnergy);
+        maxEnergyText.text = maxEnergy.ToString();
 
         //Next Phase (Automatic)
         NextTurnPhase();
@@ -193,7 +200,7 @@ public class GameManager : MonoBehaviour
         //Next Phase (Automatic)
         NextTurnPhase();
     }
-    
+
     private void StartOfTurnEffectTrigger()
     {
         //DO STUFF
@@ -204,7 +211,7 @@ public class GameManager : MonoBehaviour
     private void PlayerGainControl()
     {
         //DO STUFF
-        foreach(GameObject card in playerManager.playerHand)
+        foreach (GameObject card in playerManager.playerHand)
         {
             card.GetComponent<CardDetails>().canDrag = true;
         }
@@ -240,7 +247,7 @@ public class GameManager : MonoBehaviour
     //Check if have enough mana to play card
     public bool haveEnoughManaToPlayCard(Card card)
     {
-        if (card.currentManaCost <= currentMana)
+        if (card.currentEnergyCost <= currentEnergy)
         {
             return true;
         }
@@ -249,19 +256,19 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
-    //Changes current mana by X amount
-    public void ModifyCurrentMana(int amountToIncrease)
+    //Changes current energy by X amount
+    public void ModifyCurrentEnergy(int amountToIncrease)
     {
         //increases current mana
-        int newCurrentMana = currentMana + amountToIncrease;
+        int newCurrentEnergy = currentEnergy + amountToIncrease;
         //Updates var and text UI
-        SetCurrentMana(newCurrentMana);
+        SetCurrentEnergy(newCurrentEnergy);
     }
-    //Updates current mana variable and UI
-    public void SetCurrentMana(int newCurrentManaValue)
+    //Updates current energy variable and UI
+    public void SetCurrentEnergy(int newCurrentEnergyValue)
     {
-        currentMana = newCurrentManaValue;
+        currentEnergy = newCurrentEnergyValue;
         //Updates text UI element
-        currentManaText.text = currentMana.ToString();
+        currentEnergyText.text = currentEnergy.ToString();
     }
 }

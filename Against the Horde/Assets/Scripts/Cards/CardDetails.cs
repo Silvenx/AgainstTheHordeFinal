@@ -35,7 +35,7 @@ public class CardDetails : MonoBehaviour
         this.card.baseHealth = cardDetails.baseHealth;
         this.card.baseAttack = cardDetails.baseAttack;
         //Sets current stats to match base stats
-        this.card.currentManaCost = card.baseManaCost;
+        this.card.currentEnergyCost = card.baseManaCost;
         this.card.currentHealth = card.baseHealth;
         this.card.maximumHealth = card.baseHealth;
         this.card.currentAttack = card.baseAttack;
@@ -83,7 +83,7 @@ public class CardDetails : MonoBehaviour
     //Modifies current stats
     public void SetCurrentStats(int manaCost, int health, int attack)
     {
-        this.card.currentManaCost = manaCost;
+        this.card.currentEnergyCost = manaCost;
         this.card.currentHealth = health;
         this.card.currentAttack = attack;
 
@@ -92,7 +92,7 @@ public class CardDetails : MonoBehaviour
     }
     public void SetCurrentManaCost(int manaCost)
     {
-        this.card.currentManaCost = manaCost;
+        this.card.currentEnergyCost = manaCost;
 
         //Updates UI text
         UpdateCardUI();
@@ -111,8 +111,8 @@ public class CardDetails : MonoBehaviour
         //Updates UI text
         UpdateCardUI();
     }
-    
-    
+
+
 
 
     //Retreieves all card details
@@ -126,11 +126,11 @@ public class CardDetails : MonoBehaviour
     //Increase or Decreases the Mana Cost of the card
     public void ModifyManaCost(int amountToIncrease)
     {
-        card.currentManaCost += amountToIncrease;
+        card.currentEnergyCost += amountToIncrease;
         //Check if mana cost below 0
-        if (card.currentManaCost <= 0)
+        if (card.currentEnergyCost <= 0)
         {
-            card.currentManaCost = 0;
+            card.currentEnergyCost = 0;
         }
         UpdateCardUI();
     }
@@ -190,7 +190,7 @@ public class CardDetails : MonoBehaviour
     //Updates this Card's UI stat text fields with new/current stats
     private void UpdateCardUI()
     {
-        UpdateCardUI(card.currentManaCost, card.currentHealth, card.currentAttack);
+        UpdateCardUI(card.currentEnergyCost, card.currentHealth, card.currentAttack);
     }
     private void UpdateCardUI(int manaCost, int health, int damage)
     {

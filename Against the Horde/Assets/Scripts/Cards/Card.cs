@@ -12,7 +12,7 @@ public class Card
     public string cardDescription;
     public int baseManaCost;
     [HideInInspector]
-    public int currentManaCost;
+    public int currentEnergyCost;
     public int baseHealth;
     [HideInInspector]
     public int maximumHealth;
@@ -49,7 +49,7 @@ public class Card
         this.baseAttack = co.card.baseAttack;
 
         //Sets current stats to match base stats
-        this.currentManaCost = co.card.baseManaCost;
+        this.currentEnergyCost = co.card.baseManaCost;
         this.maximumHealth = co.card.baseHealth;
         this.currentHealth = co.card.baseHealth;
         this.currentAttack = co.card.baseAttack;
@@ -72,7 +72,7 @@ public class Card
         this.baseAttack = attack;
 
         //Sets current stats to match base stats
-        this.currentManaCost = manaCost;
+        this.currentEnergyCost = manaCost;
         this.maximumHealth = health;
         this.currentHealth = health;
         this.currentAttack = attack;
@@ -89,7 +89,7 @@ public class Card
         this.baseAttack = attack;
 
         //Sets current stats as supplied
-        this.currentManaCost = currentManaCost;
+        this.currentEnergyCost = currentManaCost;
         this.currentHealth = currentHealth;
         this.maximumHealth = currentHealth;
         this.currentAttack = currentAttack;

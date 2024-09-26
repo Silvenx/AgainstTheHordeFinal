@@ -99,7 +99,7 @@ public class CardEventTrigger : EventTrigger
 
             ///Spend Mana & disable ability to drag this card
             //Spends mana equal to card's current mana cost
-            gameManager.ModifyCurrentMana(-thisCard.currentManaCost);
+            gameManager.ModifyCurrentEnergy(-thisCard.currentEnergyCost);
             //Make it so player can't drag card anymore
             GetComponent<CardDetails>().canDrag = false;
 
