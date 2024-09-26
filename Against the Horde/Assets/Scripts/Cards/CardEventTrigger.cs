@@ -10,6 +10,7 @@ public class CardEventTrigger : EventTrigger
     private FieldManager fieldManager;
     private Canvas myCanvas;
     private Card thisCard;
+    private bool pointerOverCard = false; ////Branch1.0-Added variable
 
     private void Start()
     {
@@ -146,6 +147,8 @@ public class CardEventTrigger : EventTrigger
             GetComponent<Animator>().SetBool("PokeUp", true);
         }
 
+        pointerOverCard = true; ////Branch1.0-Hover true
+
         //Lerp card up slightly if card is in hand
         //playerManager.LerpCardUpwardsSlightly(this.gameObject);
 
@@ -165,15 +168,17 @@ public class CardEventTrigger : EventTrigger
 
         //Move cards back into position
         GetComponent<Animator>().SetBool("PokeUp", false);
+
+        pointerOverCard = false; ////Branch1.0-Hover false
     }
 
     //Branch1.0-RightClick to magnify
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            GameObject magCard = gameManager.magnifiedCard;
+        GameObject magCard = gameManager.magnifiedCard;
 
+        if (pointerOverCard && Input.GetMouseButtonDown(1)) //hover + right click
+        {
             if (!magCard.activeSelf)
             {
                 DisplayMagnifiedCard();
@@ -183,6 +188,7 @@ public class CardEventTrigger : EventTrigger
                 HideMagnifiedCard();
             }
         }
+
     }
     //----------------Pointer Enter/Exit Methods----------------//
 
