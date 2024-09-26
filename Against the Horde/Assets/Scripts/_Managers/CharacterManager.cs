@@ -13,7 +13,11 @@ public class CharacterManager : MonoBehaviour
     [Header("My Deck")]
     public GameObject deckGameObject;
     public Deck myDeck;
-    
+
+    [Header("Character's Stats")]
+    public int health = 30;
+
+
 
 
     public void setDeck(Deck deck)
@@ -49,6 +53,12 @@ public class CharacterManager : MonoBehaviour
             yield return 1; //wait for next frame
         }
         objectToMove.GetComponent<CardDetails>().currentCoroutine = null;
+    }
+
+
+    public void ModifyCharacterHealth(int amountToIncrease)
+    {
+
     }
 
 }

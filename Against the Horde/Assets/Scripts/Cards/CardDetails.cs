@@ -112,30 +112,7 @@ public class CardDetails : MonoBehaviour
         UpdateCardUI();
     }
     
-    //Updates this Card's UI stat text fields with new/current stats
-    private void UpdateCardUI()
-    {
-        UpdateCardUI(card.currentManaCost, card.currentHealth, card.currentAttack);
-    }
-    private void UpdateCardUI(int manaCost, int health, int damage)
-    {
-        manaCostText.text = manaCost.ToString();
-        healthText.text = health.ToString();
-        attackText.text = damage.ToString();
-        
-        //TODO: Change Colour of text if current /= base. otherwise set colour to normal
-    }
-    private void SetCardUI(Sprite borderImage, Sprite characterArtImage, string cardName, string cardDescription, int manaCost, int health, int damage)
-    {
-        cardNameText.text = cardName;
-        cardDescriptionText.text = cardDescription;
-        //SetsImage
-        cardBorderImage.overrideSprite = borderImage;
-        cardCharacterArtImage.overrideSprite = characterArtImage;
-
-        //Applies stat fields with values
-        UpdateCardUI(manaCost, health, damage);
-    }
+    
 
 
     //Retreieves all card details
@@ -204,6 +181,43 @@ public class CardDetails : MonoBehaviour
 
         //remove from field
         FieldManager.RemoveCardFromField(this.gameObject);
+    }
+
+
+    ///----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------Modify UI----------------------------------------------//
+
+    //Updates this Card's UI stat text fields with new/current stats
+    private void UpdateCardUI()
+    {
+        UpdateCardUI(card.currentManaCost, card.currentHealth, card.currentAttack);
+    }
+    private void UpdateCardUI(int manaCost, int health, int damage)
+    {
+        manaCostText.text = manaCost.ToString();
+        if (card.cardType == Card.CARDTYPE.SPELL || card.cardType == Card.CARDTYPE.FIELD || card.cardType == Card.CARDTYPE.ENCHANTMENT)
+        {
+            healthText.text = "";
+            attackText.text = "";
+        }
+        else
+        {
+            healthText.text = health.ToString();
+            attackText.text = damage.ToString();
+        }
+
+        //TODO: Change Colour of text if current /= base. otherwise set colour to normal
+    }
+    private void SetCardUI(Sprite borderImage, Sprite characterArtImage, string cardName, string cardDescription, int manaCost, int health, int damage)
+    {
+        cardNameText.text = cardName;
+        cardDescriptionText.text = cardDescription;
+        //SetsImage
+        cardBorderImage.overrideSprite = borderImage;
+        cardCharacterArtImage.overrideSprite = characterArtImage;
+
+        //Applies stat fields with values
+        UpdateCardUI(manaCost, health, damage);
     }
 
 }
