@@ -90,8 +90,8 @@ public class PlayerManager : CharacterManager
     public void DrawCardToHand(Card cardToDraw)
     {
 
-        //If hand not equal to or above max hand size
-        if (playerHand.Count < maxHandSize)
+        //If hand not equal to or above max hand size AND deck was not empty
+        if (playerHand.Count < maxHandSize && cardToDraw != null)
         {
             //Get Positions of all existing card in hand
             List<GameObject> oldCardPositions = getCardPositions();

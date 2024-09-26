@@ -42,6 +42,7 @@ public class CardDetails : MonoBehaviour
 
         this.card.cardType = cardDetails.cardType;
 
+        this.card.borderArt = cardDetails.borderArt;
         this.card.characterArt = cardDetails.characterArt;
 
         //Applies new card details to UI of this card gameobject
