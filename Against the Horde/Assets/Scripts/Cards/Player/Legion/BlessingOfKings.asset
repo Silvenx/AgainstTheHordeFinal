@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BlessingOfKings
   m_EditorClassIdentifier: 
   card:
-    cardImage: {fileID: 21300000, guid: fa03e7a7c0a1db147954b2c60acbfd03, type: 3}
+    borderArt: {fileID: 21300000, guid: 7ad71f278930dd74686aeacce809af2d, type: 3}
+    characterArt: {fileID: 21300000, guid: fa03e7a7c0a1db147954b2c60acbfd03, type: 3}
     cardName: Blessing of Kings
     cardDescription: Give a monster 3 power and 3 life
     baseManaCost: 3

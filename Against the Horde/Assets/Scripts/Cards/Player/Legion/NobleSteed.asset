@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: NobleSteed
   m_EditorClassIdentifier: 
   card:
-    cardImage: {fileID: 21300000, guid: dd872211a1c1e194f85599c8a276567c, type: 3}
+    borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
+    characterArt: {fileID: 21300000, guid: dd872211a1c1e194f85599c8a276567c, type: 3}
     cardName: Noble Steed
     cardDescription: 'Equip: Trample. When the equipped monster dies: return Noble
       Steed to hand'

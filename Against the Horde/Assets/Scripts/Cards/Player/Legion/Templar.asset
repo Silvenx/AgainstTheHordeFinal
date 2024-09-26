@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Templar
   m_EditorClassIdentifier: 
   card:
-    cardImage: {fileID: 21300000, guid: 264a773a3ab52474ba211416606db0ea, type: 3}
+    borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
+    characterArt: {fileID: 21300000, guid: 264a773a3ab52474ba211416606db0ea, type: 3}
     cardName: Templar
     cardDescription: 'Challenge Attack: drain 1 life from the opposing monster '
     baseManaCost: 5

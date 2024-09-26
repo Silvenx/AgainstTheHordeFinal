@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: TaurusGuardian
   m_EditorClassIdentifier: 
   card:
-    cardImage: {fileID: 21300000, guid: 5ceef9c3f08eb1b43b78c9491e7fc17a, type: 3}
+    borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
+    characterArt: {fileID: 21300000, guid: 5ceef9c3f08eb1b43b78c9491e7fc17a, type: 3}
     cardName: Taurus Guardian
     cardDescription: Tough
     baseManaCost: 4

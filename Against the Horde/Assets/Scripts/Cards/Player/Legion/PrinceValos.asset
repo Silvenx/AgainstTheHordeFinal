@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PrinceValos
   m_EditorClassIdentifier: 
   card:
-    cardImage: {fileID: 21300000, guid: e272967a2ec1b26418858612257ae127, type: 3}
+    borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
+    characterArt: {fileID: 21300000, guid: e272967a2ec1b26418858612257ae127, type: 3}
     cardName: Prince Valos
     cardDescription: When you play a spell or equipment card on another allied monster,
       play it on Valos as well

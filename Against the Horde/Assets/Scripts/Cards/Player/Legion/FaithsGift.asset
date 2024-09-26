@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: FaithsGift
   m_EditorClassIdentifier: 
   card:
-    cardImage: {fileID: 21300000, guid: 5aaa07cd03667734d9379177c1b3e73f, type: 3}
+    borderArt: {fileID: 21300000, guid: 7ad71f278930dd74686aeacce809af2d, type: 3}
+    characterArt: {fileID: 21300000, guid: 5aaa07cd03667734d9379177c1b3e73f, type: 3}
     cardName: Faith's Gift
     cardDescription: Give a monster 2 power and Divine Shield
     baseManaCost: 2

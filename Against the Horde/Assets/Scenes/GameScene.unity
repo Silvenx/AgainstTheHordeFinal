@@ -2961,7 +2961,7 @@ MonoBehaviour:
   cardObjectPool: {fileID: 356552769}
   turnCount: 0
   currentTurn: 0
-  maxMana: 0
+  maxMana: 10
   currentMana: 0
   currentManaText: {fileID: 691371940}
   magnifiedCard: {fileID: 1129379774}
