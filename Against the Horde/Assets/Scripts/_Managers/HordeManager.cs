@@ -7,6 +7,10 @@ public class HordeManager : CharacterManager
 
 
 
-    
+    public void HordePlayFromDeck()
+    {
+        //draw a card
+        //play the card (checking what type it is)
+    }
 
 }
