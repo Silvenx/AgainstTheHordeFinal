@@ -1,0 +1,51 @@
+# Created by https://www.toptal.com/developers/gitignore/api/unity,visualstudio
+# Edit at https://www.toptal.com/developers/gitignore?templates=unity,visualstudio
+
+### Unity ###
+# This .gitignore file should be placed at the root of your Unity project directory
+#
+# Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
+Against the Horde/[Ll]ibrary/
+Against the Horde/[Tt]emp/
+Against the Horde/[Oo]bj/
+Against the Horde/[Ll]ogs/
+Against the Horde/[Uu]ser[Ss]ettings/
+
+#Plastic SCM
+/Against the Horde/.plastic/
+
+# MemoryCaptures can get excessive in size.
+# They also could contain extremely sensitive data
+Against the Horde/[Mm]emoryCaptures/
+
+# Recordings can get excessive in size
+/Against the Horde/[Rr]ecordings/
+
+# Uncomment this line if you wish to ignore the asset store tools plugin
+# /[Aa]ssets/AssetStoreTools*
+
+# Visual Studio cache directory
+Against the Horde/.vs/
+
+# Build results
+Against the Horde/[Dd]ebug/
+Against the Horde/[Dd]ebugPublic/
+Against the Horde/[Rr]elease/
+Against the Horde/[Rr]eleases/
+Against the Horde/x64/
+Against the Horde/x86/
+Against the Horde/[Ww][Ii][Nn]32/
+Against the Horde/[Aa][Rr][Mm]/
+Against the Horde/[Aa][Rr][Mm]64/
+Against the Horde/bld/
+Against the Horde/[Bb]in/
+Against the Horde/[Oo]bj/
+Against the Horde/[Ll]og/
+Against the Horde/[Ll]ogs/
+
+# Visual Studio 2015/2017 cache/options directory
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+# Visual Studio 2017 auto generated files
+Generated\ Files/
