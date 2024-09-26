@@ -55,6 +55,7 @@
     <UnityVersion>2022.3.41f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\_Managers\HordeManager.cs" />
     <Compile Include="Assets\Scripts\_Managers\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Cards\Card.cs" />
     <Compile Include="Assets\Scripts\_Managers\CharacterManager.cs" />

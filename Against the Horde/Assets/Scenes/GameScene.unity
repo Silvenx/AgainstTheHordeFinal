@@ -2993,8 +2993,9 @@ GameObject:
   - component: {fileID: 1768198609}
   - component: {fileID: 1768198608}
   - component: {fileID: 1768198607}
+  - component: {fileID: 1768198610}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: PlayspaceManager
   m_TagString: PlayerManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3070,6 +3071,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1768198610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768198606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec86e63ef8119c44a850da38b7bb37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1731242701}
+  fieldManager: {fileID: 1768198608}
+  timeForCardsToMove: 1.5
+  cardMoveSpeed: 2
+  deckGameObject: {fileID: 782175484}
+  myDeck:
+    cardList: []
 --- !u!1001 &1892283694
 PrefabInstance:
   m_ObjectHideFlags: 0
