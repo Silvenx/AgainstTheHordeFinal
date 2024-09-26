@@ -6,7 +6,8 @@ using UnityEngine;
 public class Card
 {
     [Header("Card Values")]
-    public Sprite cardImage;
+    public Sprite borderArt;
+    public Sprite characterArt;
     public string cardName;
     public string cardDescription;
     public int baseManaCost;
@@ -55,7 +56,8 @@ public class Card
 
         this.cardType = co.card.cardType;
 
-        this.cardImage = co.card.cardImage;
+        this.characterArt = co.card.characterArt;
+        this.borderArt = co.card.borderArt;
 
         this.onPlaySound = co.card.onPlaySound;
     }

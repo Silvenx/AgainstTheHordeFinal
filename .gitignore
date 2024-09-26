@@ -11,6 +11,9 @@ Against the Horde/[Oo]bj/
 Against the Horde/[Ll]ogs/
 Against the Horde/[Uu]ser[Ss]ettings/
 
+#C Sharp project settings
+Against the Horde/Assembly-CSharp.csproj
+
 #Plastic SCM
 /Against the Horde/.plastic/
 

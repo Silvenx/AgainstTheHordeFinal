@@ -11,7 +11,8 @@ public class CardDetails : MonoBehaviour
     public Card card;
 
     [Header("UI Fields")]
-    public Image cardImageDisplay;
+    public Image cardBorderImage;
+    public Image cardCharacterArtImage;
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI cardDescriptionText;
     public TextMeshProUGUI manaCostText;
@@ -41,10 +42,10 @@ public class CardDetails : MonoBehaviour
 
         this.card.cardType = cardDetails.cardType;
 
-        this.card.cardImage = cardDetails.cardImage;
+        this.card.characterArt = cardDetails.characterArt;
 
         //Applies new card details to UI of this card gameobject
-        SetCardUI(card.cardImage, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
+        SetCardUI(card.borderArt, card.characterArt, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
     }
 
     //Modifies base stats
@@ -123,12 +124,13 @@ public class CardDetails : MonoBehaviour
         
         //TODO: Change Colour of text if current /= base. otherwise set colour to normal
     }
-    private void SetCardUI(Sprite cardImage, string cardName, string cardDescription, int manaCost, int health, int damage)
+    private void SetCardUI(Sprite borderImage, Sprite characterArtImage, string cardName, string cardDescription, int manaCost, int health, int damage)
     {
         cardNameText.text = cardName;
         cardDescriptionText.text = cardDescription;
         //SetsImage
-        cardImageDisplay.overrideSprite = cardImage;
+        cardBorderImage.overrideSprite = borderImage;
+        cardCharacterArtImage.overrideSprite = characterArtImage;
 
         //Applies stat fields with values
         UpdateCardUI(manaCost, health, damage);
