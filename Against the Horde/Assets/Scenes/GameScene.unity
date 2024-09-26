@@ -1287,7 +1287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 782175485}
   m_Layer: 5
-  m_Name: Deck_Enemy
+  m_Name: Deck_Horde
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1323,7 +1323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 843660754}
   m_Layer: 5
-  m_Name: Field_Monsters_Enemy
+  m_Name: Field_Monsters_Horde
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3017,9 +3017,8 @@ MonoBehaviour:
   timeForCardsToMove: 1.5
   cardMoveSpeed: 2
   deckGameObject: {fileID: 665834352}
-  playerDeck:
+  myDeck:
     cardList: []
-  handThreshholdArea: {fileID: 360083108}
   handParentObject: {fileID: 76973177}
   playerHand: []
   startingHandSize: 5
@@ -3048,8 +3047,8 @@ MonoBehaviour:
   - {fileID: 1892283696}
   - {fileID: 374232257}
   - {fileID: 2009600433}
-  enemyMonsterParentObject: {fileID: 843660753}
-  enemyMonsterSlots:
+  hordeMonsterParentObject: {fileID: 843660753}
+  hordeMonsterSlots:
   - {fileID: 1149539192}
   - {fileID: 1012404561}
   - {fileID: 1656264636}

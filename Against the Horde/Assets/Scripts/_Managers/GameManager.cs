@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //Sets up player's deck, draws hand
-        playerManager.GameSetup(playerStartDeck);
+        playerManager.PlayerGameSetup(playerStartDeck);
 
         //Enters the first round of the game
         SetTurnPhase(TurnPhase.STARTROUND);
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case TurnPhase.HORDEDRAWANDPLAY:
-                EnemyDrawAndPlay();
+                HordeDrawAndPlay();
                 break;
 
             case TurnPhase.DRAW:
@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
         //Next Phase (Automatic)
         NextTurnPhase();
     }
-    private void EnemyDrawAndPlay()
+    private void HordeDrawAndPlay()
     {
         //Horde Draw
         //If card is spell & player has card that can "react", pause turn, trigger PlayerReachToSpell()

@@ -15,8 +15,8 @@ public class FieldManager : MonoBehaviour
     public GameObject playerMonsterParentObject;
     public List<GameObject> playerMonsterSlots;
 
-    public GameObject enemyMonsterParentObject;
-    public List<GameObject> enemyMonsterSlots;
+    public GameObject hordeMonsterParentObject;
+    public List<GameObject> hordeMonsterSlots;
 
     public GameObject fieldCardSlot;
 

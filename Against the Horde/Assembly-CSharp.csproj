@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{137538F1-0812-7809-A939-B36D92066574}</ProjectGuid>
+    <ProjectGuid>{0CDD84BB-9328-AE16-16AA-53FEF61070F5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\_Managers\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Cards\Card.cs" />
+    <Compile Include="Assets\Scripts\_Managers\CharacterManager.cs" />
     <Compile Include="Assets\Scripts\Cards\DeckObjects.cs" />
     <Compile Include="Assets\Scripts\Cards\CardDetails.cs" />
     <Compile Include="Assets\Scripts\Cards\CardObjects.cs" />
