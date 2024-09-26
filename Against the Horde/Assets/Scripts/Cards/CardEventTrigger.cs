@@ -10,6 +10,7 @@ public class CardEventTrigger : EventTrigger
     private FieldManager fieldManager;
     private Canvas myCanvas;
     private Card thisCard;
+    private bool pointerOverCard = false; ////Branch1.0-Added variable
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class CardEventTrigger : EventTrigger
         HideMagnifiedCard();
 
         //Ends Drag if card is not interactable
-        if (GetComponent<CardDetails>().canDrag == false || gameManager.currentTurn != GameManager.TurnPhase.PLAY) { data.pointerDrag = null;  return; }
+        if (GetComponent<CardDetails>().canDrag == false || gameManager.currentTurn != GameManager.TurnPhase.PLAY) { data.pointerDrag = null; return; }
 
         //Marks card as currently being moved
         playerManager.cardBeingMoved = this.gameObject;
@@ -57,7 +58,7 @@ public class CardEventTrigger : EventTrigger
 
     //----------------------On Drag Methods----------------------//
 
-    
+
 
 
     private void PlayDraggedCard()
@@ -112,7 +113,7 @@ public class CardEventTrigger : EventTrigger
             playerManager.OrganiseHand(playerManager.cardMoveSpeed * 2f);
         }
     }
-    
+
 
     private void ObjectFollowMousePointer()
     {
@@ -146,14 +147,16 @@ public class CardEventTrigger : EventTrigger
             GetComponent<Animator>().SetBool("PokeUp", true);
         }
 
+        pointerOverCard = true; ////Branch1.0-Hover true
+
         //Lerp card up slightly if card is in hand
         //playerManager.LerpCardUpwardsSlightly(this.gameObject);
 
         //Mousing over card will display a magnified version after X sec
-        MouseOverCardShowsMagnifiedVersion(this.gameObject);
+        //MouseOverCardShowsMagnifiedVersion(this.gameObject); //Branch1.0-MovetoRightClick
     }
 
-    
+
     //Mouse exits card's raycast area
     public override void OnPointerExit(PointerEventData data)
     {
@@ -161,12 +164,32 @@ public class CardEventTrigger : EventTrigger
         if (magnifiedCoroutine != null) { StopCoroutine(magnifiedCoroutine); }
 
         //Hides magnified card display
-        HideMagnifiedCard();
+        //HideMagnifiedCard(); //Branch1.0-MovetoRightClick
 
         //Move cards back into position
         GetComponent<Animator>().SetBool("PokeUp", false);
+
+        pointerOverCard = false; ////Branch1.0-Hover false
     }
 
+    //Branch1.0-RightClick to magnify
+    private void Update()
+    {
+        GameObject magCard = gameManager.magnifiedCard;
+
+        if (pointerOverCard && Input.GetMouseButtonDown(1)) //hover + right click
+        {
+            if (!magCard.activeSelf)
+            {
+                DisplayMagnifiedCard();
+            }
+            else
+            {
+                HideMagnifiedCard();
+            }
+        }
+
+    }
     //----------------Pointer Enter/Exit Methods----------------//
 
     private void MouseOverCardShowsMagnifiedVersion(GameObject cardObject)
