@@ -67,24 +67,29 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    public GameObject RetrieveCardObject(Card cardDetails)
+    public GameObject CreateCardObject(Card card)
     {
         //Grabs card from Object Pool
-        GameObject card = cardObjectPool.transform.GetChild(0).gameObject;
+        GameObject cardObject = cardObjectPool.transform.GetChild(0).gameObject;
+        //Populate Card's details on Game Object
+        cardObject.GetComponent<CardDetails>().SetCardDetails(card);
         //Change's Game Object's name
-        card.name = "Card_" + cardDetails.cardName;
+        cardObject.name = "Card_" + card.cardName;
         //Applies card to UI
 
         //Enables the Object
-        card.SetActive(true);
+        cardObject.SetActive(true);
 
-        return card;
+        return cardObject;
     }
 
     void Start()
     {
         //Sets up player's deck, draws hand
-        playerManager.PlayerGameSetup(playerStartDeck);
+        playerManager.GameSetup(playerStartDeck);
+
+        //Sets up horde's deck
+        hordeManager.GameSetup(hordeStartDeck);
 
         //Enters the first round of the game
         SetTurnPhase(TurnPhase.STARTROUND);
@@ -182,6 +187,7 @@ public class GameManager : MonoBehaviour
     private void HordeDrawAndPlay()
     {
         //Horde Draw
+        hordeManager.HordePlayFromDeck();
         //If card is spell & player has card that can "react", pause turn, trigger PlayerReachToSpell()
 
         //Next Phase (Automatic)
@@ -273,4 +279,7 @@ public class GameManager : MonoBehaviour
         //Updates text UI element
         currentEnergyText.text = currentEnergy.ToString();
     }
+
+    //--------------------------------------------------Misc
+
 }

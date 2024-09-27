@@ -15,13 +15,13 @@ public class PlayerManager : CharacterManager
     public GameObject cardBeingMoved;
 
 
-    public void PlayerGameSetup(DeckObjects deck)
+    public void GameSetup(DeckObjects deck)
     {
         //Populate Deck in game & Shuffle
         myDeck = new Deck(deck);
 
         //Draw Cards to Hand from top of deck
-        DrawCardsFromTopOfDeck(startingHandSize - 2); //minus 1 because method after ensures next draw is a 1 cost
+        DrawCardFromTopOfDeck(startingHandSize - 2); //minus 1 because method after ensures next draw is a 1 cost
                                                       //minus another 1 because turnphase will trigger another card draw
                                                       //Draws 1 card. If 1 cost card doesn't exist in player's hand, will force draw a random 1 cost from deck
         DrawCardEnsuringOneCostCard();
@@ -64,7 +64,7 @@ public class PlayerManager : CharacterManager
     }
 
     //Draws Multiple Cards
-    public void DrawCardsFromTopOfDeck(int amountToDraw)
+    public void DrawCardFromTopOfDeck(int amountToDraw)
     {
         for (int i = 0; i < amountToDraw; i++)
         {
@@ -72,7 +72,6 @@ public class PlayerManager : CharacterManager
             DrawCardToHand(myDeck.DrawTopCard());
         }
     }
-    //TEST SCRIPT
     public void DrawCardFromTopOfDeck()
     {
         DrawCardToHand(myDeck.DrawTopCard());
@@ -82,8 +81,7 @@ public class PlayerManager : CharacterManager
 
     }
 
-
-    protected List<GameObject> getCardPositions()
+    private List<GameObject> getCardPositions()
     {
         List<GameObject> list = new List<GameObject>();
         try
@@ -97,7 +95,7 @@ public class PlayerManager : CharacterManager
 
         return list;
     }
-    public void DrawCardToHand(Card cardToDraw)
+    private void DrawCardToHand(Card cardToDraw)
     {
 
         //If hand not equal to or above max hand size AND deck was not empty
@@ -106,10 +104,8 @@ public class PlayerManager : CharacterManager
             //Get Positions of all existing card in hand
             List<GameObject> oldCardPositions = getCardPositions();
 
-            //Get Card Game Object (from object pool)
-            GameObject cardObject = gameManager.RetrieveCardObject(cardToDraw);
-            //Populate Card's details on Game Object
-            cardObject.GetComponent<CardDetails>().SetCardDetails(cardToDraw);
+            GameObject cardObject = gameManager.CreateCardObject(cardToDraw);
+            
 
             //Set Transfor.Parent to be CardGroup
             cardObject.transform.SetParent(handParentObject.transform);
@@ -208,7 +204,7 @@ public class PlayerManager : CharacterManager
 
             Vector2 newPos = newCardPositions[i];
             //StartCoroutine(LerpObjectMovement(playerHand[i], oldPos, newPos, cardSpeed));
-            playerHand[i].GetComponent<CardDetails>().currentCoroutine = LerpObjectMovement(playerHand[i], oldPos, newPos, cardSpeed);
+            playerHand[i].GetComponent<CardDetails>().currentCoroutine = LerpObjectMovement(playerHand[i], oldPos, newPos, cardSpeed, timeForCardsToMove);
             StartCoroutine(playerHand[i].GetComponent<CardDetails>().currentCoroutine);
 
         }

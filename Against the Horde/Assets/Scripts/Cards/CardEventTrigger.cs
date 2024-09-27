@@ -83,7 +83,6 @@ public class CardEventTrigger : EventTrigger
     private void CheckAndPlaceCardOnSlot()
     {
         //Debug.Log("OnEndDrag called.");
-        RectTransform rect = GetComponent<RectTransform>();
 
 
         //CHECK IF CARD IS PLACED IN APPLICABLE AREA
@@ -92,16 +91,16 @@ public class CardEventTrigger : EventTrigger
             ///Position Card in Field
             //Remove from hand
             playerManager.RemoveCardFromHand(this.gameObject);
-            //Set parent to be the Field Slot
-            transform.SetParent(selectedFieldSlot.GetComponent<RectTransform>());
-            //Set position to be same as field parent
-            rect.anchoredPosition = Vector2.zero;
+            CardDetails cDetails = GetComponent<CardDetails>();
+            //Plays card under Field Manager Slot
+            cDetails.PlayThisCardOnFieldSlot(selectedFieldSlot);
+            
 
             ///Spend Mana & disable ability to drag this card
             //Spends mana equal to card's current mana cost
             gameManager.ModifyCurrentEnergy(-thisCard.currentEnergyCost);
             //Make it so player can't drag card anymore
-            GetComponent<CardDetails>().canDrag = false;
+            cDetails.canDrag = false;
 
             ///Trigger Card's OnPlay() Effects
             //TODO

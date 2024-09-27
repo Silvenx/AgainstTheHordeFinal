@@ -8,10 +8,53 @@ public class HordeManager : CharacterManager
     [Header("Horde Specific")]
     public PlayerManager playerManager;
 
+    public void GameSetup(DeckObjects deck)
+    {
+        //Populate Deck in game & Shuffle
+        myDeck = new Deck(deck);
+    }
+
     public void HordePlayFromDeck()
     {
-        //draw a card
+        //Get Card From Top of Deck
+        Card card = myDeck.DrawTopCard();
+        Debug.Log("HordeCardName: " + card.cardName);
         //play the card (checking what type it is)
+        PlayHordeCard(card);
+    }
+
+    private void PlayHordeCard(Card card)
+    {
+        //Create Card Object
+        GameObject cardObject = gameManager.CreateCardObject(card);
+
+        List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
+
+        //For each applicable monster slot
+        for (int i = 0; i < applicableFieldSlots.Count; i++)
+        {
+            //Look at each field slot in order of 1st to last
+            if (applicableFieldSlots[i].transform.childCount == 0)
+            {
+
+                //Play this card the first field slot applicable
+                cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[i]);
+                break;
+            }
+            else
+            {
+            }
+        }
+
+    }
+
+    public Card getTopCardFromDeck(int amountToGet)
+    {
+        return myDeck.DrawTopCard();
+    }
+    public Card getTopCardFromDeck()
+    {
+        return myDeck.DrawTopCard();
     }
 
 }

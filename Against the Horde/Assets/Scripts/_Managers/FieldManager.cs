@@ -23,39 +23,52 @@ public class FieldManager : MonoBehaviour
     
 
 
-    public List<GameObject> ApplicableFieldSlotsToPlay(Card card)
+    public List<GameObject> ApplicableFieldSlotsToPlay(bool isPlayerCard, Card card)
     {
         List<GameObject> slots = new List<GameObject>();
         GameManager.TurnPhase currentTurnPhase = gameManager.currentTurn;
 
-        //if card is a monster
-        if (card.cardType == Card.CARDTYPE.MONSTER)
+        switch (card.cardType)
         {
-            //For every slot in playermonster
-            foreach (GameObject slot in playerMonsterSlots)
-            {
-                //if the slot doesn't have a monster on it
-                if (slot.transform.childCount == 0)
+            case Card.CARDTYPE.MONSTER:
+                //If Horde is playing
+                if (!isPlayerCard)
                 {
-                    slots.Add(slot);
+                    //For every slot in hordemonster
+                    foreach (GameObject slot in hordeMonsterSlots)
+                    {
+                        //if the slot doesn't have a monster on it
+                        if (slot.transform.childCount == 0)
+                        {
+                            slots.Add(slot);
+                        }
+                    }
                 }
-            }
-        }
-        else if (card.cardType == Card.CARDTYPE.SPELL)
-        {
+                //Player is playing
+                else
+                {
+                    //For every slot in playermonster
+                    foreach (GameObject slot in playerMonsterSlots)
+                    {
+                        //if the slot doesn't have a monster on it
+                        if (slot.transform.childCount == 0)
+                        {
+                            slots.Add(slot);
+                        }
+                    }
+                }
+                break;
 
-        }
-        else if (card.cardType == Card.CARDTYPE.FIELD)
-        {
-
-        }
-        else if (card.cardType == Card.CARDTYPE.EQUIPMENT)
-        {
-
-        }
-        else if (card.cardType == Card.CARDTYPE.ENCHANTMENT)
-        {
-
+            case Card.CARDTYPE.SPELL:
+                break;
+            case Card.CARDTYPE.FIELD:
+                break;
+            case Card.CARDTYPE.EQUIPMENT:
+                break;
+            case Card.CARDTYPE.ENCHANTMENT:
+                break;
+            default:
+                break;
         }
 
         return slots;
@@ -66,7 +79,7 @@ public class FieldManager : MonoBehaviour
         if (turnHighlightsOn)
         {
             //For every applicable slot on field
-            foreach (GameObject slot in ApplicableFieldSlotsToPlay(cardToPlay))
+            foreach (GameObject slot in ApplicableFieldSlotsToPlay(true, cardToPlay))
             {
                 //if the slot doesn't have a monster on it
                 if (slot.transform.childCount == 0)

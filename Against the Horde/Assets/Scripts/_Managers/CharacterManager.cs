@@ -33,12 +33,14 @@ public class CharacterManager : MonoBehaviour
         yield return new WaitForSeconds(secToWait);
     }
     //Lerps object from 1 pos to another with a soft finish (sin graph)
-    protected IEnumerator LerpObjectMovement(GameObject objectToMove, Vector3 startPos, Vector3 endPos, float timeToMove)
+    public IEnumerator LerpObjectMovement(GameObject objectToMove, Vector3 startPos, Vector3 endPos, float speed, float timeToMove)
     {
+        CardDetails cardDetails = objectToMove.GetComponent<CardDetails>();
+
         float currentLerpTime = 0;
         while (currentLerpTime <= timeToMove) //until X sec passed
         {
-            currentLerpTime += Time.deltaTime * cardMoveSpeed;
+            currentLerpTime += Time.deltaTime * speed;
             float perc = currentLerpTime / timeToMove;
             perc = Mathf.Sin(perc * Mathf.PI * 0.5f);
             objectToMove.GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(startPos, endPos, perc);
@@ -46,13 +48,13 @@ public class CharacterManager : MonoBehaviour
             //End early if reached position
             if (Vector3.Distance(objectToMove.transform.position, endPos) <= 0.01f)
             {
-                objectToMove.GetComponent<CardDetails>().currentCoroutine = null;
+                cardDetails.currentCoroutine = null;
                 break;
             }
 
             yield return 1; //wait for next frame
         }
-        objectToMove.GetComponent<CardDetails>().currentCoroutine = null;
+        cardDetails.currentCoroutine = null;
     }
 
 
