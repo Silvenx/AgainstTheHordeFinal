@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7654bdcfb9ef09b46aa859ad7d0b746e, type: 3}
-  m_Name: Glowfrog
+  m_Name: Croak
   m_EditorClassIdentifier: 
   card:
-    borderArt: {fileID: 21300000, guid: 576d7b80865e8d140973e51e27ed7aec, type: 3}
+    borderArt: {fileID: 21300000, guid: 6128a182bad7c944dab225efb5e584f7, type: 3}
     characterArt: {fileID: 0}
-    cardName: Glowfrog
-    cardDescription: 
+    cardName: Croak
+    cardDescription: Deal 4 damage to the left monster player monster
     baseManaCost: 0
     currentEnergyCost: 0
     baseHealth: 0
@@ -24,5 +24,5 @@ MonoBehaviour:
     currentHealth: 0
     baseAttack: 0
     currentAttack: 0
-    cardType: 0
+    cardType: 1
     onPlaySound: {fileID: 0}
