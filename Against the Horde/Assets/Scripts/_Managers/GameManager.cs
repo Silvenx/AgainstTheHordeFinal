@@ -7,10 +7,12 @@ public class GameManager : MonoBehaviour
 {
     [Header("TEMP: TO BE REPLACED AT FULL GAME")]
     public DeckObjects playerStartDeck;
+    public DeckObjects hordeStartDeck;
 
     [Header("Managers")]
-    public PlayerManager playerManager;
     public FieldManager fieldManager;
+    public PlayerManager playerManager;
+    public HordeManager hordeManager;
     public Canvas myCanvas;
     public GameObject cardPrefab;
     //[HideInInspector]

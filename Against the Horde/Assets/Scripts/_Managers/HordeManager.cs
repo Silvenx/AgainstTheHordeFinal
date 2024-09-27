@@ -5,7 +5,8 @@ using UnityEngine;
 public class HordeManager : CharacterManager
 {
 
-
+    [Header("Horde Specific")]
+    public PlayerManager playerManager;
 
     public void HordePlayFromDeck()
     {

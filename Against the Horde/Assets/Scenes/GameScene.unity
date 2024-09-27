@@ -3634,8 +3634,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStartDeck: {fileID: 11400000, guid: 51b383bc4d11c064ea67f69f5c63e177, type: 2}
-  playerManager: {fileID: 1768198607}
+  hordeStartDeck: {fileID: 11400000, guid: 51b383bc4d11c064ea67f69f5c63e177, type: 2}
   fieldManager: {fileID: 1768198608}
+  playerManager: {fileID: 1768198607}
+  hordeManager: {fileID: 1768198610}
   myCanvas: {fileID: 931334046}
   cardPrefab: {fileID: 4261479451194414195, guid: 5652c5f6738db7c4880ccd7709c8c1f1, type: 3}
   cardObjectPool: {fileID: 356552769}
@@ -3704,6 +3706,7 @@ MonoBehaviour:
   myDeck:
     cardList: []
   health: 30
+  hordeManager: {fileID: 1768198610}
   handParentObject: {fileID: 76973177}
   playerHand: []
   startingHandSize: 6
@@ -3775,6 +3778,7 @@ MonoBehaviour:
   myDeck:
     cardList: []
   health: 30
+  playerManager: {fileID: 1768198607}
 --- !u!1 &1880093931
 GameObject:
   m_ObjectHideFlags: 0

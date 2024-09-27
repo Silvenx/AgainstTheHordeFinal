@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerManager : CharacterManager
 {
+    [Header("Player Specific")]
+    public HordeManager hordeManager;
     [Header("My Hand")]
     public GameObject handParentObject;
     public List<GameObject> playerHand;
