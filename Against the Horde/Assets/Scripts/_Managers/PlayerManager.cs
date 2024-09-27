@@ -22,8 +22,8 @@ public class PlayerManager : CharacterManager
 
         //Draw Cards to Hand from top of deck
         DrawCardFromTopOfDeck(startingHandSize - 2); //minus 1 because method after ensures next draw is a 1 cost
-                                                      //minus another 1 because turnphase will trigger another card draw
-                                                      //Draws 1 card. If 1 cost card doesn't exist in player's hand, will force draw a random 1 cost from deck
+                                                     //minus another 1 because turnphase will trigger another card draw
+                                                     //Draws 1 card. If 1 cost card doesn't exist in player's hand, will force draw a random 1 cost from deck
         DrawCardEnsuringOneCostCard();
 
     }
@@ -105,7 +105,7 @@ public class PlayerManager : CharacterManager
             List<GameObject> oldCardPositions = getCardPositions();
 
             GameObject cardObject = gameManager.CreateCardObject(cardToDraw);
-            
+
 
             //Set Transfor.Parent to be CardGroup
             cardObject.transform.SetParent(handParentObject.transform);
