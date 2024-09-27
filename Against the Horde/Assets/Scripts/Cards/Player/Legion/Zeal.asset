@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7654bdcfb9ef09b46aa859ad7d0b746e, type: 3}
-  m_Name: HolySquire
+  m_Name: Zeal
   m_EditorClassIdentifier: 
   card:
-    borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
-    characterArt: {fileID: 21300000, guid: df7243cd62e7d0645bfa180e2a89265d, type: 3}
-    cardName: Holy Squire
-    cardDescription: 'Summon: give a monster divine shield '
+    borderArt: {fileID: 21300000, guid: 7ad71f278930dd74686aeacce809af2d, type: 3}
+    characterArt: {fileID: 21300000, guid: 35f534b7faef4214a9277161b8de0871, type: 3}
+    cardName: Zeal
+    cardDescription: Heal a monster 2 life, give it 1 power for each life restored
     baseManaCost: 1
     currentEnergyCost: 0
-    baseHealth: 1
+    baseHealth: 0
     maximumHealth: 0
     currentHealth: 0
-    baseAttack: 2
+    baseAttack: 0
     currentAttack: 0
-    cardType: 0
+    cardType: 1
     onPlaySound: {fileID: 0}

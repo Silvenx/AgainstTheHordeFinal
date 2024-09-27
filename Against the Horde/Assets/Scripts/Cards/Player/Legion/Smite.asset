@@ -16,10 +16,10 @@ MonoBehaviour:
     borderArt: {fileID: 21300000, guid: 7ad71f278930dd74686aeacce809af2d, type: 3}
     characterArt: {fileID: 21300000, guid: e62da957c309d8b4084a9e71a897bf62, type: 3}
     cardName: Smite
-    cardDescription: 'Deal 1 damge to a monster, remove an allied monster''s divine
-      shield to deal 3 more '
+    cardDescription: Deal 1 damage to a monster or remove an allied monster's divine
+      shield to deal 4 damage to a monster
     baseManaCost: 1
-    currentManaCost: 0
+    currentEnergyCost: 0
     baseHealth: 0
     maximumHealth: 0
     currentHealth: 0
