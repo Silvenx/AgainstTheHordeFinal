@@ -3618,8 +3618,8 @@ MonoBehaviour:
   health: 30
   handParentObject: {fileID: 76973177}
   playerHand: []
-  startingHandSize: 5
-  maxHandSize: 10
+  startingHandSize: 6
+  maxHandSize: 12
   distanceBetweenCardsInHand: 35
   cardBeingMoved: {fileID: 0}
   deckPositionRelativeToHand: {fileID: 1576971190}
