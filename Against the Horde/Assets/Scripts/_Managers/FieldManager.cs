@@ -133,9 +133,26 @@ public class FieldManager : MonoBehaviour
         return false;
     }
 
-    public static void RemoveCardFromField(GameObject cardToRemove)
+    public static void SendCardObjectToGraveyard(GameObject cardToRemove, bool playerGraveYard)
     {
-        //move to graveyard, blah bah.
+        //Place card in player's graveyard
+        if (playerGraveYard)
+        {
+
+        }
+        //Place card in horde's graveyard
+        else
+        {
+
+        }
+
+        ///PLACES TO ADD THIS METHOD:
+        ///player hand full on draw
+        ///on card death
+        ///at end of spell effect
+        ///at end of enchantment effect
+        ///when horde tries to play monster, but monster field is full
+
     }
 
 

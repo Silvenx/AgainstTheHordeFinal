@@ -190,11 +190,13 @@ public class CardDetails : MonoBehaviour
 
     public void CardDeath()
     {
+        bool isCardOwnedByPlayer = true;
+
         //Trigger special on-death affects should a card have them
         //this.gameObject.GetComponent<EffectTriggers>().OnDeath();
 
         //remove from field
-        FieldManager.RemoveCardFromField(this.gameObject);
+        FieldManager.SendCardObjectToGraveyard(this.gameObject, isCardOwnedByPlayer);
     }
 
 
