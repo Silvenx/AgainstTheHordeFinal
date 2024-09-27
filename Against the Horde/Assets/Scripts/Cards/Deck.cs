@@ -42,7 +42,7 @@ public class Deck
         {
             list.Add(new Card(cardObject));
         }
-        
+
         return list;
     }
 
@@ -126,7 +126,7 @@ public class Deck
             //Get random number based on current selection pool
             int i = Random.Range(1, remainingCards.Count + 1);
             //Get chosen card
-            Card c = remainingCards[i-1];
+            Card c = remainingCards[i - 1];
             //Add card to new deck
             newDeck.Add(c);
             //Remove it from selection pool

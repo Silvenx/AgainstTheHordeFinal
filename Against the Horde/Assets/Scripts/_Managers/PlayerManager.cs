@@ -46,10 +46,18 @@ public class PlayerManager : CharacterManager
             DrawCardFromTopOfDeck();
         }
         //If no 1 cost cards in  hand
+        //JP 27.09.24 - Adjusted to remove the old card from the deck 
         else
         {
             //Draw a card with a 1 cost
-            DrawCardToHand(myDeck.FindCard(1));
+            Card oneCostCard = myDeck.FindCard(1);
+            if (oneCostCard != null)
+            {
+                DrawCardToHand(oneCostCard);
+                //Removes card from the deck list
+                myDeck.getDeck().Remove(oneCostCard);
+            }
+
         }
     }
 
