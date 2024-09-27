@@ -26,6 +26,8 @@ public class Card
     public CARDTYPE cardType;
     //public List<EffectTriggers> cardEffects;
 
+    public ALLEGIANCE cardAllegiance;
+
     //Audio
     public AudioClip onPlaySound;
     //TODO: Add other audio
@@ -37,6 +39,12 @@ public class Card
         FIELD,
         EQUIPMENT,
         ENCHANTMENT
+    }
+
+    public enum ALLEGIANCE
+    {
+        PLAYER,
+        HORDE
     }
 
     public Card(CardObjects co)
@@ -55,6 +63,7 @@ public class Card
         this.currentAttack = co.card.baseAttack;
 
         this.cardType = co.card.cardType;
+        this.cardAllegiance = co.card.cardAllegiance;
 
         this.characterArt = co.card.characterArt;
         this.borderArt = co.card.borderArt;

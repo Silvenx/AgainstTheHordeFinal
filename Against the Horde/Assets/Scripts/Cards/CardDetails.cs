@@ -45,7 +45,8 @@ public class CardDetails : MonoBehaviour
         this.card.borderArt = cardDetails.borderArt;
         this.card.characterArt = cardDetails.characterArt;
 
-        
+        this.card.cardAllegiance = cardDetails.cardAllegiance;
+
         //Applies new card details to UI of this card gameobject
         SetCardUI(card.borderArt, card.characterArt, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
     }
@@ -129,7 +130,7 @@ public class CardDetails : MonoBehaviour
 
         //Set parent to be the Field Slot
         transform.SetParent(fieldSlot.GetComponent<RectTransform>());
-        
+
         //Set position to be same as field slot it is placed under
         rect.anchoredPosition = Vector2.zero;
         //currentCoroutine = CharacterManager.LerpObjectMovement(this.gameObject, rect.anchoredPosition, Vector2.zero, 2f, 1.5f);
@@ -237,6 +238,13 @@ public class CardDetails : MonoBehaviour
 
         //Set Game Object's Name
         this.gameObject.name = cardName;
+
+        //Hides Energy if Horde
+        if (card.cardAllegiance == Card.ALLEGIANCE.HORDE)
+        {
+            manaCostText.gameObject.SetActive(false);
+        }
+
     }
 
 }

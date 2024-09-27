@@ -25,4 +25,5 @@ MonoBehaviour:
     baseAttack: 0
     currentAttack: 0
     cardType: 1
+    cardAllegiance: 1
     onPlaySound: {fileID: 0}

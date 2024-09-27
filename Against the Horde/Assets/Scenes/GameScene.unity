@@ -3634,7 +3634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStartDeck: {fileID: 11400000, guid: 51b383bc4d11c064ea67f69f5c63e177, type: 2}
-  hordeStartDeck: {fileID: 11400000, guid: 51b383bc4d11c064ea67f69f5c63e177, type: 2}
+  hordeStartDeck: {fileID: 11400000, guid: 6a62206e83e47e148ae92c4e0e912377, type: 2}
   fieldManager: {fileID: 1768198608}
   playerManager: {fileID: 1768198607}
   hordeManager: {fileID: 1768198610}
