@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card:
     borderArt: {fileID: 21300000, guid: 576d7b80865e8d140973e51e27ed7aec, type: 3}
-    characterArt: {fileID: 0}
+    characterArt: {fileID: 21300000, guid: b9d7524117fc03149a579743b4989f61, type: 3}
     cardName: Miretoad
     cardDescription: 'Summon: gain divine shield'
     baseManaCost: 0

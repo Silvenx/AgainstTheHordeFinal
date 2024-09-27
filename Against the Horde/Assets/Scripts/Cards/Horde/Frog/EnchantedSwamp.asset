@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card:
     borderArt: {fileID: 21300000, guid: 6128a182bad7c944dab225efb5e584f7, type: 3}
-    characterArt: {fileID: 21300000, guid: 6128a182bad7c944dab225efb5e584f7, type: 3}
+    characterArt: {fileID: 21300000, guid: d5321de98200f8742abc1afc19624c73, type: 3}
     cardName: Enchanted Swamp
     cardDescription: 'Turn start: summon a Glowpole token'
     baseManaCost: 0

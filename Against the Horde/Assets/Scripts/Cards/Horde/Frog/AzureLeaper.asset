@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card:
     borderArt: {fileID: 21300000, guid: 576d7b80865e8d140973e51e27ed7aec, type: 3}
-    characterArt: {fileID: 0}
+    characterArt: {fileID: 21300000, guid: ddf06368a3cf4fc47ad58c2d8bc913d1, type: 3}
     cardName: Azure Leaper
     cardDescription: 'Turn start: move right 1 space'
     baseManaCost: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card:
     borderArt: {fileID: 21300000, guid: 6128a182bad7c944dab225efb5e584f7, type: 3}
-    characterArt: {fileID: 0}
+    characterArt: {fileID: 21300000, guid: 004fa410856df5842ac5f93217dc5dcc, type: 3}
     cardName: Glowstorm
     cardDescription: Deal 3 damage to all enemy monsters
     baseManaCost: 0
