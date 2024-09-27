@@ -144,13 +144,11 @@ public class CardEventTrigger : EventTrigger
         //If card exists in hand && is play phase
         if (playerManager.playerHand.Contains(this.gameObject) && gameManager.currentTurn == GameManager.TurnPhase.PLAY)
         {
+            //Lerp card up slightly if card is in hand
             GetComponent<Animator>().SetBool("PokeUp", true);
         }
 
         pointerOverCard = true; ////Branch1.0-Hover true
-
-        //Lerp card up slightly if card is in hand
-        //playerManager.LerpCardUpwardsSlightly(this.gameObject);
 
         //Mousing over card will display a magnified version after X sec
         //MouseOverCardShowsMagnifiedVersion(this.gameObject); //Branch1.0-MovetoRightClick
