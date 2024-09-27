@@ -7,7 +7,7 @@ public class PlayerManager : CharacterManager
     public GameObject handParentObject;
     public List<GameObject> playerHand;
     public int startingHandSize = 5; //value must be greater than 2
-    public int maxHandSize = 10;
+    public int maxHandSize = 12;
     public float distanceBetweenCardsInHand = 35f;
     [HideInInspector]
     public GameObject cardBeingMoved;
@@ -21,7 +21,7 @@ public class PlayerManager : CharacterManager
         //Draw Cards to Hand from top of deck
         DrawCardsFromTopOfDeck(startingHandSize - 2); //minus 1 because method after ensures next draw is a 1 cost
                                                       //minus another 1 because turnphase will trigger another card draw
-        //Draws 1 card. If 1 cost card doesn't exist in player's hand, will force draw a random 1 cost from deck
+                                                      //Draws 1 card. If 1 cost card doesn't exist in player's hand, will force draw a random 1 cost from deck
         DrawCardEnsuringOneCostCard();
 
     }

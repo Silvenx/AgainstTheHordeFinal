@@ -16,14 +16,13 @@ MonoBehaviour:
     borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
     characterArt: {fileID: 21300000, guid: dd872211a1c1e194f85599c8a276567c, type: 3}
     cardName: Noble Steed
-    cardDescription: 'Equip: Trample. When the equipped monster dies: return Noble
-      Steed to hand'
+    cardDescription: 'Equip: trample'
     baseManaCost: 3
-    currentManaCost: 0
-    baseHealth: 0
+    currentEnergyCost: 0
+    baseHealth: 3
     maximumHealth: 0
     currentHealth: 0
-    baseAttack: 2
+    baseAttack: 3
     currentAttack: 0
     cardType: 3
     onPlaySound: {fileID: 0}

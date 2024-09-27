@@ -25,7 +25,7 @@ public class CharacterManager : MonoBehaviour
         //Populate Deck in game
         myDeck = deck;
     }
-    
+
 
     protected IEnumerator WaitSeconds(float secToWait)
     {
