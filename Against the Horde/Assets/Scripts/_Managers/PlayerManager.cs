@@ -1,16 +1,19 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerManager : CharacterManager
 {
     [Header("Player Specific")]
     public HordeManager hordeManager;
+
     [Header("My Hand")]
     public GameObject handParentObject;
     public List<GameObject> playerHand;
     public int startingHandSize = 5; //value must be greater than 2
     public int maxHandSize = 12;
     public float distanceBetweenCardsInHand = 35f;
+
     [HideInInspector]
     public GameObject cardBeingMoved;
 
@@ -245,5 +248,20 @@ public class PlayerManager : CharacterManager
             catch (System.NullReferenceException e) { }
             ob.GetComponent<CardDetails>().currentCoroutine = null;
         }
+    }
+
+    public void DamagePlayerLifeforce(int damage)
+    {
+        ModifyCharacterLifeForce(-damage);
+    }
+
+    public void HealPlayerLifeforce(int healAmount)
+    {
+        ModifyCharacterLifeForce(healAmount);
+    }
+
+    public void SetPlayerLifeForce(int amountToSet)
+    {
+        SetCharacterLifeForce(amountToSet);
     }
 }

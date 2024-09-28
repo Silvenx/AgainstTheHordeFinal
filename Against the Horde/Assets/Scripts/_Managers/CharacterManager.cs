@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
@@ -15,7 +16,10 @@ public class CharacterManager : MonoBehaviour
     public Deck myDeck;
 
     [Header("Character's Stats")]
-    public int health = 30;
+    public int lifeforce = 30;
+
+    [Header("UI Elements")]
+    public TextMeshProUGUI lifeforceText;
 
 
 
@@ -58,9 +62,21 @@ public class CharacterManager : MonoBehaviour
     }
 
 
-    public void ModifyCharacterHealth(int amountToIncrease)
+    public void ModifyCharacterLifeForce(int amountToIncrease)
     {
+        lifeforce += amountToIncrease;
+        UpdateLifeForceUI();
+    }
 
+    public void SetCharacterLifeForce(int amountToSet)
+    {
+        lifeforce = amountToSet;
+        UpdateLifeForceUI();
+    }
+
+    public void UpdateLifeForceUI()
+    {
+        lifeforceText.text = lifeforce.ToString();
     }
 
 

@@ -89,6 +89,12 @@ public class GameManager : MonoBehaviour
         //Sets up player's deck, draws hand
         playerManager.GameSetup(playerStartDeck);
 
+        //Set up player Lifeforce
+        int testvalue = 30; //fix this later just testing
+        playerManager.SetPlayerLifeForce(testvalue);
+        hordeManager.SetHordeLifeForce(testvalue);
+        //Set hordes up too
+
         //Sets up horde's deck
         hordeManager.GameSetup(hordeStartDeck);
 
@@ -276,7 +282,7 @@ public class GameManager : MonoBehaviour
 
                 Debug.Log($"Slot {i + 1} - Player's {playerCardDetails.card.cardName} hits face");
 
-                PlayerMonsterDealsFaceDamage(playerCardDetails);
+                PlayerMonsterDealsLifeForceDamage(playerCardDetails);
 
             }
             //If horde has one but player doesn't
@@ -286,7 +292,7 @@ public class GameManager : MonoBehaviour
 
                 Debug.Log($"Slot {i + 1} - Horde's {hordeCardDetails.card.cardName} hits face");
 
-                HordeMonsterDealsFaceDamage(hordeCardDetails);
+                HordeMonsterDealsLifeForceDamage(hordeCardDetails);
             }
             else
             {
@@ -353,15 +359,25 @@ public class GameManager : MonoBehaviour
     }
 
     //Process horde dealing face damage with a monster
-    public void PlayerMonsterDealsFaceDamage(CardDetails playerCard)
+    public void PlayerMonsterDealsLifeForceDamage(CardDetails playerCard)
     {
+        //Get the player card current attack
+        playerCard.GetComponent<CardDetails>();
+        int damage = playerCard.card.currentAttack;
 
+        //Apply it inversely to the horde lifeforce
+        hordeManager.ModifyCharacterLifeForce(-damage);
     }
 
     //Process horde dealing face damage with a monster
-    public void HordeMonsterDealsFaceDamage(CardDetails hordeCard)
+    public void HordeMonsterDealsLifeForceDamage(CardDetails hordeCard)
     {
+        //Get the horde card current attack
+        hordeCard.GetComponent<CardDetails>();
+        int damage = hordeCard.card.currentAttack;
 
+        //Apply it inversely to the player lifeforce
+        playerManager.ModifyCharacterLifeForce(-damage);
     }
 
     //--------------------------------------------------- MISC ---------------------------------------------------//

@@ -57,4 +57,19 @@ public class HordeManager : CharacterManager
         return myDeck.DrawTopCard();
     }
 
+    public void DamageHordeLifeforce(int damage)
+    {
+        ModifyCharacterLifeForce(-damage);
+    }
+
+    public void HealHordeLifeforce(int healAmount)
+    {
+        ModifyCharacterLifeForce(healAmount);
+    }
+
+    public void SetHordeLifeForce(int amountToSet)
+    {
+        SetCharacterLifeForce(amountToSet);
+    }
+
 }
