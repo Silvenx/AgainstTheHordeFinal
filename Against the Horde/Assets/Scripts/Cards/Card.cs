@@ -93,9 +93,11 @@ public class Card
         this.borderArt = co.card.borderArt;
 
         this.onPlaySound = co.card.onPlaySound;
+
+        this.conditions = new List<CardCondition>(co.card.conditions);
     }
 
-    public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack)
+    public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, List<CardCondition> initialConditions)
     {
         //Applies base details
         this.cardName = cardName;
@@ -111,6 +113,8 @@ public class Card
         this.currentAttack = attack;
 
         this.cardType = cardType;
+
+        this.conditions = initialConditions ?? new List<CardCondition>();
 
     }
     public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, int currentManaCost, int currentHealth, int currentAttack)

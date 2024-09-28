@@ -47,6 +47,8 @@ public class CardDetails : MonoBehaviour
 
         this.card.cardAllegiance = cardDetails.cardAllegiance;
 
+        this.card.conditions = cardDetails.conditions;
+
         //Applies new card details to UI of this card gameobject
         SetCardUI(card.borderArt, card.characterArt, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
     }
@@ -118,7 +120,7 @@ public class CardDetails : MonoBehaviour
     //Retreieves all card details
     public Card GetCardDetails()
     {
-        return new Card(card.cardName, card.cardType, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
+        return new Card(card.cardName, card.cardType, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack, card.conditions);
     }
 
     //--------------------------------------------------- Card Functions ---------------------------------------------------//
