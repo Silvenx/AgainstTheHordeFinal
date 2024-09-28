@@ -32,22 +32,21 @@ public class HordeManager : CharacterManager
         //FUTURE: Does this need to be case?
         if (card.cardType == Card.CARDTYPE.MONSTER)
         {
+            //Calls the method to find gameslots available against a player and then just free
             List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
 
-            //For each applicable monster slot
-            for (int i = 0; i < applicableFieldSlots.Count; i++)
+            //If a free slot is found it's played here
+            if (applicableFieldSlots.Count > 0)
             {
-                //Look at each field slot in order of 1st to last
-                if (applicableFieldSlots[i].transform.childCount == 0)
-                {
+                cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
+                Debug.Log($"Horde card placed in slot {applicableFieldSlots[0].name}");
+            }
 
-                    //Play this card the first field slot applicable
-                    cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[i]);
-                    break;
-                }
-                else
-                {
-                }
+            //If none are found then the card is discarded
+            else
+            {
+                Debug.Log("All horde slots are full. Sending card to graveyard.");
+                FieldManager.SendCardObjectToGraveyard(cardObject, false);
             }
         }
         else

@@ -29,6 +29,8 @@ public class FieldManager : MonoBehaviour
 
     public List<GameObject> ApplicableFieldSlotsToPlay(bool isPlayerCard, Card card)
     {
+        //JP 28.09.24 - Adjusted to use the allegiance on the card and check player slots
+
         List<GameObject> slots = new List<GameObject>();
         GameManager.TurnPhase currentTurnPhase = gameManager.currentTurn;
 
@@ -36,17 +38,36 @@ public class FieldManager : MonoBehaviour
         {
             case Card.CARDTYPE.MONSTER:
                 //If Horde is playing
-                if (!isPlayerCard)
+                if (card.cardAllegiance == Card.ALLEGIANCE.HORDE)
                 {
-                    //For every slot in hordemonster
-                    foreach (GameObject slot in hordeMonsterSlots)
+                    //First try to play against a player monster
+                    for (int i = 0; i < playerMonsterSlots.Count; i++)
                     {
-                        //if the slot doesn't have a monster on it
-                        if (slot.transform.childCount == 0)
+                        //Set variables
+                        GameObject playerSlot = playerMonsterSlots[i];
+                        GameObject hordeSlot = hordeMonsterSlots[i];
+
+                        //If both the player and horde slot are free
+                        if (playerSlot.transform.childCount > 0 && hordeSlot.transform.childCount == 0)
                         {
-                            slots.Add(slot);
+                            //Add horde card to field and exit
+                            slots.Add(hordeSlot);
+                            return slots;
                         }
                     }
+                    //Second try to play in any empty space
+                    for (int i = 0; i < hordeMonsterSlots.Count; i++)
+                    {
+                        GameObject hordeSlot = hordeMonsterSlots[i];
+                        //Check if the horde slot is empty
+                        if (hordeSlot.transform.childCount == 0)
+                        {
+                            slots.Add(hordeSlot);
+                            //Add horde card to field and exit
+                            return slots;
+                        }
+                    }
+
                 }
                 //Player is playing
                 else
