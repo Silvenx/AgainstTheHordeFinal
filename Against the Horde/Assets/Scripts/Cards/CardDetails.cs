@@ -247,7 +247,10 @@ public class CardDetails : MonoBehaviour
         {
             manaCostText.gameObject.SetActive(false);
         }
-
+        if (card.cardAllegiance == Card.ALLEGIANCE.PLAYER)
+        {
+            manaCostText.gameObject.SetActive(true);
+        }
     }
 
 }
