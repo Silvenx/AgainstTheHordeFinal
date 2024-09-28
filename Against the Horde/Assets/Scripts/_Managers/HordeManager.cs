@@ -49,6 +49,12 @@ public class HordeManager : CharacterManager
                 FieldManager.SendCardObjectToGraveyard(cardObject, false);
             }
         }
+        //JP 28.09.24 - Added in field play
+        else if (card.cardType == Card.CARDTYPE.FIELD)
+        {
+            List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
+            cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
+        }
         else
         {
             //JP 28.09.24 - Discard the card

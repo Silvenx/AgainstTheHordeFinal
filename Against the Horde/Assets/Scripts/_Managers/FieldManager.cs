@@ -87,7 +87,10 @@ public class FieldManager : MonoBehaviour
             case Card.CARDTYPE.SPELL:
                 break;
             case Card.CARDTYPE.FIELD:
-                break;
+                //Add field card under the slot
+                slots.Add(fieldCardSlot);
+                //FUTURE: destroy the card that's already in there
+                return slots;
             case Card.CARDTYPE.EQUIPMENT:
                 break;
             case Card.CARDTYPE.ENCHANTMENT:
