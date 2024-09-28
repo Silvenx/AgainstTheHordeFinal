@@ -121,7 +121,7 @@ public class CardDetails : MonoBehaviour
         return new Card(card.cardName, card.cardType, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
     }
 
-    //---------------------Card Functions---------------------
+    //--------------------------------------------------- Card Functions ---------------------------------------------------//
 
     //Play Card on Field Slot
     public void PlayThisCardOnFieldSlot(GameObject fieldSlot)
@@ -152,7 +152,25 @@ public class CardDetails : MonoBehaviour
     //Increase or Decreases the Current Health of the card
     public void ModifyCurrentHealth(int amountToIncrease)
     {
-        card.currentHealth += amountToIncrease;
+        //Tough - may need to somewhere else because of negative changes to hand?
+        if (amountToIncrease < 0)
+        {
+            int toughReduction = GetConditionValue(ConditionType.Tough);
+            Debug.Log($"Tough condition value: {toughReduction}");
+            if (toughReduction > 0)
+            {
+                Debug.Log($"Reducing damage by {toughReduction} due to Tough.");
+            }
+            amountToIncrease += toughReduction;
+            Debug.Log($"Damage after Tough reduction: {amountToIncrease}");
+            card.currentHealth += amountToIncrease;
+            Debug.Log($"Updated health after modification: {card.currentHealth}");
+        }
+        if (amountToIncrease >= 0)
+        {
+            card.currentHealth += amountToIncrease;
+        }
+
         //Check if dead
         //FUTURE: Would need to put on kill trigger here later but only on field
         //Probably need to prevent cards discarding in hand at 0 life
@@ -202,10 +220,61 @@ public class CardDetails : MonoBehaviour
         //remove from field
         FieldManager.SendCardObjectToGraveyard(this.gameObject, isCardAllegiancePlayer);
     }
+    //-------------------------------------------- Card Condition Functions --------------------------------------------//
 
 
-    ///----------------------------------------------------------------------------------------------------//
-    //----------------------------------------------Modify UI----------------------------------------------//
+    public void AddCondition(ConditionType conditionType, int value)
+    //Add a condition to a card
+    {
+        card.conditions.Add(new CardCondition(conditionType, value));
+        Debug.Log($"{conditionType} added with value {value} to {card.cardName}");
+    }
+
+
+    public void RemoveCondition(ConditionType conditionType)
+    //remove a condition completely from a card
+    {
+        card.conditions.RemoveAll(c => c.conditionType == conditionType);
+        Debug.Log($"{conditionType} removed from {card.cardName}");
+    }
+
+
+    public bool HasCondition(ConditionType conditionType)
+    //Check if a card has a condition
+    {
+        return card.conditions.Exists(c => c.conditionType == conditionType);
+    }
+
+
+    public int GetConditionValue(ConditionType conditionType)
+    //Check if a card has a condition
+    {
+        CardCondition condition = card.conditions.Find(c => c.conditionType == conditionType);
+        return condition != null ? condition.value : 0; // Return 0 if condition doesn't exist
+    }
+
+    public void ModifyConditionValue(ConditionType conditionType, int newValue)
+    {
+        CardCondition condition = card.conditions.Find(c => c.conditionType == conditionType);
+        if (condition != null)
+        {
+            condition.value = newValue;
+            Debug.Log($"{conditionType} modified to {newValue} on {card.cardName}");
+        }
+        else
+        {
+            Debug.LogWarning($"{conditionType} not found on {card.cardName}");
+        }
+    }
+
+
+
+
+
+
+
+
+    //--------------------------------------------------- Modify UI ---------------------------------------------------//
 
     //Updates this Card's UI stat text fields with new/current stats
     private void UpdateCardUI()

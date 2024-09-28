@@ -11,6 +11,30 @@ public class Card
     public string cardName;
     public string cardDescription;
     public int baseManaCost;
+
+    //public List<EffectTriggers> cardEffects;
+    [Header("Conditions")]
+    public List<CardCondition> conditions = new List<CardCondition>();
+
+    //public CardConditions conditions; - changed this one out for a list
+
+    //Moved to serialised script
+    /*[Header("Card Conditions")]
+    public int tough; //FUTURE: Currently tough is true or false but may change to stack in the future
+    public int spellPower; //can stack
+    public int lifesteal; //FUTURE: Currently only true or false but may change in the future
+    public int bleed;
+    public int poison;
+    public int regenerate;
+    public bool quick;
+    public bool divineShield;
+    public bool trample;
+    public bool challenge;
+    public bool silence;
+    public bool fragile;
+    public bool cleave;
+*/
+
     [HideInInspector]
     public int currentEnergyCost;
     public int baseHealth;
@@ -24,7 +48,7 @@ public class Card
 
     //Card Type
     public CARDTYPE cardType;
-    //public List<EffectTriggers> cardEffects;
+
 
     public ALLEGIANCE cardAllegiance;
 
@@ -87,6 +111,7 @@ public class Card
         this.currentAttack = attack;
 
         this.cardType = cardType;
+
     }
     public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, int currentManaCost, int currentHealth, int currentAttack)
     {

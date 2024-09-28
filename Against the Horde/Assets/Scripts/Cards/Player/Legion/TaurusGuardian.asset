@@ -18,11 +18,15 @@ MonoBehaviour:
     cardName: Taurus Guardian
     cardDescription: Tough
     baseManaCost: 4
-    currentManaCost: 0
+    conditions:
+    - conditionType: 0
+      value: 1
+    currentEnergyCost: 0
     baseHealth: 5
     maximumHealth: 0
     currentHealth: 0
     baseAttack: 3
     currentAttack: 0
     cardType: 0
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}
