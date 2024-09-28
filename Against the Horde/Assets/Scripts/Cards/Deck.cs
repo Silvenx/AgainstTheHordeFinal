@@ -65,7 +65,7 @@ public class Deck
             //Gives card
             return topCard;
         }
-        catch (System.NullReferenceException e) { return null; }
+        catch (System.NullReferenceException) { return null; } //JP 28.09.24 - removed e variable 
     }
 
     private Card getTopCard()

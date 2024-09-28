@@ -4043,7 +4043,7 @@ MonoBehaviour:
   gameManager: {fileID: 1731242701}
   fieldManager: {fileID: 1768198608}
   timeForCardsToMove: 1.5
-  cardMoveSpeed: 2
+  cardMoveSpeed: 3.2
   deckGameObject: {fileID: 665834352}
   myDeck:
     cardList: []

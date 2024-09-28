@@ -101,7 +101,7 @@ public class PlayerManager : CharacterManager
                 list.Add(o);
             }
         }
-        catch (System.NullReferenceException e) { }
+        catch (System.NullReferenceException) { } //JP 28.09.24 - removed e variable
 
         return list;
     }
@@ -197,12 +197,12 @@ public class PlayerManager : CharacterManager
                 StopCoroutine(playerHand[i].GetComponent<CardDetails>().currentCoroutine);
                 playerHand[i].GetComponent<CardDetails>().currentCoroutine = null;
             }
-            catch (System.NullReferenceException e) { }
+            catch (System.NullReferenceException) { } //JP 28.09.24 - removed e variable
 
             Vector2 oldPos;
             try { oldPos = oldCardPositions[i].GetComponent<RectTransform>().anchoredPosition; }
             //Hand size increasing, manually set it's "start position" for the Lerp
-            catch (System.ArgumentOutOfRangeException e)
+            catch (System.ArgumentOutOfRangeException) //JP 28.09.24 - removed e variable
             { oldPos = deckPositionRelativeToHand.GetComponent<RectTransform>().anchoredPosition; }
 
             Vector2 newPos = newCardPositions[i];
@@ -226,7 +226,7 @@ public class PlayerManager : CharacterManager
             Vector2 oldPos;
             try { oldPos = oldCardPositions[i].GetComponent<RectTransform>().anchoredPosition; }
             //Hand size increasing, manually set it's "start position" for the Lerp
-            catch (System.ArgumentOutOfRangeException e)
+            catch (System.ArgumentOutOfRangeException) //JP 28.09.24 - removed e variable
             { oldPos = deckPositionRelativeToHand.GetComponent<RectTransform>().anchoredPosition; }
 
             Vector2 newPos = newCardPositions[i];
@@ -269,7 +269,7 @@ public class PlayerManager : CharacterManager
             {
                 StopCoroutine(ob.GetComponent<CardDetails>().currentCoroutine);
             }
-            catch (System.NullReferenceException e) { }
+            catch (System.NullReferenceException) { } //JP 28.09.24 - removed e variable
             ob.GetComponent<CardDetails>().currentCoroutine = null;
         }
     }
