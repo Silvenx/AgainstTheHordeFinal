@@ -350,9 +350,6 @@ public class GameManager : MonoBehaviour
         int playerCardPower = playerCard.card.currentAttack;
         int hordeCardPower = hordeCard.card.currentAttack;
 
-        Debug.Log($"Player card Tough: {playerCard.GetConditionValue(ConditionType.Tough)}");
-        Debug.Log($"Horde card Tough: {hordeCard.GetConditionValue(ConditionType.Tough)}");
-
         //FUTURE: Quick would need to be done here as an if statement
         //Deal damage to eachother at the same time
         playerCard.ModifyCurrentHealth(-hordeCardPower);

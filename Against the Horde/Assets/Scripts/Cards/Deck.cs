@@ -102,6 +102,10 @@ public class Deck
     {
         return cardList.Find(x => x.baseManaCost == manaCost);
     }
+    public Card FindCard(int energyCost, Card.CARDTYPE type)
+    {
+        return cardList.Find(x => x.baseManaCost == energyCost && x.cardType == type);
+    }
 
     //Adds one card to deck, then shuffles
     public void AddToDeck(Card card)

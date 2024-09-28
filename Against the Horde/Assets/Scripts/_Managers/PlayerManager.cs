@@ -38,7 +38,7 @@ public class PlayerManager : CharacterManager
         foreach (GameObject o in playerHand)
         {
             //if this card is a 1 cost
-            if (o.GetComponent<CardDetails>().card.baseManaCost == 1)
+            if (o.GetComponent<CardDetails>().card.baseManaCost == 1 && o.GetComponent<CardDetails>().card.cardType == Card.CARDTYPE.MONSTER)
             {
                 oneCostCardExistsInHand = true;
                 break;
@@ -54,13 +54,20 @@ public class PlayerManager : CharacterManager
         //JP 27.09.24 - Adjusted to remove the old card from the deck 
         else
         {
-            //Draw a card with a 1 cost
-            Card oneCostCard = myDeck.FindCard(1);
+            //Draw a monster card with a 1 cost
+            Card oneCostCard = myDeck.FindCard(1, Card.CARDTYPE.MONSTER); //JP 28.09.24 - Updated to include monster and created a new method
             if (oneCostCard != null)
             {
                 DrawCardToHand(oneCostCard);
+
+                Debug.Log("A 1-cost monster card was drawn as a pity draw: " + oneCostCard.cardName);
+
                 //Removes card from the deck list
                 myDeck.getDeck().Remove(oneCostCard);
+            }
+            else
+            {
+                Debug.Log("No 1-cost monster card was found in the deck for pity draw");
             }
 
         }
