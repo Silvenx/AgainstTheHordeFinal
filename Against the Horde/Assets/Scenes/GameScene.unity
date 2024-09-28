@@ -374,6 +374,76 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1281128623619727535, guid: f2b11272f9bad92438cb59f6059dc932, type: 3}
   m_PrefabInstance: {fileID: 236590214}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &239743323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239743324}
+  m_Layer: 5
+  m_Name: Graveyard_Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &239743324
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239743323}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 931334047}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -327.6, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &259638289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259638290}
+  m_Layer: 5
+  m_Name: Graveyard_Horde
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &259638290
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259638289}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 931334047}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -327.6, y: 56.8}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &348141510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,7 +1951,9 @@ RectTransform:
   - {fileID: 1040236266}
   - {fileID: 633263613}
   - {fileID: 665834353}
+  - {fileID: 239743324}
   - {fileID: 782175485}
+  - {fileID: 259638290}
   - {fileID: 356552770}
   - {fileID: 2021365786}
   - {fileID: 2082146184}
@@ -2661,7 +2733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3010339607946435237, guid: 5652c5f6738db7c4880ccd7709c8c1f1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.96
+      value: 3.959999
       objectReference: {fileID: 0}
     - target: {fileID: 3010339607946435237, guid: 5652c5f6738db7c4880ccd7709c8c1f1, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2721,7 +2793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7572350029120580089, guid: 5652c5f6738db7c4880ccd7709c8c1f1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.3
+      value: -3.2999992
       objectReference: {fileID: 0}
     - target: {fileID: 7572350029120580089, guid: 5652c5f6738db7c4880ccd7709c8c1f1, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3743,6 +3815,10 @@ MonoBehaviour:
   - {fileID: 1575446959}
   - {fileID: 583540811}
   fieldCardSlot: {fileID: 1481261726}
+  playerGraveyardList: []
+  hordeGraveyardList: []
+  playerGraveyardSlot: {fileID: 239743323}
+  hordeGraveyardSlot: {fileID: 259638289}
 --- !u!4 &1768198609
 Transform:
   m_ObjectHideFlags: 0
@@ -4184,7 +4260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2082146184
 RectTransform:
   m_ObjectHideFlags: 0

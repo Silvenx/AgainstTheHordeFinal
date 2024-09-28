@@ -236,6 +236,15 @@ public class GameManager : MonoBehaviour
     }
     private void CombatPhase()
     {
+        //Triggers Combat Timers and combat etc
+        StartCoroutine(CombatPhaseCoroutine());
+
+        //Next Phase (Automatic)
+        //NextTurnPhase(); //JP 28.09.24 - Removed, iIn the Coroutine now
+    }
+
+    private IEnumerator CombatPhaseCoroutine()
+    {
         //Loop through each player and horde monster slot
         for (int i = 0; i < fieldManager.playerMonsterSlots.Count; i++)
         {
@@ -283,17 +292,12 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log($"Slot {i + 1} - No monsters present on either side.");
             }
-
-
+            yield return new WaitForSeconds(0.5f);
         }
-
-        //Trigger fighting between monsters
-
-        //Wait timer until combat finishes
-
-        //Next Phase (Automatic)
         NextTurnPhase();
     }
+
+
     private void EndOfRound()
     {
         //DO STUFF

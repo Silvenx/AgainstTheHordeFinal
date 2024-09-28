@@ -19,10 +19,10 @@ MonoBehaviour:
     cardDescription: 'Tough Retaliate 1 '
     baseManaCost: 0
     currentEnergyCost: 0
-    baseHealth: 1
+    baseHealth: 5
     maximumHealth: 0
     currentHealth: 0
-    baseAttack: 5
+    baseAttack: 1
     currentAttack: 0
     cardType: 0
     cardAllegiance: 1

@@ -193,13 +193,14 @@ public class CardDetails : MonoBehaviour
 
     public void CardDeath()
     {
-        bool isCardOwnedByPlayer = true;
+        //Check if the card is player
+        bool isCardAllegiancePlayer = card.cardAllegiance == Card.ALLEGIANCE.PLAYER;
 
-        //Trigger special on-death affects should a card have them
+        //FUTURE: Trigger special on-death affects should a card have them (might have to be earlier though)
         //this.gameObject.GetComponent<EffectTriggers>().OnDeath();
 
         //remove from field
-        FieldManager.SendCardObjectToGraveyard(this.gameObject, isCardOwnedByPlayer);
+        FieldManager.SendCardObjectToGraveyard(this.gameObject, isCardAllegiancePlayer);
     }
 
 

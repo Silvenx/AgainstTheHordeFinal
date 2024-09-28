@@ -11,7 +11,7 @@ public class FieldManager : MonoBehaviour
     public PlayerManager playerManager;
 
     [Header("CardField")]
-    
+
     public GameObject playerMonsterParentObject;
     public List<GameObject> playerMonsterSlots;
 
@@ -20,7 +20,11 @@ public class FieldManager : MonoBehaviour
 
     public GameObject fieldCardSlot;
 
-    
+    public List<GameObject> playerGraveyardList = new List<GameObject>();
+    public List<GameObject> hordeGraveyardList = new List<GameObject>();
+    public GameObject playerGraveyardSlot;
+    public GameObject hordeGraveyardSlot;
+
 
 
     public List<GameObject> ApplicableFieldSlotsToPlay(bool isPlayerCard, Card card)
@@ -133,22 +137,29 @@ public class FieldManager : MonoBehaviour
         return false;
     }
 
-    public static void SendCardObjectToGraveyard(GameObject cardToRemove, bool playerGraveYard)
+    public static void SendCardObjectToGraveyard(GameObject cardToRemove, bool isCardAllegiancePlayer)
     {
-        //Place card in player's graveyard
-        if (playerGraveYard)
-        {
+        FieldManager fieldManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<FieldManager>();
 
+        //Place card in player's graveyard
+        if (isCardAllegiancePlayer)
+        {
+            fieldManager.playerGraveyardList.Add(cardToRemove);
+            cardToRemove.transform.SetParent(fieldManager.playerGraveyardSlot.transform, false);
         }
         //Place card in horde's graveyard
         else
         {
-
+            fieldManager.hordeGraveyardList.Add(cardToRemove);
+            cardToRemove.transform.SetParent(fieldManager.hordeGraveyardSlot.transform, false);
         }
+
+        //Deactive card from being visible
+        cardToRemove.SetActive(false);
 
         ///PLACES TO ADD THIS METHOD:
         ///player hand full on draw
-        ///on card death
+        ///on card death - done
         ///at end of spell effect
         ///at end of enchantment effect
         ///when horde tries to play monster, but monster field is full
