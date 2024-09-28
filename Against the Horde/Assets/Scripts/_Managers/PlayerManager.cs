@@ -101,7 +101,7 @@ public class PlayerManager : CharacterManager
     private void DrawCardToHand(Card cardToDraw)
     {
 
-        //If hand not equal to or above max hand size AND deck was not empty
+        //If hand is less than the max size and there are cards to draw
         if (playerHand.Count < maxHandSize && cardToDraw != null)
         {
             //Get Positions of all existing card in hand
@@ -123,6 +123,23 @@ public class PlayerManager : CharacterManager
             //Spaces out cards in hand & moves drawn card to hand if one was drawn
             OrganiseHand(oldCardPositions);
         }
+
+        //If hand is at capacity and there are no cards to draw
+        if (playerHand.Count >= maxHandSize && cardToDraw != null)
+        {
+            Debug.Log("Card discarded as hand is full");
+            GameObject cardObject = gameManager.CreateCardObject(cardToDraw);
+            FieldManager.SendCardObjectToGraveyard(cardObject, true);
+        }
+
+        //If there are no cards to draw
+        if (cardToDraw == null)
+        {
+            Debug.Log("Player Deck is Empty");
+        }
+
+
+
     }
     public GameObject deckPositionRelativeToHand;
     //Spreads out cards in hand

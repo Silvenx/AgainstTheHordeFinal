@@ -52,6 +52,11 @@ public class Deck
     {
         try
         {
+            if (cardList.Count == 0)
+            {
+                Debug.Log("Deck is empty, no further cards to draw");
+                return null;
+            }
             //Looks at top card
             Card topCard = getTopCard();
             //Remove card from deck

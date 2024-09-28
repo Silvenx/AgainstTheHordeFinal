@@ -28,22 +28,33 @@ public class HordeManager : CharacterManager
         //Create Card Object
         GameObject cardObject = gameManager.CreateCardObject(card);
 
-        List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
-
-        //For each applicable monster slot
-        for (int i = 0; i < applicableFieldSlots.Count; i++)
+        //JP 28.09.24 - Added if on monster
+        //FUTURE: Does this need to be case?
+        if (card.cardType == Card.CARDTYPE.MONSTER)
         {
-            //Look at each field slot in order of 1st to last
-            if (applicableFieldSlots[i].transform.childCount == 0)
-            {
+            List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
 
-                //Play this card the first field slot applicable
-                cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[i]);
-                break;
-            }
-            else
+            //For each applicable monster slot
+            for (int i = 0; i < applicableFieldSlots.Count; i++)
             {
+                //Look at each field slot in order of 1st to last
+                if (applicableFieldSlots[i].transform.childCount == 0)
+                {
+
+                    //Play this card the first field slot applicable
+                    cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[i]);
+                    break;
+                }
+                else
+                {
+                }
             }
+        }
+        else
+        {
+            //JP 28.09.24 - Discard the card
+            //FUTURE: Add spell effects here, probably again in case
+            FieldManager.SendCardObjectToGraveyard(cardObject, false);
         }
 
     }
