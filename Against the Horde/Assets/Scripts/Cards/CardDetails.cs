@@ -158,15 +158,12 @@ public class CardDetails : MonoBehaviour
         if (amountToIncrease < 0)
         {
             int toughReduction = GetConditionValue(ConditionType.Tough);
-            Debug.Log($"Tough condition value: {toughReduction}");
             if (toughReduction > 0)
             {
                 Debug.Log($"Reducing damage by {toughReduction} due to Tough.");
             }
             amountToIncrease += toughReduction;
-            Debug.Log($"Damage after Tough reduction: {amountToIncrease}");
             card.currentHealth += amountToIncrease;
-            Debug.Log($"Updated health after modification: {card.currentHealth}");
         }
         if (amountToIncrease >= 0)
         {
