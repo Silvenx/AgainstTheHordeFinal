@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Runtime.Serialization.Json;
 
 public class GameManager : MonoBehaviour
 {
@@ -165,7 +166,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //-----------------------------------Round Logic-----------------------------------//
+    //--------------------------------------------------- ROUND LOGIC ---------------------------------------------------//
 
 
     private void EnterNewRound()
@@ -235,6 +236,57 @@ public class GameManager : MonoBehaviour
     }
     private void CombatPhase()
     {
+        //Loop through each player and horde monster slot
+        for (int i = 0; i < fieldManager.playerMonsterSlots.Count; i++)
+        {
+            // Get the player and horde slots at the current index (from 1 to 5, as you have 5 slots)
+            GameObject playerSlot = fieldManager.playerMonsterSlots[i];
+            GameObject hordeSlot = fieldManager.hordeMonsterSlots[i];
+
+            // Check if there's a monster in the player's slot, then check horde
+            GameObject playerCardObject = playerSlot.transform.childCount > 0 ? playerSlot.transform.GetChild(0).gameObject : null;
+            GameObject hordeCardObject = hordeSlot.transform.childCount > 0 ? hordeSlot.transform.GetChild(0).gameObject : null;
+
+            //FUTURE: On attack trigger needs to go here somewhere
+
+            //If both players have monsters in the same slot
+            if (playerCardObject != null && hordeCardObject != null)
+            {
+                CardDetails playerCardDetails = playerCardObject.GetComponent<CardDetails>();
+                CardDetails hordeCardDetails = hordeCardObject.GetComponent<CardDetails>();
+
+                Debug.Log($"Slot {i + 1} - Player's {playerCardDetails.card.cardName} fights Horde's {hordeCardDetails.card.cardName}");
+
+                MonsterCombat(playerCardDetails, hordeCardDetails);
+            }
+
+            //If player has one but horde doesn't
+            else if (playerCardObject != null && hordeCardObject == null)
+            {
+                CardDetails playerCardDetails = playerCardObject.GetComponent<CardDetails>();
+
+                Debug.Log($"Slot {i + 1} - Player's {playerCardDetails.card.cardName} hits face");
+
+                PlayerMonsterDealsFaceDamage(playerCardDetails);
+
+            }
+            //If horde has one but player doesn't
+            else if (playerCardObject == null && hordeCardObject != null)
+            {
+                CardDetails hordeCardDetails = hordeCardObject.GetComponent<CardDetails>();
+
+                Debug.Log($"Slot {i + 1} - Horde's {hordeCardDetails.card.cardName} hits face");
+
+                HordeMonsterDealsFaceDamage(hordeCardDetails);
+            }
+            else
+            {
+                Debug.Log($"Slot {i + 1} - No monsters present on either side.");
+            }
+
+
+        }
+
         //Trigger fighting between monsters
 
         //Wait timer until combat finishes
@@ -250,7 +302,7 @@ public class GameManager : MonoBehaviour
         NextTurnPhase();
     }
 
-    //-----------------------------------------------------------------------------------------------------//
+    //--------------------------------------------------- ENERGY CHECKS ---------------------------------------------------//
 
     //Check if have enough mana to play card
     public bool haveEnoughManaToPlayCard(Card card)
@@ -280,6 +332,34 @@ public class GameManager : MonoBehaviour
         currentEnergyText.text = currentEnergy.ToString();
     }
 
-    //--------------------------------------------------Misc
+    //--------------------------------------------------- COMBAT PROCESSING ---------------------------------------------------//
+
+    //Processes the combat between monsters
+    public void MonsterCombat(CardDetails playerCard, CardDetails hordeCard)
+    {
+        int playerCardPower = playerCard.card.currentAttack;
+        int hordeCardPower = hordeCard.card.currentAttack;
+
+        //FUTURE: Quick would need to be done here as an if statement
+        //Deal damage to eachother at the same time
+        playerCard.ModifyCurrentHealth(-hordeCardPower);
+        hordeCard.ModifyCurrentHealth(-playerCardPower);
+
+        //on kill trigger probably should go in ModifyHealth
+    }
+
+    //Process horde dealing face damage with a monster
+    public void PlayerMonsterDealsFaceDamage(CardDetails playerCard)
+    {
+
+    }
+
+    //Process horde dealing face damage with a monster
+    public void HordeMonsterDealsFaceDamage(CardDetails hordeCard)
+    {
+
+    }
+
+    //--------------------------------------------------- MISC ---------------------------------------------------//
 
 }

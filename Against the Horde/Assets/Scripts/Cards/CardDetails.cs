@@ -154,6 +154,8 @@ public class CardDetails : MonoBehaviour
     {
         card.currentHealth += amountToIncrease;
         //Check if dead
+        //FUTURE: Would need to put on kill trigger here later but only on field
+        //Probably need to prevent cards discarding in hand at 0 life
         if (card.currentHealth <= 0)
         {
             CardDeath();
