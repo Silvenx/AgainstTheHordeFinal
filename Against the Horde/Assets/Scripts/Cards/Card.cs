@@ -16,24 +16,16 @@ public class Card
     [Header("Conditions")]
     public List<CardCondition> conditions = new List<CardCondition>();
 
-    //public CardConditions conditions; - changed this one out for a list
+    //Triggers and Effects
+    [System.Serializable]
+    public class EffectTriggerPair
+    {
+        public Trigger trigger;
+        public Effect effect;
+    }
 
-    //Moved to serialised script
-    /*[Header("Card Conditions")]
-    public int tough; //FUTURE: Currently tough is true or false but may change to stack in the future
-    public int spellPower; //can stack
-    public int lifesteal; //FUTURE: Currently only true or false but may change in the future
-    public int bleed;
-    public int poison;
-    public int regenerate;
-    public bool quick;
-    public bool divineShield;
-    public bool trample;
-    public bool challenge;
-    public bool silence;
-    public bool fragile;
-    public bool cleave;
-*/
+    [Header("Effects and Triggers")]
+    public List<EffectTriggerPair> effectTriggerPairs;
 
     [HideInInspector]
     public int currentEnergyCost;

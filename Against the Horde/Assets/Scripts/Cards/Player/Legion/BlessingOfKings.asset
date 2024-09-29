@@ -18,11 +18,14 @@ MonoBehaviour:
     cardName: Blessing of Kings
     cardDescription: Give a monster 3 power and 3 life
     baseManaCost: 3
-    currentManaCost: 0
+    conditions: []
+    effectTriggerPairs: []
+    currentEnergyCost: 0
     baseHealth: 0
     maximumHealth: 0
     currentHealth: 0
     baseAttack: 0
     currentAttack: 0
     cardType: 1
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}

@@ -105,7 +105,7 @@ public class PlayerManager : CharacterManager
 
         return list;
     }
-    private void DrawCardToHand(Card cardToDraw)
+    public void DrawCardToHand(Card cardToDraw)
     {
 
         //If hand is less than the max size and there are cards to draw

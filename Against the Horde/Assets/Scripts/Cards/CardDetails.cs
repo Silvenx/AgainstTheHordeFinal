@@ -266,12 +266,21 @@ public class CardDetails : MonoBehaviour
         }
     }
 
+    //--------------------------------------------------- Card Effects ---------------------------------------------------//
 
+    public void OnEvent(EventType eventType, GameObject target = null)
+    {
+        if (card.effectTriggerPairs == null)
+            return;
 
-
-
-
-
+        foreach (var pair in card.effectTriggerPairs)
+        {
+            if (pair.trigger.Check(this.gameObject, eventType))
+            {
+                pair.effect.ExecuteEffect(this.gameObject, target);
+            }
+        }
+    }
 
     //--------------------------------------------------- Modify UI ---------------------------------------------------//
 
