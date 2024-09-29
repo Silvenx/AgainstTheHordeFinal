@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,6 +12,7 @@ public class CardEventTrigger : EventTrigger
     private Canvas myCanvas;
     private Card thisCard;
     private bool pointerOverCard = false; ////Branch1.0-Added variable
+    private bool pointOverSpellPlayArea = false;
 
     private void Start()
     {
@@ -66,9 +68,18 @@ public class CardEventTrigger : EventTrigger
         //Checks if player has enough mana to play this card
         if (gameManager.haveEnoughManaToPlayCard(thisCard))
         {
-            ///Checks if slot is a viable slot to place card on.
-            //Placing it down if so, or returning it to hand if not.
-            CheckAndPlaceCardOnSlot();
+
+            if (thisCard.cardType == Card.CARDTYPE.MONSTER)
+            {
+                //Checks if slot is a viable slot to place card on.
+                //Placing it down if so, or returning it to hand if not.
+                CheckAndPlaceCardOnSlot();
+            }
+
+            if (thisCard.cardType == Card.CARDTYPE.SPELL || thisCard.cardType == Card.CARDTYPE.FIELD || thisCard.cardType == Card.CARDTYPE.ENCHANTMENT)
+            {
+                CheckAndPlaceSpellSlot();
+            }
         }
         else
         {
@@ -82,9 +93,6 @@ public class CardEventTrigger : EventTrigger
 
     private void CheckAndPlaceCardOnSlot()
     {
-        //Debug.Log("OnEndDrag called.");
-
-
         //CHECK IF CARD IS PLACED IN APPLICABLE AREA
         if (fieldManager.canPlayCardOnThisFieldSlot(thisCard, selectedFieldSlot))
         {
@@ -94,7 +102,7 @@ public class CardEventTrigger : EventTrigger
             CardDetails cDetails = GetComponent<CardDetails>();
             //Plays card under Field Manager Slot
             cDetails.PlayThisCardOnFieldSlot(selectedFieldSlot);
-            
+
 
             ///Spend Mana & disable ability to drag this card
             //Spends mana equal to card's current mana cost
@@ -113,6 +121,43 @@ public class CardEventTrigger : EventTrigger
         }
     }
 
+    private void CheckAndPlaceSpellSlot()
+    {
+        //Grab the Spell play area
+        GameObject spellPlayArea = GameObject.Find("Field_SpellPlayArea");
+        GameObject spellHoldArea = GameObject.Find("Field_SpellHoldArea");
+        CardDetails cDetails = GetComponent<CardDetails>();
+
+        if (pointOverSpellPlayArea == true)
+        {
+            Debug.Log("YAY!");
+            //remove from hand
+            playerManager.RemoveCardFromHand(this.gameObject);
+
+            //Move card to spell hold area
+            transform.SetParent(spellHoldArea.transform, false);
+            transform.localPosition = Vector3.zero;
+
+            // Disable dragging
+            cDetails.canDrag = false;
+
+            // Spend Mana
+            gameManager.ModifyCurrentEnergy(-thisCard.currentEnergyCost);
+        }
+        else
+        {
+            Debug.Log("BOO");
+            playerManager.OrganiseHand(playerManager.cardMoveSpeed * 2f);
+        }
+        // Start target selection
+        //StartTargetSelection();
+
+        //Check if over the spell play area
+        //Move card to the spell hold area
+        //activate its effect
+        ////discard should be inside the effect
+
+    }
 
     private void ObjectFollowMousePointer()
     {
@@ -126,11 +171,33 @@ public class CardEventTrigger : EventTrigger
     private GameObject selectedFieldSlot;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        selectedFieldSlot = collision.gameObject;
+        if (collision.gameObject.CompareTag("FieldSlot"))
+        {
+            selectedFieldSlot = collision.gameObject;
+        }
+
+        // Check if we entered the spell play area
+        if (collision.gameObject.CompareTag("SpellPlayArea"))
+        {
+            Debug.Log("Spell area alerrrrrrrt!");
+            pointOverSpellPlayArea = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        selectedFieldSlot = null;
+        // Check if we exited a field slot
+        if (collision.gameObject.CompareTag("FieldSlot"))
+        {
+            if (selectedFieldSlot == collision.gameObject)
+            {
+                selectedFieldSlot = null;
+            }
+        }
+        // Check if we exited the spell play area
+        if (collision.gameObject.CompareTag("SpellPlayArea"))
+        {
+            pointOverSpellPlayArea = false;
+        }
     }
 
     //--------------------------------On Clicks--------------------------------//

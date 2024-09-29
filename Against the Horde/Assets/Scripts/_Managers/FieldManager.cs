@@ -156,8 +156,6 @@ public class FieldManager : MonoBehaviour
             }
             return false;
         }
-
-
         return false;
     }
 
