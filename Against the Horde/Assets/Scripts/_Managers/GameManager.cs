@@ -5,7 +5,10 @@ using TMPro;
 using System.Runtime.Serialization.Json;
 
 public class GameManager : MonoBehaviour
+
 {
+    public static GameManager Instance { get; private set; } //JP 29.09.24 - added for card db
+
     [Header("TEMP: TO BE REPLACED AT FULL GAME")]
     public DeckObjects playerStartDeck;
     public DeckObjects hordeStartDeck;
@@ -16,6 +19,9 @@ public class GameManager : MonoBehaviour
     public HordeManager hordeManager;
     public Canvas myCanvas;
     public GameObject cardPrefab;
+
+    public CardDatabase cardDatabase; //JP 29.09.24 - added for card db 
+
     //[HideInInspector]
     public GameObject cardObjectPool;
 
@@ -57,7 +63,37 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        //JP 29.09.24 - Added for the Card Database - maybe not worth it
+        // Initialize the singleton instance
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: Keeps the GameManager alive across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Ensure only one instance exists
+            return;
+        }
+
+        // Ensure PlayerManager is assigned
+        if (playerManager == null)
+        {
+            playerManager = FindObjectOfType<PlayerManager>();
+            if (playerManager == null)
+            {
+                Debug.LogError("PlayerManager not found in the scene.");
+            }
+        }
+
+        // Ensure CardDatabase is assigned
+        if (cardDatabase == null)
+        {
+            Debug.LogError("CardDatabase is not assigned in GameManager.");
+        }
+
         CreateCardObjectPool(50);
+
     }
     private void CreateCardObjectPool(int amountToCreate)
     {
@@ -347,6 +383,14 @@ public class GameManager : MonoBehaviour
     //Processes the combat between monsters
     public void MonsterCombat(CardDetails playerCard, CardDetails hordeCard)
     {
+        //FUTURE: probably need to add in a check before the damage dealt because onattack may kill a monster already, ie. Drain
+
+        // Trigger OnAttack event for player card
+        playerCard.OnEvent(EventType.OnATTACK, hordeCard.gameObject);
+
+        // Trigger OnAttack event for horde card
+        hordeCard.OnEvent(EventType.OnATTACK, playerCard.gameObject);
+
         int playerCardPower = playerCard.card.currentAttack;
         int hordeCardPower = hordeCard.card.currentAttack;
 

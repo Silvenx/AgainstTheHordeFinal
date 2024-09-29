@@ -19,6 +19,10 @@ MonoBehaviour:
     cardDescription: 'Challenge Attack: drain 1 life from the opposing monster and
       gain any life drained'
     baseManaCost: 5
+    conditions: []
+    effectTriggerPairs:
+    - trigger: {fileID: 11400000, guid: a69db848e0fdfd3448ede96a0d55ee48, type: 2}
+      effect: {fileID: 11400000, guid: 005521caac7e1604284a5572e6978342, type: 2}
     currentEnergyCost: 0
     baseHealth: 6
     maximumHealth: 0
@@ -26,4 +30,5 @@ MonoBehaviour:
     baseAttack: 4
     currentAttack: 0
     cardType: 0
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}

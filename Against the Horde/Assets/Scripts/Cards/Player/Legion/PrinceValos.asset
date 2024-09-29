@@ -18,6 +18,12 @@ MonoBehaviour:
     cardName: Prince Valos
     cardDescription: 'Summon: gain 1 Zeal token. Attack: gain 1 Zeal token '
     baseManaCost: 5
+    conditions: []
+    effectTriggerPairs:
+    - trigger: {fileID: 11400000, guid: 64e8e17e6b734b04083529a66bf7c1bd, type: 2}
+      effect: {fileID: 11400000, guid: 8a4423466bc389a458042cfa0f539acb, type: 2}
+    - trigger: {fileID: 11400000, guid: 3f5f973450bfb1145babaf8b2c923e34, type: 2}
+      effect: {fileID: 11400000, guid: 8a4423466bc389a458042cfa0f539acb, type: 2}
     currentEnergyCost: 0
     baseHealth: 5
     maximumHealth: 0
@@ -25,4 +31,5 @@ MonoBehaviour:
     baseAttack: 5
     currentAttack: 0
     cardType: 0
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}

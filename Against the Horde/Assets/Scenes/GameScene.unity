@@ -4126,6 +4126,7 @@ MonoBehaviour:
   hordeManager: {fileID: 1768198610}
   myCanvas: {fileID: 931334046}
   cardPrefab: {fileID: 4261479451194414195, guid: 5652c5f6738db7c4880ccd7709c8c1f1, type: 3}
+  cardDatabase: {fileID: 11400000, guid: b43fc82ff53bb6f46b3b74486a9c2adf, type: 2}
   cardObjectPool: {fileID: 356552769}
   turnCount: 0
   currentTurn: 0
