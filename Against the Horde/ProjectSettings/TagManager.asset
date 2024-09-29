@@ -8,6 +8,8 @@ TagManager:
   - GameManager
   - PlayerManager
   - FieldSlot
+  - SpellPlayArea
+  - SpellHoldArea
   layers:
   - Default
   - TransparentFX
