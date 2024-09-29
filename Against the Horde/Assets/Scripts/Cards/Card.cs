@@ -86,6 +86,8 @@ public class Card
 
         this.onPlaySound = co.card.onPlaySound;
 
+        this.effectTriggerPairs = new List<EffectTriggerPair>(co.card.effectTriggerPairs);
+
         this.conditions = new List<CardCondition>(co.card.conditions);
     }
 
@@ -107,6 +109,8 @@ public class Card
         this.cardType = cardType;
 
         this.conditions = initialConditions ?? new List<CardCondition>();
+
+        this.effectTriggerPairs = effectTriggerPairs != null ? new List<EffectTriggerPair>(effectTriggerPairs) : new List<EffectTriggerPair>();
 
     }
     public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, int currentManaCost, int currentHealth, int currentAttack)

@@ -49,6 +49,8 @@ public class CardDetails : MonoBehaviour
 
         this.card.conditions = cardDetails.conditions;
 
+        this.card.effectTriggerPairs = cardDetails.effectTriggerPairs;
+
         //Applies new card details to UI of this card gameobject
         SetCardUI(card.borderArt, card.characterArt, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
     }
@@ -135,6 +137,8 @@ public class CardDetails : MonoBehaviour
 
         //Set position to be same as field slot it is placed under
         rect.anchoredPosition = Vector2.zero;
+
+        this.OnEvent(EventType.OnPLAY);
         //currentCoroutine = CharacterManager.LerpObjectMovement(this.gameObject, rect.anchoredPosition, Vector2.zero, 2f, 1.5f);
         //StartCoroutine(currentCoroutine);
     }
@@ -270,14 +274,25 @@ public class CardDetails : MonoBehaviour
 
     public void OnEvent(EventType eventType, GameObject target = null)
     {
+        Debug.Log($"OnEvent called on {this.card.cardName} with eventType: {eventType}");
         if (card.effectTriggerPairs == null)
             return;
 
         foreach (var pair in card.effectTriggerPairs)
         {
+            if (pair.trigger == null || pair.effect == null)
+            {
+                Debug.LogWarning("Trigger or Effect is null in effectTriggerPairs.");
+                continue;
+            }
             if (pair.trigger.Check(this.gameObject, eventType))
             {
+                Debug.Log($"Trigger matched for eventType {eventType}. Executing effect {pair.effect.name}");
                 pair.effect.ExecuteEffect(this.gameObject, target);
+            }
+            else
+            {
+                Debug.Log($"Trigger did not match for eventType {eventType}");
             }
         }
     }
