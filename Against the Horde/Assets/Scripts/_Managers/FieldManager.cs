@@ -92,7 +92,7 @@ public class FieldManager : MonoBehaviour
                 }
             }
         }
-        
+
         return (false, 0);
     }
     public GameObject getMonsterAt(bool isPlayerMonsterField, int slotPosition)
