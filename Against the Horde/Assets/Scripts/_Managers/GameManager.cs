@@ -405,6 +405,9 @@ public class GameManager : MonoBehaviour
     //Process horde dealing face damage with a monster
     public void PlayerMonsterDealsLifeForceDamage(CardDetails playerCard)
     {
+        // Trigger OnAttack event for player card
+        playerCard.ActivateCardEffect(TriggerType.ATTACK);
+
         //Get the player card current attack
         playerCard.GetComponent<CardDetails>();
         int damage = playerCard.card.currentAttack;
@@ -416,6 +419,9 @@ public class GameManager : MonoBehaviour
     //Process horde dealing face damage with a monster
     public void HordeMonsterDealsLifeForceDamage(CardDetails hordeCard)
     {
+        // Trigger OnAttack event for horde card
+        hordeCard.ActivateCardEffect(TriggerType.ATTACK);
+
         //Get the horde card current attack
         hordeCard.GetComponent<CardDetails>();
         int damage = hordeCard.card.currentAttack;
