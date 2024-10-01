@@ -18,6 +18,8 @@ MonoBehaviour:
     cardName: Azure Leaper
     cardDescription: 'Turn start: move right 1 space'
     baseManaCost: 0
+    abilities: []
+    conditions: []
     currentEnergyCost: 0
     baseHealth: 4
     maximumHealth: 0
