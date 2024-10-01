@@ -44,6 +44,9 @@ public class CardEventTrigger : EventTrigger
 
         //SHOW VFX OF POSSIBLE POSITIONS TO PLAY
         fieldManager.HighlightApplicableFieldSlots(true, thisCard);
+
+        //Turn off pokeup animation
+        GetComponent<Animator>().SetBool("PokeUp", false);
     }
 
     //Called on mouseup after OnDrag() ends
@@ -109,6 +112,7 @@ public class CardEventTrigger : EventTrigger
             gameManager.ModifyCurrentEnergy(-thisCard.currentEnergyCost);
             //Make it so player can't drag card anymore
             cDetails.canDrag = false;
+            
 
             ///Trigger Card's OnPlay() Effects
             //TODO
