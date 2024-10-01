@@ -11,7 +11,7 @@ public class Ef_DealDamage : Effect
     {
         foreach (GameObject o in target.getTargets())
         {
-            o.GetComponent<CardDetails>().ModifyCurrentHealth(-damage);
+            o.GetComponent<CardDetails>().TakeLifeDamage(damage);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class CardDetails : MonoBehaviour
 {
@@ -125,6 +126,17 @@ public class CardDetails : MonoBehaviour
         return new Card(card.cardName, card.cardType, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack, card.conditions);
     }
 
+
+    public void ResetCardStatsToBase()
+    {
+        this.card.currentEnergyCost = card.baseManaCost;
+        this.card.currentHealth = card.baseHealth;
+        this.card.currentAttack = card.baseAttack;
+
+        //Updates UI text
+        UpdateCardUI();
+    }
+
     //--------------------------------------------------- Card Functions ---------------------------------------------------//
 
     //Play Card on Field Slot
@@ -158,21 +170,7 @@ public class CardDetails : MonoBehaviour
     //Increase or Decreases the Current Health of the card
     public void ModifyCurrentHealth(int amountToIncrease)
     {
-        //Tough - may need to somewhere else because of negative changes to hand?
-        if (amountToIncrease < 0)
-        {
-            int toughReduction = GetConditionValue(ConditionType.Tough);
-            if (toughReduction > 0)
-            {
-                Debug.Log($"Reducing damage by {toughReduction} due to Tough.");
-            }
-            amountToIncrease += toughReduction;
-            card.currentHealth += amountToIncrease;
-        }
-        if (amountToIncrease >= 0)
-        {
-            card.currentHealth += amountToIncrease;
-        }
+        card.currentHealth += amountToIncrease;
 
         //Check if dead
         //FUTURE: Would need to put on kill trigger here later but only on field
@@ -188,6 +186,40 @@ public class CardDetails : MonoBehaviour
         }
         UpdateCardUI();
     }
+
+    public void TakeLifeDamage(int damage)
+    {
+        //Divine shield if statement
+        int divineShield = GetConditionValue(ConditionType.DivineShield);
+        int toughReduction = GetConditionValue(ConditionType.Tough);
+
+        if (divineShield > 0)
+        {
+            Debug.Log("Divine shield blocks the damage");
+            damage = 0;
+            ModifyConditionValue(ConditionType.DivineShield, 0);
+        }
+        else if (toughReduction > 0)
+        {
+            //May need to remove or leave this in future depending on whether we need tough to stack
+            Debug.Log($"Reducing damage by {toughReduction} due to Tough.");
+            damage -= toughReduction;
+        }
+
+        ModifyCurrentHealth(-damage);
+    }
+
+    public void TakeLifeTrueDamage(int damage)
+    {
+
+    }
+
+    public void HealLife(int healing)
+    {
+
+    }
+
+
     //Increase or Decreases the Maximum Health of the card
     public void ModifyMaximumHealth(int amountToIncrease)
     {
@@ -214,6 +246,9 @@ public class CardDetails : MonoBehaviour
 
     public void CardDeath()
     {
+
+
+
         //Check if the card is player
         bool isCardAllegiancePlayer = card.cardAllegiance == Card.ALLEGIANCE.PLAYER;
 
@@ -222,6 +257,8 @@ public class CardDetails : MonoBehaviour
 
         //remove from field
         FieldManager.SendCardObjectToGraveyard(this.gameObject, isCardAllegiancePlayer);
+
+        ResetCardStatsToBase();
     }
     //-------------------------------------------- Card Condition Functions --------------------------------------------//
 
