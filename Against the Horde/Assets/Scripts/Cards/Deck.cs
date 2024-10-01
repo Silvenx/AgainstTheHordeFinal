@@ -48,7 +48,7 @@ public class Deck
 
     //---------------------------Drawing Cards--------------------------------------//
 
-    public Card DrawTopCard()
+    public Card TakeTopCard()
     {
         try
         {
@@ -58,7 +58,7 @@ public class Deck
                 return null;
             }
             //Looks at top card
-            Card topCard = getTopCard();
+            Card topCard = checkTopCard();
             //Remove card from deck
             cardList.RemoveAt(0);
 
@@ -68,11 +68,26 @@ public class Deck
         catch (System.NullReferenceException) { return null; } //JP 28.09.24 - removed e variable 
     }
 
-    private Card getTopCard()
+    //Removes specific card from deck and returns it if card exists in deck
+    public Card TakeCard(Card card)
+    {
+        Card c = null;
+        //If card exists in the deck
+        if (getDeck().Contains(card))
+        {
+            //Removes card from deck
+            cardList.Remove(card);
+            //Gives card
+            c = card;
+        }
+        return c;
+    }
+
+    private Card checkTopCard()
     {
         return cardList[0];
     }
-    private List<Card> getTopCards(int number)
+    private List<Card> checkTopCards(int number)
     {
         List<Card> topCards = new List<Card>();
         for (int i = 0; i < number; i++)

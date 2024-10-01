@@ -26,6 +26,36 @@ public class FieldManager : MonoBehaviour
     public GameObject hordeGraveyardSlot;
 
 
+    public List<GameObject> getAllPlayerMonsters()
+    {
+        List<GameObject> m = new List<GameObject>();
+
+        //For each moster slot on the player's side...
+        foreach (GameObject slot in playerMonsterSlots)
+        {
+            //if the slot is not empty
+            if (slot.transform.childCount != 0)
+            {
+                m.Add(slot.transform.GetChild(0).gameObject);
+            }
+        }
+        return m;
+    }
+    public List<GameObject> getAllHordeMonsters()
+    {
+        List<GameObject> m = new List<GameObject>();
+
+        //For each moster slot on the player's side...
+        foreach (GameObject slot in hordeMonsterSlots)
+        {
+            //if the slot is not empty
+            if (slot.transform.childCount != 0)
+            {
+                m.Add(slot.transform.GetChild(0).gameObject);
+            }
+        }
+        return m;
+    }
 
     public List<GameObject> ApplicableFieldSlotsToPlay(bool isPlayerCard, Card card)
     {

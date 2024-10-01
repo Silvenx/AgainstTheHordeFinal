@@ -4,5 +4,6 @@ using UnityEngine;
 
 public abstract class Effect : ScriptableObject
 {
-    public abstract void ExecuteEffect(GameObject card, GameObject target);
+    //For effects with no target
+    public abstract void ActivateEffect(Target targets, GameObject thisCard);
 }

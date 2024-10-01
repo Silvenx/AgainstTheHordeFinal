@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c941bc2212a3508438da279d397c5bdf, type: 3}
-  m_Name: AddZealToHand_1
+  m_Script: {fileID: 11500000, guid: c46d84079bf82ea43ab1dded63b0284a, type: 3}
+  m_Name: FieldMonsters_Horde
   m_EditorClassIdentifier: 
+  targetGroup: 2

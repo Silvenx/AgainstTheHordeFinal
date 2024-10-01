@@ -17,7 +17,7 @@ public class HordeManager : CharacterManager
     public void HordePlayFromDeck()
     {
         //Get Card From Top of Deck
-        Card card = myDeck.DrawTopCard();
+        Card card = myDeck.TakeTopCard();
         Debug.Log("HordeCardName: " + card.cardName);
         //play the card (checking what type it is)
         PlayHordeCard(card);
@@ -66,11 +66,11 @@ public class HordeManager : CharacterManager
 
     public Card getTopCardFromDeck(int amountToGet)
     {
-        return myDeck.DrawTopCard();
+        return myDeck.TakeTopCard();
     }
     public Card getTopCardFromDeck()
     {
-        return myDeck.DrawTopCard();
+        return myDeck.TakeTopCard();
     }
 
     public void DamageHordeLifeforce(int damage)

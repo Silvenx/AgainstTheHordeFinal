@@ -13,19 +13,20 @@ public class Card
     public int baseManaCost;
 
     //public List<EffectTriggers> cardEffects;
-    [Header("Conditions")]
-    public List<CardCondition> conditions = new List<CardCondition>();
+    
 
     //Triggers and Effects
     [System.Serializable]
-    public class EffectTriggerPair
+    public class Ability
     {
         public Trigger trigger;
         public Effect effect;
+        public Target target;
     }
 
-    [Header("Effects and Triggers")]
-    public List<EffectTriggerPair> effectTriggerPairs;
+    [Header("Card Abilities")]
+    public List<Ability> abilities;
+    public List<Condition> conditions = new List<Condition>();
 
     [HideInInspector]
     public int currentEnergyCost;
@@ -86,12 +87,12 @@ public class Card
 
         this.onPlaySound = co.card.onPlaySound;
 
-        this.effectTriggerPairs = new List<EffectTriggerPair>(co.card.effectTriggerPairs);
+        this.abilities = new List<Ability>(co.card.abilities);
 
-        this.conditions = new List<CardCondition>(co.card.conditions);
+        this.conditions = new List<Condition>(co.card.conditions);
     }
 
-    public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, List<CardCondition> initialConditions)
+    public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, List<Condition> initialConditions)
     {
         //Applies base details
         this.cardName = cardName;
@@ -108,9 +109,9 @@ public class Card
 
         this.cardType = cardType;
 
-        this.conditions = initialConditions ?? new List<CardCondition>();
+        this.conditions = initialConditions ?? new List<Condition>();
 
-        this.effectTriggerPairs = effectTriggerPairs != null ? new List<EffectTriggerPair>(effectTriggerPairs) : new List<EffectTriggerPair>();
+        this.abilities = abilities != null ? new List<Ability>(abilities) : new List<Ability>();
 
     }
     public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, int currentManaCost, int currentHealth, int currentAttack)

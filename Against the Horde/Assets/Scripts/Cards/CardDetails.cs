@@ -49,7 +49,7 @@ public class CardDetails : MonoBehaviour
 
         this.card.conditions = cardDetails.conditions;
 
-        this.card.effectTriggerPairs = cardDetails.effectTriggerPairs;
+        this.card.abilities = cardDetails.abilities;
 
         //Applies new card details to UI of this card gameobject
         SetCardUI(card.borderArt, card.characterArt, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
@@ -138,7 +138,7 @@ public class CardDetails : MonoBehaviour
         //Set position to be same as field slot it is placed under
         rect.anchoredPosition = Vector2.zero;
 
-        this.OnEvent(EventType.OnPLAY);
+        this.TriggerAbility(TriggerType.PLAY);
         //currentCoroutine = CharacterManager.LerpObjectMovement(this.gameObject, rect.anchoredPosition, Vector2.zero, 2f, 1.5f);
         //StartCoroutine(currentCoroutine);
     }
@@ -229,7 +229,7 @@ public class CardDetails : MonoBehaviour
     public void AddCondition(ConditionType conditionType, int value)
     //Add a condition to a card
     {
-        card.conditions.Add(new CardCondition(conditionType, value));
+        card.conditions.Add(new Condition(conditionType, value));
         Debug.Log($"{conditionType} added with value {value} to {card.cardName}");
     }
 
@@ -252,13 +252,13 @@ public class CardDetails : MonoBehaviour
     public int GetConditionValue(ConditionType conditionType)
     //Check if a card has a condition
     {
-        CardCondition condition = card.conditions.Find(c => c.conditionType == conditionType);
+        Condition condition = card.conditions.Find(c => c.conditionType == conditionType);
         return condition != null ? condition.value : 0; // Return 0 if condition doesn't exist
     }
 
     public void ModifyConditionValue(ConditionType conditionType, int newValue)
     {
-        CardCondition condition = card.conditions.Find(c => c.conditionType == conditionType);
+        Condition condition = card.conditions.Find(c => c.conditionType == conditionType);
         if (condition != null)
         {
             condition.value = newValue;
@@ -272,30 +272,25 @@ public class CardDetails : MonoBehaviour
 
     //--------------------------------------------------- Card Effects ---------------------------------------------------//
 
-    public void OnEvent(EventType eventType, GameObject target = null)
+    public void TriggerAbility(TriggerType eventType)
     {
-        Debug.Log($"OnEvent called on {this.card.cardName} with eventType: {eventType}");
-        if (card.effectTriggerPairs == null)
-            return;
+        //Exit if card has no abilities
+        if (card.abilities == null) { return; }
 
-        foreach (var pair in card.effectTriggerPairs)
+        //Check every ability listed on this card
+        for (int i = 0; i < card.abilities.Count; i++)
         {
-            if (pair.trigger == null || pair.effect == null)
+            var ability = card.abilities[i];
+
+            //If supplied triggerType is the same as the trigger type for this ability
+            if (ability.trigger.Check(this.gameObject, eventType))
             {
-                Debug.LogWarning("Trigger or Effect is null in effectTriggerPairs.");
-                continue;
-            }
-            if (pair.trigger.Check(this.gameObject, eventType))
-            {
-                Debug.Log($"Trigger matched for eventType {eventType}. Executing effect {pair.effect.name}");
-                pair.effect.ExecuteEffect(this.gameObject, target);
-            }
-            else
-            {
-                Debug.Log($"Trigger did not match for eventType {eventType}");
+                //Trigger the ability
+                ability.effect.ActivateEffect(ability.target, this.gameObject);
             }
         }
     }
+
 
     //--------------------------------------------------- Modify UI ---------------------------------------------------//
 

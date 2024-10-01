@@ -18,6 +18,7 @@ MonoBehaviour:
     cardName: Taurus Guardian
     cardDescription: Tough
     baseManaCost: 4
+    abilities: []
     conditions:
     - conditionType: 0
       value: 1

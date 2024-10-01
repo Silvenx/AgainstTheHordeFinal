@@ -50,26 +50,14 @@ public class PlayerManager : CharacterManager
             //Draw 1 card
             DrawCardFromTopOfDeck();
         }
-        //If no 1 cost cards in  hand
+        //If no 1 cost cards in hand
         //JP 27.09.24 - Adjusted to remove the old card from the deck 
         else
         {
             //Draw a monster card with a 1 cost
             Card oneCostCard = myDeck.FindCard(1, Card.CARDTYPE.MONSTER); //JP 28.09.24 - Updated to include monster and created a new method
-            if (oneCostCard != null)
-            {
-                DrawCardToHand(oneCostCard);
 
-                Debug.Log("A 1-cost monster card was drawn as a pity draw: " + oneCostCard.cardName);
-
-                //Removes card from the deck list
-                myDeck.getDeck().Remove(oneCostCard);
-            }
-            else
-            {
-                Debug.Log("No 1-cost monster card was found in the deck for pity draw");
-            }
-
+            DrawCardFromDeck(oneCostCard);
         }
     }
 
@@ -79,16 +67,17 @@ public class PlayerManager : CharacterManager
         for (int i = 0; i < amountToDraw; i++)
         {
             //Get Card from top of deck & draw it
-            DrawCardToHand(myDeck.DrawTopCard());
+            CreateNewCardAndMoveToHand(myDeck.TakeTopCard());
         }
     }
     public void DrawCardFromTopOfDeck()
     {
-        DrawCardToHand(myDeck.DrawTopCard());
+        CreateNewCardAndMoveToHand(myDeck.TakeTopCard());
+        Debug.Log("DREW NEW CARD");
     }
-    public void PutCardInHand(Card card)
+    public void DrawCardFromDeck(Card card)
     {
-
+        CreateNewCardAndMoveToHand(myDeck.TakeCard(card));
     }
 
     private List<GameObject> getCardPositions()
@@ -105,21 +94,20 @@ public class PlayerManager : CharacterManager
 
         return list;
     }
-    public void DrawCardToHand(Card cardToDraw)
-    {
 
+    public void CreateNewCardAndMoveToHand(Card cardToDraw)
+    {
         //If hand is less than the max size and there are cards to draw
         if (playerHand.Count < maxHandSize && cardToDraw != null)
         {
             //Get Positions of all existing card in hand
             List<GameObject> oldCardPositions = getCardPositions();
-
+            //Gets Card Game Object from object pool and applies card's details to cardDetails
             GameObject cardObject = gameManager.CreateCardObject(cardToDraw);
 
 
-            //Set Transfor.Parent to be CardGroup
+            //Set Transfor.Parent to be CardGroup in PlayerHand
             cardObject.transform.SetParent(handParentObject.transform);
-            //MAY NEED TO CHANGE RECTTRANSFORM PIVOT & ETC.
             ////Move card's physical position to top of deck
             cardObject.GetComponent<RectTransform>().anchoredPosition = deckGameObject.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition;
             //Add card to hand list
@@ -132,7 +120,7 @@ public class PlayerManager : CharacterManager
         }
 
         //If hand is at capacity and there are no cards to draw
-        if (playerHand.Count >= maxHandSize && cardToDraw != null)
+        else 
         {
             Debug.Log("Card discarded as hand is full");
             GameObject cardObject = gameManager.CreateCardObject(cardToDraw);
@@ -144,8 +132,6 @@ public class PlayerManager : CharacterManager
         {
             Debug.Log("Player Deck is Empty");
         }
-
-
 
     }
     public GameObject deckPositionRelativeToHand;

@@ -16,12 +16,12 @@ public enum ConditionType
 }
 
 [System.Serializable]
-public class CardCondition
+public class Condition
 {
     public ConditionType conditionType; // The type of condition 
     public int value; // The value associated with the condition, stacks essentially
 
-    public CardCondition(ConditionType conditionType, int value)
+    public Condition(ConditionType conditionType, int value)
     {
         this.conditionType = conditionType;
         this.value = value;

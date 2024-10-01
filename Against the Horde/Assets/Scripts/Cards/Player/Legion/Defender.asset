@@ -18,6 +18,8 @@ MonoBehaviour:
     cardName: Defender
     cardDescription: 'Summon: gain divine shield or draw 1 card '
     baseManaCost: 2
+    abilities: []
+    conditions: []
     currentEnergyCost: 0
     baseHealth: 5
     maximumHealth: 0
@@ -25,4 +27,5 @@ MonoBehaviour:
     baseAttack: 1
     currentAttack: 0
     cardType: 0
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}
