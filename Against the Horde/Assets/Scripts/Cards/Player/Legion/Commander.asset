@@ -18,11 +18,6 @@ MonoBehaviour:
     cardName: Commander
     cardDescription: 'Summon: Give adjacent monsters 2 power'
     baseManaCost: 3
-    abilities:
-    - trigger: {fileID: 11400000, guid: 64e8e17e6b734b04083529a66bf7c1bd, type: 2}
-      effect: {fileID: 11400000, guid: 8a4423466bc389a458042cfa0f539acb, type: 2}
-      target: {fileID: 11400000, guid: 1c71795b7051bfd408c7af17803d0dda, type: 2}
-    conditions: []
     currentEnergyCost: 0
     baseHealth: 3
     maximumHealth: 0
@@ -32,3 +27,8 @@ MonoBehaviour:
     cardType: 0
     cardAllegiance: 0
     onPlaySound: {fileID: 0}
+    abilities:
+    - trigger: 1
+      effect: {fileID: 11400000, guid: ba16086222733d443b50118c4a4b86b7, type: 2}
+      target: {fileID: 11400000, guid: 1c71795b7051bfd408c7af17803d0dda, type: 2}
+    conditions: []

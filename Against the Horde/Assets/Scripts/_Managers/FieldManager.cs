@@ -58,9 +58,6 @@ public class FieldManager : MonoBehaviour
     }
     public (bool, int) getCardsFieldSlotPosition(GameObject cardObject)
     {
-        bool isPlayer = true;
-        int pos = 0;
-
         //If card is on player's field
         if (isMonsterOnPlayerField(cardObject))
         {
