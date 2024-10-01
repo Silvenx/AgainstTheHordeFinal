@@ -73,7 +73,6 @@ public class PlayerManager : CharacterManager
     public void DrawCardFromTopOfDeck()
     {
         CreateNewCardAndMoveToHand(myDeck.TakeTopCard());
-        Debug.Log("DREW NEW CARD");
     }
     public void DrawCardFromDeck(Card card)
     {

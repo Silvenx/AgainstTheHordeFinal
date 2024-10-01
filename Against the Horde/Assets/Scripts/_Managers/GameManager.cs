@@ -386,10 +386,10 @@ public class GameManager : MonoBehaviour
         //FUTURE: probably need to add in a check before the damage dealt because onattack may kill a monster already, ie. Drain
 
         // Trigger OnAttack event for player card
-        playerCard.TriggerAbility(TriggerType.ATTACK);
+        playerCard.ActivateCardEffect(TriggerType.ATTACK);
 
         // Trigger OnAttack event for horde card
-        hordeCard.TriggerAbility(TriggerType.ATTACK);
+        hordeCard.ActivateCardEffect(TriggerType.ATTACK);
 
         int playerCardPower = playerCard.card.currentAttack;
         int hordeCardPower = hordeCard.card.currentAttack;

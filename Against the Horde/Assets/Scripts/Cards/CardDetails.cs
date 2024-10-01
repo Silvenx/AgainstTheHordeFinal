@@ -138,7 +138,7 @@ public class CardDetails : MonoBehaviour
         //Set position to be same as field slot it is placed under
         rect.anchoredPosition = Vector2.zero;
 
-        this.TriggerAbility(TriggerType.PLAY);
+        this.ActivateCardEffect(TriggerType.PLAY);
         //currentCoroutine = CharacterManager.LerpObjectMovement(this.gameObject, rect.anchoredPosition, Vector2.zero, 2f, 1.5f);
         //StartCoroutine(currentCoroutine);
     }
@@ -233,7 +233,6 @@ public class CardDetails : MonoBehaviour
         Debug.Log($"{conditionType} added with value {value} to {card.cardName}");
     }
 
-
     public void RemoveCondition(ConditionType conditionType)
     //remove a condition completely from a card
     {
@@ -241,13 +240,11 @@ public class CardDetails : MonoBehaviour
         Debug.Log($"{conditionType} removed from {card.cardName}");
     }
 
-
     public bool HasCondition(ConditionType conditionType)
     //Check if a card has a condition
     {
         return card.conditions.Exists(c => c.conditionType == conditionType);
     }
-
 
     public int GetConditionValue(ConditionType conditionType)
     //Check if a card has a condition
@@ -272,7 +269,7 @@ public class CardDetails : MonoBehaviour
 
     //--------------------------------------------------- Card Effects ---------------------------------------------------//
 
-    public void TriggerAbility(TriggerType eventType)
+    public void ActivateCardEffect(TriggerType eventType)
     {
         //Exit if card has no abilities
         if (card.abilities == null) { return; }
@@ -283,7 +280,7 @@ public class CardDetails : MonoBehaviour
             var ability = card.abilities[i];
 
             //If supplied triggerType is the same as the trigger type for this ability
-            if (ability.trigger.Check(this.gameObject, eventType))
+            if (ability.trigger == eventType)
             {
                 //Trigger the ability
                 ability.effect.ActivateEffect(ability.target, this.gameObject);

@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f14c0250d2abe64b95ac82d014c6a16, type: 3}
-  m_Name: Tr_OnPlay
+  m_Script: {fileID: 11500000, guid: 8abeedee664fe504691cf012d485fb87, type: 3}
+  m_Name: DrawSmiteFromDeck
   m_EditorClassIdentifier: 
+  cardsToDrawFromDeck:
+  - {fileID: 11400000, guid: 3124942d59815be47b41e5dca7ed7043, type: 2}

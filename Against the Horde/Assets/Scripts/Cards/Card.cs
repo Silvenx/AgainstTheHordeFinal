@@ -19,9 +19,21 @@ public class Card
     [System.Serializable]
     public class Ability
     {
-        public Trigger trigger;
+        public TriggerType trigger;
         public Effect effect;
         public Target target;
+
+        //public enum TriggerType
+        //{
+        //    DRAW,
+        //    PLAY,
+        //    DEATH,
+        //    ATTACK,
+        //    KILL,
+        //    ENEMYSPELLCAST,
+        //    MYSPELLCAST,
+        //    DAMAGED
+        //}
     }
 
     [Header("Card Abilities")]
