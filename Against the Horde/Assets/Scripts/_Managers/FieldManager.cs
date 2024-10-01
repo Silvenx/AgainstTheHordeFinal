@@ -25,7 +25,7 @@ public class FieldManager : MonoBehaviour
     public GameObject playerGraveyardSlot;
     public GameObject hordeGraveyardSlot;
 
-
+    //--------------------------------------------------------------------------------------------------------------
     public List<GameObject> getAllPlayerMonsters()
     {
         List<GameObject> m = new List<GameObject>();
@@ -55,6 +55,85 @@ public class FieldManager : MonoBehaviour
             }
         }
         return m;
+    }
+    public (bool, int) getCardsFieldSlotPosition(GameObject cardObject)
+    {
+        bool isPlayer = true;
+        int pos = 0;
+
+        //If card is on player's field
+        if (isMonsterOnPlayerField(cardObject))
+        {
+            //Check all player slots for this card
+            for (int i = 0; i < playerMonsterSlots.Count; i++)
+            {
+                //If fieldslot is not empty
+                if (playerMonsterSlots[i].transform.childCount != 0)
+                {
+                    //If THE card in this slot
+                    if (Object.ReferenceEquals(playerMonsterSlots[i].transform.GetChild(0).gameObject, cardObject))
+                    {
+                        return (true, i);
+                    }
+                }
+            }
+        }
+        //If card is on player's field
+        else if (isMonsterOnHordeField(cardObject))
+        {
+            //Check all horde slots for this card
+            for (int i = 0; i < hordeMonsterSlots.Count; i++)
+            {
+                //If fieldslot is not empty
+                if (hordeMonsterSlots[i].transform.childCount != 0)
+                {
+                    //If card in this slot
+                    if (Object.ReferenceEquals(hordeMonsterSlots[i].transform.GetChild(0).gameObject, cardObject))
+                    {
+                        return (false, i);
+                    }
+                }
+            }
+        }
+        
+        return (false, 0);
+    }
+    public GameObject getMonsterAt(bool isPlayerMonsterField, int slotPosition)
+    {
+        GameObject toReturn = null;
+        //Get from player monster field
+        if (isPlayerMonsterField)
+        {
+            toReturn = playerMonsterSlots[slotPosition].transform.GetChild(0).gameObject;
+        }
+        //Get from horde monster field
+        else if (!isPlayerMonsterField)
+        {
+            toReturn = hordeMonsterSlots[slotPosition].transform.GetChild(0).gameObject;
+        }
+        return toReturn;
+    }
+    public bool isMonsterOnPlayerField(GameObject cardObject)
+    {
+        if (getAllPlayerMonsters().Contains(cardObject))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public bool isMonsterOnHordeField(GameObject cardObject)
+    {
+        if (getAllHordeMonsters().Contains(cardObject))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public List<GameObject> ApplicableFieldSlotsToPlay(bool isPlayerCard, Card card)
@@ -131,7 +210,6 @@ public class FieldManager : MonoBehaviour
 
         return slots;
     }
-
     public void HighlightApplicableFieldSlots(bool turnHighlightsOn, Card cardToPlay)
     {
         if (turnHighlightsOn)

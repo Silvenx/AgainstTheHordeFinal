@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Target/Target_FieldMonsters")]
 public class Tg_FieldMonsters : Target
 {
-    public fieldToTarget targetGroup;
+    public FieldToTarget targetGroup;
 
-    public enum fieldToTarget
+    public enum FieldToTarget
     {
         ALL_MONSTERS,
         PLAYER_MONSTERS,
@@ -18,29 +18,28 @@ public class Tg_FieldMonsters : Target
     {
         FieldManager fieldManager = GameManager.Instance.fieldManager;
 
-        //Target = All monsters on the field
-        if (targetGroup == fieldToTarget.PLAYER_MONSTERS)
+        List<GameObject> targets = new List<GameObject>();
+
+        switch (targetGroup)
         {
-            List<GameObject> targets = new List<GameObject>();
+            //Adds Player Monsters to List
+            case FieldToTarget.PLAYER_MONSTERS:
+                targets.AddRange(fieldManager.getAllPlayerMonsters());
+                break;
 
-            targets.AddRange(fieldManager.getAllPlayerMonsters());
-            targets.AddRange(fieldManager.getAllHordeMonsters());
+            //Adds Horde Monsters to List
+            case FieldToTarget.HORDE_MONSTERS:
+                targets.AddRange(fieldManager.getAllHordeMonsters());
+                break;
 
-            return targets.ToArray();
+            //ALL MONSTERS ON FIELD
+            default:
+                targets.AddRange(fieldManager.getAllPlayerMonsters());
+                targets.AddRange(fieldManager.getAllHordeMonsters());
+                break;
         }
 
-        //Target = All player monsters on the field
-        else if (targetGroup == fieldToTarget.PLAYER_MONSTERS)
-        {
-            return fieldManager.getAllPlayerMonsters().ToArray();
-        }
-
-        //Target = All horde monsters on the field
-        else  //targetGroup == fieldToTarget.HORDE_MONSTERS
-        {
-            return fieldManager.getAllHordeMonsters().ToArray();
-        }
-
+        return targets.ToArray();
     }
 
 

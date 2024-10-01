@@ -135,6 +135,8 @@ MonoBehaviour:
     cardName: 
     cardDescription: 
     baseManaCost: 0
+    abilities: []
+    conditions: []
     currentEnergyCost: 0
     baseHealth: 0
     maximumHealth: 0
@@ -142,6 +144,7 @@ MonoBehaviour:
     baseAttack: 0
     currentAttack: 0
     cardType: 0
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}
   cardBorderImage: {fileID: 4263265523799276166}
   cardCharacterArtImage: {fileID: 7032126034218718452}

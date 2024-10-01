@@ -53,6 +53,7 @@ public class CardEventTrigger : EventTrigger
     public override void OnEndDrag(PointerEventData data)
     {
         PlayDraggedCard();
+
     }
 
     //Called every frame during a drag
@@ -89,6 +90,9 @@ public class CardEventTrigger : EventTrigger
             //Place card back into hand
             playerManager.OrganiseHand(playerManager.cardMoveSpeed * 2f);
         }
+
+        //Removes Drag animation
+        GetComponent<Animator>().SetBool("PokeUp", false);
 
         //DISABLE Field Highlight VFX
         fieldManager.DisableHighlightsForAllFieldSlots();

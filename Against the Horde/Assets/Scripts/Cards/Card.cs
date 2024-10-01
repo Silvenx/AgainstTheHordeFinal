@@ -12,34 +12,6 @@ public class Card
     public string cardDescription;
     public int baseManaCost;
 
-    //public List<EffectTriggers> cardEffects;
-    
-
-    //Triggers and Effects
-    [System.Serializable]
-    public class Ability
-    {
-        public TriggerType trigger;
-        public Effect effect;
-        public Target target;
-
-        //public enum TriggerType
-        //{
-        //    DRAW,
-        //    PLAY,
-        //    DEATH,
-        //    ATTACK,
-        //    KILL,
-        //    ENEMYSPELLCAST,
-        //    MYSPELLCAST,
-        //    DAMAGED
-        //}
-    }
-
-    [Header("Card Abilities")]
-    public List<Ability> abilities;
-    public List<Condition> conditions = new List<Condition>();
-
     [HideInInspector]
     public int currentEnergyCost;
     public int baseHealth;
@@ -53,14 +25,7 @@ public class Card
 
     //Card Type
     public CARDTYPE cardType;
-
-
     public ALLEGIANCE cardAllegiance;
-
-    //Audio
-    public AudioClip onPlaySound;
-    //TODO: Add other audio
-
     public enum CARDTYPE
     {
         MONSTER,
@@ -69,13 +34,33 @@ public class Card
         EQUIPMENT,
         ENCHANTMENT
     }
-
     public enum ALLEGIANCE
     {
         PLAYER,
         HORDE
     }
 
+    //Audio
+    public AudioClip onPlaySound;
+    //TODO: Add other audio
+
+
+    //Triggers and Effects
+    [System.Serializable]
+    public class Ability
+    {
+        public TriggerType trigger;
+        public Effect effect;
+        public Target target;
+    }
+
+    [Header("Card Abilities")]
+    public List<Ability> abilities;
+    public List<Condition> conditions = new List<Condition>();
+
+    
+
+    
     public Card(CardObjects co)
     {
         //Applies base details
