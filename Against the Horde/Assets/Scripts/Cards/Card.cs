@@ -13,7 +13,7 @@ public class Card
     public int baseManaCost;
 
     //public List<EffectTriggers> cardEffects;
-    
+
 
     //Triggers and Effects
     [System.Serializable]
@@ -40,15 +40,15 @@ public class Card
     public List<Ability> abilities;
     public List<Condition> conditions = new List<Condition>();
 
-    [HideInInspector]
+    //[HideInInspector]
     public int currentEnergyCost;
     public int baseHealth;
-    [HideInInspector]
+    //[HideInInspector]
     public int maximumHealth;
-    [HideInInspector]
+    //[HideInInspector]
     public int currentHealth;
     public int baseAttack;
-    [HideInInspector]
+    //[HideInInspector]
     public int currentAttack;
 
     //Card Type

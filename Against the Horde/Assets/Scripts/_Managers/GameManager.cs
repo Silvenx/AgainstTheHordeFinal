@@ -396,8 +396,8 @@ public class GameManager : MonoBehaviour
 
         //FUTURE: Quick would need to be done here as an if statement
         //Deal damage to eachother at the same time
-        playerCard.ModifyCurrentHealth(-hordeCardPower);
-        hordeCard.ModifyCurrentHealth(-playerCardPower);
+        playerCard.TakeLifeDamage(hordeCardPower);
+        hordeCard.TakeLifeDamage(playerCardPower);
 
         //on kill trigger probably should go in ModifyHealth
     }
