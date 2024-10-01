@@ -18,6 +18,10 @@ MonoBehaviour:
     cardName: Holy Squire
     cardDescription: 'Summon: give a monster divine shield '
     baseManaCost: 1
+    abilities: []
+    conditions:
+    - conditionType: 7
+      value: 0
     currentEnergyCost: 0
     baseHealth: 1
     maximumHealth: 0
@@ -25,4 +29,5 @@ MonoBehaviour:
     baseAttack: 2
     currentAttack: 0
     cardType: 0
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}

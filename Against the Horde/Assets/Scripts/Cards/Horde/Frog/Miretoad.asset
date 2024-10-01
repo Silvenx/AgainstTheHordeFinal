@@ -18,6 +18,8 @@ MonoBehaviour:
     cardName: Miretoad
     cardDescription: 'Summon: gain divine shield'
     baseManaCost: 0
+    abilities: []
+    conditions: []
     currentEnergyCost: 0
     baseHealth: 3
     maximumHealth: 0
