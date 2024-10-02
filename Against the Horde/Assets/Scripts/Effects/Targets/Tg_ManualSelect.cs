@@ -40,12 +40,12 @@ public class Tg_ManualSelect : Target
                 break;
 
             case FieldToTarget.HORDE_MONSTERS:
-                potentialTargets.AddRange(fieldManager.getAllPlayerMonsters());
+                potentialTargets.AddRange(fieldManager.getAllHordeMonsters());
                 break;
 
             case FieldToTarget.ALL_MONSTERS:
                 potentialTargets.AddRange(fieldManager.getAllPlayerMonsters());
-                potentialTargets.AddRange(fieldManager.getAllPlayerMonsters());
+                potentialTargets.AddRange(fieldManager.getAllHordeMonsters());
                 break;
         }
 
