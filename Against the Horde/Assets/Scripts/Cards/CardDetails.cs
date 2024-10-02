@@ -263,10 +263,10 @@ public class CardDetails : MonoBehaviour
     //-------------------------------------------- Card Condition Functions --------------------------------------------//
 
 
-    public void AddCondition(ConditionType conditionType, int value)
+    public void AddCondition(ConditionType conditionType, int value, bool isActive)
     //Add a condition to a card
     {
-        card.conditions.Add(new Condition(conditionType, value));
+        card.conditions.Add(new Condition(conditionType, value, isActive));
         Debug.Log($"{conditionType} added with value {value} to {card.cardName}");
     }
 

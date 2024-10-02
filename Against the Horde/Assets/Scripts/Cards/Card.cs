@@ -59,8 +59,6 @@ public class Card
     public List<Condition> conditions = new List<Condition>();
 
     
-
-    
     public Card(CardObjects co)
     {
         //Applies base details
