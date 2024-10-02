@@ -12,15 +12,19 @@ public class Ef_ModifyStats : Effect
 
     public override void ActivateEffect(Target target, GameObject thisCard)
     {
-        Debug.Log("Increase Attack of " + target + " by " + power + ".");
-
-        foreach (GameObject o in target.getTargets(thisCard))
+        GameObject[] t = target.getTargets(thisCard);
+        Debug.Log(t);
+        //If there are actual targets available
+        try
         {
-            CardDetails d = o.GetComponent<CardDetails>();
-            d.ModifyAttack(+power);
-            d.ModifyManaCost(+energy);
-            d.ModifyCurrentHealth(+health);
-            d.ModifyMaximumHealth(+health);
-        }
+            foreach (GameObject o in t)
+            {
+                CardDetails d = o.GetComponent<CardDetails>();
+                d.ModifyAttack(+power);
+                d.ModifyManaCost(+energy);
+                d.ModifyMaximumHealth(+health);
+                d.ModifyCurrentHealth(+health);
+            }
+        } catch(System.NullReferenceException e) { Debug.Log("Lacking Target " + e); }
     }
 }

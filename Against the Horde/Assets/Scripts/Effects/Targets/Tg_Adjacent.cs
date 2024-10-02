@@ -19,10 +19,9 @@ public class Tg_Adjacent : Target
         FieldManager fieldManager = GameManager.Instance.fieldManager;
         //Find Card's Position on the Field
         (bool, int) fieldSlot = fieldManager.getCardsFieldSlotPosition(thisCard);
-
-        Debug.Log("IsPlayerField = " + fieldSlot.Item1 + ". FieldSlotPosition = " + fieldSlot.Item2);
-
         int fieldSlotCount = fieldManager.playerMonsterSlots.Count;
+
+        //Debug.Log("IsPlayerField = " + fieldSlot.Item1 + ". FieldSlotPosition = " + fieldSlot.Item2);
 
         List<GameObject> targets = new List<GameObject>();
 
@@ -61,12 +60,6 @@ public class Tg_Adjacent : Target
                 }
                 break;
         }
-
-        foreach(GameObject o in targets)
-        {
-            Debug.Log("TargetedCard = " + o.name);
-        }
-
         return targets.ToArray();
     }
     

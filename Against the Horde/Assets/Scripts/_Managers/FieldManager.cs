@@ -31,14 +31,15 @@ public class FieldManager : MonoBehaviour
         List<GameObject> m = new List<GameObject>();
 
         //For each moster slot on the player's side...
-        foreach (GameObject slot in playerMonsterSlots)
+        for (int i = 0; i < playerMonsterSlots.Count; i++)
         {
             //if the slot is not empty
-            if (slot.transform.childCount != 0)
+            if (playerMonsterSlots[i].transform.childCount != 0)
             {
-                m.Add(slot.transform.GetChild(0).gameObject);
+                m.Add(playerMonsterSlots[i].transform.GetChild(0).gameObject);
             }
         }
+
         return m;
     }
     public List<GameObject> getAllHordeMonsters()
@@ -46,14 +47,15 @@ public class FieldManager : MonoBehaviour
         List<GameObject> m = new List<GameObject>();
 
         //For each moster slot on the player's side...
-        foreach (GameObject slot in hordeMonsterSlots)
+        for (int i = 0; i < hordeMonsterSlots.Count; i++)
         {
             //if the slot is not empty
-            if (slot.transform.childCount != 0)
+            if (hordeMonsterSlots[i].transform.childCount != 0)
             {
-                m.Add(slot.transform.GetChild(0).gameObject);
+                m.Add(hordeMonsterSlots[i].transform.GetChild(0).gameObject);
             }
         }
+
         return m;
     }
     public (bool, int) getCardsFieldSlotPosition(GameObject cardObject)
@@ -101,12 +103,24 @@ public class FieldManager : MonoBehaviour
         //Get from player monster field
         if (isPlayerMonsterField)
         {
-            toReturn = playerMonsterSlots[slotPosition].transform.GetChild(0).gameObject;
+            //If there is a card on this field slot position...
+            Transform t = playerMonsterSlots[slotPosition].transform;
+            if (t.childCount != 0)
+            {
+                //return that card object
+                toReturn = t.GetChild(0).gameObject;
+            }
         }
         //Get from horde monster field
         else if (!isPlayerMonsterField)
         {
-            toReturn = hordeMonsterSlots[slotPosition].transform.GetChild(0).gameObject;
+            //If there is a card on this field slot position...
+            Transform t = hordeMonsterSlots[slotPosition].transform;
+            if (t.childCount != 0)
+            {
+                //return that card object
+                toReturn = t.GetChild(0).gameObject;
+            }
         }
         return toReturn;
     }
