@@ -25,6 +25,7 @@ public class Ef_ModifyStats : Effect
                 d.ModifyMaximumHealth(+health);
                 d.ModifyCurrentHealth(+health);
             }
-        } catch(System.NullReferenceException e) { Debug.Log("Lacking Target " + e); }
+        }
+        catch (System.NullReferenceException e) { Debug.Log("Lacking Target " + e); }
     }
 }
