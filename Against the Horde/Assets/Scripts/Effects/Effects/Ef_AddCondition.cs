@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Effects/Increase_Stats")]
-public class Ef_ModifyStats : Effect
+[CreateAssetMenu(menuName = "ScriptableObjects/Effects/Add Condition")]
+public class Ef_AddCondition : Effect
 {
     //Amount to increase attack power by
-    public int energy = 0;
-    public int power = 0;
-    public int health = 0;
+    public int divineShield;
 
     public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
@@ -25,10 +23,7 @@ public class Ef_ModifyStats : Effect
                 CardDetails d = o.GetComponent<CardDetails>();
                 if (d != null)
                 {
-                    d.ModifyAttack(power);
-                    d.ModifyManaCost(energy);
-                    d.ModifyMaximumHealth(health);
-                    d.ModifyCurrentHealth(health);
+                    d.AddCondition(ConditionType.DivineShield, divineShield, true);
                 }
             }
         }

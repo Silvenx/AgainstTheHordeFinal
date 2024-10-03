@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe5f2c7b4bda8042a765a2a02fcc418, type: 3}
-  m_Name: ManualSelect_1
+  m_Script: {fileID: 11500000, guid: ac20ae08de0442f408a0535812101369, type: 3}
+  m_Name: GiveDivineShield
   m_EditorClassIdentifier: 
-  targetGroup: 0
-  numberOfTargets: 1
+  divineShield: 1
