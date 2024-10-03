@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Target/Target_EdgeMostFieldMonsters")]
 public class Tg_EdgeMostFieldMonster : Target
 {
+    //FUTURE: Add in horde targeting
     public TargetMonsterField targetSideOfField;
     public WhichEdge targetSide;
 
