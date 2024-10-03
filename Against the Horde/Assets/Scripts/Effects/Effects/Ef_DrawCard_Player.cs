@@ -8,11 +8,16 @@ public class Ef_DrawCard_Player : Effect
     public int numberOfCards = 1;
 
 
-    public override void ActivateEffect(Target target, GameObject thisCard = null)
+    public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
-        PlayerManager playerManager = GameManager.Instance.playerManager;
-
-        playerManager.DrawCardFromTopOfDeck(numberOfCards);
+        yield return null;
     }
+
+    //public override void ActivateEffect(Target target, GameObject thisCard = null)
+    //{
+    //    PlayerManager playerManager = GameManager.Instance.playerManager;
+
+    //    playerManager.DrawCardFromTopOfDeck(numberOfCards);
+    //}
 
 }

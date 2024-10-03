@@ -5,10 +5,9 @@ using UnityEngine.EventSystems;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Target/Target_ManualSelect")]
 public class Tg_ManualSelect : Target
-
 {
     public FieldToTarget targetGroup;
-    public int numberOfTargets = 1; //default to 1 just in case
+    public int numberOfTargets = 1; // default to 1 just in case
 
     public enum FieldToTarget
     {
@@ -17,90 +16,86 @@ public class Tg_ManualSelect : Target
         HORDE_MONSTERS
     }
 
+
+
     private List<GameObject> selectedTargets = new List<GameObject>();
 
-    public override GameObject[] getTargets(GameObject thisCard = null)
+
+
+    public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
-        HandlePlayerSelection(thisCard);
-        Debug.Log("WIN:Targets selected" + selectedTargets);
-        return selectedTargets.ToArray();
+        // Start the coroutine to handle player selection and wait for it to complete
+        yield return GameManager.Instance.StartCoroutine(HandlePlayerSelection(thisCard));
     }
 
-    public void HandlePlayerSelection(GameObject thisCard)
+    private IEnumerator HandlePlayerSelection(GameObject thisCard)
     {
-        FieldManager fieldManager = GameManager.Instance.fieldManager;
+        GameManager gameManager = GameManager.Instance;
+        PlayerManager playerManager = gameManager.playerManager;
+        FieldManager fieldManager = gameManager.fieldManager;
 
         List<GameObject> potentialTargets = new List<GameObject>();
 
         switch (targetGroup)
         {
-            //Adds the potential targets to the list called potential targets
             case FieldToTarget.PLAYER_MONSTERS:
                 potentialTargets.AddRange(fieldManager.getAllPlayerMonsters());
                 break;
 
             case FieldToTarget.HORDE_MONSTERS:
-                potentialTargets.AddRange(fieldManager.getAllPlayerMonsters());
+                potentialTargets.AddRange(fieldManager.getAllHordeMonsters());
                 break;
 
             case FieldToTarget.ALL_MONSTERS:
                 potentialTargets.AddRange(fieldManager.getAllPlayerMonsters());
-                potentialTargets.AddRange(fieldManager.getAllPlayerMonsters());
+                potentialTargets.AddRange(fieldManager.getAllHordeMonsters());
                 break;
         }
 
-        if (potentialTargets.Count == 0)
-        {
-            Debug.Log("No targets to select.");
 
-        }
+        // FUTURE: Add in highlight targets here
 
-        //FUTURE: Add in highlight targets here
-
-        List<GameObject> selectedTargets = new List<GameObject>();
+        selectedTargets.Clear();
 
         while (selectedTargets.Count < numberOfTargets)
         {
             // Wait for player input
-            GameObject clickedTarget = null;
-            bool inputReceived = false;
+            bool haveTargetList = false;
 
-            // Wait until the player clicks on a valid target
-            while (!inputReceived)
+            while (!haveTargetList)
             {
-                if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
-                {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out RaycastHit hit))
-                    {
-                        GameObject hitObject = hit.collider.gameObject;
+                Debug.Log("No Input");
 
-                        if (potentialTargets.Contains(hitObject) && !selectedTargets.Contains(hitObject))
+                //if LMB down
+                if (Input.GetMouseButtonDown(0))
+                {
+                    //Get list of all scene objects that mouse is currently over
+                    List<GameObject> objectsUnderMouse = playerManager.objectsUnderMouseOnClickCardObject;
+                    //For each object in list...
+                    foreach(GameObject card in potentialTargets)
+                    {
+                        //Check if one of those objects is a card in the potential list of targets
+                        if (objectsUnderMouse.Contains(card))
                         {
-                            clickedTarget = hitObject;
-                            inputReceived = true;
+                            selectedTargets.Add(card);
+                            Debug.Log("Card "+card.name+" was successfully found.");
+                            haveTargetList = true;
+                            break;
                         }
                     }
                 }
+                //check gamemanager for card mouse is currently over
+                //if card is a card on the applicable list of targets
+                //add to list of targets and say input received = true
 
-            }
-            if (clickedTarget != null)
-            {
-                selectedTargets.Add(clickedTarget);
-                Debug.Log("Selected Target: " + clickedTarget.name);
+                yield return null;
             }
         }
-
     }
 
-    private bool IsPointerOverUIObject()
+    // Method to retrieve selected targets after selection is complete
+    public override GameObject[] getTargets()
     {
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current)
-        {
-            position = Input.mousePosition
-        };
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        return results.Count > 0;
+        return selectedTargets.ToArray();
     }
 }

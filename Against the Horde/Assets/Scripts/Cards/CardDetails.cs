@@ -320,7 +320,7 @@ public class CardDetails : MonoBehaviour
             if (ability.trigger == eventType)
             {
                 //Trigger the ability
-                ability.effect.ActivateEffect(ability.target, this.gameObject);
+                StartCoroutine(ability.effect.ActivateEffect(ability.target, this.gameObject));
             }
         }
     }

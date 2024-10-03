@@ -5,7 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Target/Target_FacingFieldMonster")]
 public class Tg_FacingFieldMonster : Target
 {
-    public override GameObject[] getTargets(GameObject thisCard = null)
+    public List<GameObject> finaList = new List<GameObject>();
+
+    public override IEnumerator TargetAquisition(GameObject thisCard = null)
+    {
+        // Start the coroutine to handle player selection and wait for it to complete
+        yield return GameManager.Instance.StartCoroutine(GetMyTargets(thisCard));
+    }
+
+    public IEnumerator GetMyTargets(GameObject thisCard = null)
     {
         FieldManager fieldManager = GameManager.Instance.fieldManager;
         //Find Card's Position on the Field.
@@ -19,8 +27,15 @@ public class Tg_FacingFieldMonster : Target
         }
         catch (UnityException e) { Debug.LogWarning("No monster on opposite side of this card. Targeting failed." + e); }
 
-        
 
-        return targets.ToArray();
+        finaList.AddRange(targets);
+
+        yield return null;
+    }
+
+    // Method to retrieve selected targets after selection is complete
+    public override GameObject[] getTargets()
+    {
+        return finaList.ToArray();
     }
 }

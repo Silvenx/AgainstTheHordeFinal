@@ -1,10 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
 public abstract class Target : ScriptableObject
 {
-    public abstract GameObject[] getTargets(GameObject thisCard = null);
+    public abstract IEnumerator TargetAquisition(GameObject thisCard = null);
+
+    public abstract GameObject[] getTargets();
 }
 
 //public enum TargetType

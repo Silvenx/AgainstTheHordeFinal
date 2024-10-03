@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,21 +11,30 @@ public class Ef_ModifyStats : Effect
     public int power = 0;
     public int health = 0;
 
-    public override void ActivateEffect(Target target, GameObject thisCard)
+    public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
-        GameObject[] t = target.getTargets(thisCard);
-        Debug.Log(t);
-        //If there are actual targets available
-        try
+        // Start the target selection coroutine and wait for it to complete
+        yield return GameManager.Instance.StartCoroutine(target.TargetAquisition(thisCard));
+
+        GameObject[] targets = target.getTargets();
+        // Get the selected targets after selection is complete
+        if (targets != null)
         {
-            foreach (GameObject o in t)
+            foreach (GameObject o in targets)
             {
                 CardDetails d = o.GetComponent<CardDetails>();
-                d.ModifyAttack(+power);
-                d.ModifyManaCost(+energy);
-                d.ModifyMaximumHealth(+health);
-                d.ModifyCurrentHealth(+health);
+                if (d != null)
+                {
+                    d.ModifyAttack(power);
+                    d.ModifyManaCost(energy);
+                    d.ModifyMaximumHealth(health);
+                    d.ModifyCurrentHealth(health);
+                }
             }
-        } catch(System.NullReferenceException e) { Debug.Log("Lacking Target " + e); }
+        }
+        else
+        {
+            Debug.LogError("Target is not of type Tg_ManualSelect");
+        }
     }
 }
