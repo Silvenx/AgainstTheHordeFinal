@@ -16,6 +16,9 @@ public class PlayerManager : CharacterManager
 
     [HideInInspector]
     public GameObject cardBeingMoved;
+    [HideInInspector]
+    public List<GameObject> objectsUnderMouseOnClickCardObject;
+
 
 
     public void GameSetup(DeckObjects deck)

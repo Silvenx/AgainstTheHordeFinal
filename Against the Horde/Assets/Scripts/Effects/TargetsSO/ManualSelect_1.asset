@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ManualSelect_1
   m_EditorClassIdentifier: 
   targetGroup: 0
-  numberOfTargets: 1
+  numberOfTargets: 2

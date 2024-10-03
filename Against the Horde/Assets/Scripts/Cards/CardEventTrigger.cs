@@ -64,9 +64,6 @@ public class CardEventTrigger : EventTrigger
 
     //----------------------On Drag Methods----------------------//
 
-
-
-
     private void PlayDraggedCard()
     {
         //Checks if player has enough mana to play this card
@@ -174,7 +171,7 @@ public class CardEventTrigger : EventTrigger
         transform.position = myCanvas.transform.TransformPoint(pos);
     }
 
-    //----------------------------------------------------------//
+    //----------------Card Enter Field Slot Events----------------//
 
     private GameObject selectedFieldSlot;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -313,6 +310,8 @@ public class CardEventTrigger : EventTrigger
     public override void OnPointerClick(PointerEventData data)
     {
         //Debug.Log("OnPointerClick called.");
+        playerManager.objectsUnderMouseOnClickCardObject = data.hovered;
+        //Debug.Log("Last Press Name = " + data.pointerClick.name);
     }
 
 

@@ -5,5 +5,5 @@ using UnityEngine;
 public abstract class Effect : ScriptableObject
 {
     //For effects with no target
-    public abstract void ActivateEffect(Target targets, GameObject thisCard);
+    public abstract IEnumerator ActivateEffect(Target targets, GameObject thisCard);
 }
