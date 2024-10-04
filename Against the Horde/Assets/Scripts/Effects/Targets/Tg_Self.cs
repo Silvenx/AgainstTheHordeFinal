@@ -9,16 +9,22 @@ public class Tg_Self : Target
 
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
-        yield return null;
+        finalList.Clear();
+        // Start the coroutine to handle player selection and wait for it to complete
+        yield return GameManager.Instance.StartCoroutine(GetMyTargets(thisCard));
     }
 
+    // Method to retrieve selected targets after selection is complete
     public override GameObject[] getTargets()
     {
-        return null;
+        return finalList.ToArray();
     }
 
-    //public override GameObject[] TargetAquisition(GameObject thisCard)
-    //{
-    //    return new GameObject[] { thisCard };
-    //}
+    //--------------------------------------Targeting Logic--------------------------------------//
+
+    public IEnumerator GetMyTargets(GameObject thisCard = null)
+    {
+        finalList.Add(thisCard);
+        yield return null;
+    }
 }

@@ -14,43 +14,49 @@ public class Tg_FieldMonsters : Target
         HORDE_MONSTERS
     }
 
+    //------------------------//
+
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
-        yield return null;
+        finalList.Clear();
+        // Start the coroutine to handle player selection and wait for it to complete
+        yield return GameManager.Instance.StartCoroutine(GetMyTargets(thisCard));
     }
 
+    // Method to retrieve selected targets after selection is complete
     public override GameObject[] getTargets()
     {
-        return null;
+        return finalList.ToArray();
     }
 
-    //public override GameObject[] TargetAquisition(GameObject thisCard = null)
-    //{
-    //    FieldManager fieldManager = GameManager.Instance.fieldManager;
+    //--------------------------------------Targeting Logic--------------------------------------//
 
-    //    List<GameObject> targets = new List<GameObject>();
+    public IEnumerator GetMyTargets(GameObject thisCard = null)
+    {
+        FieldManager fieldManager = GameManager.Instance.fieldManager;
 
-    //    switch (targetGroup)
-    //    {
-    //        //Adds Player Monsters to List
-    //        case FieldToTarget.PLAYER_MONSTERS:
-    //            targets.AddRange(fieldManager.getAllPlayerMonsters());
-    //            break;
+        List<GameObject> targets = new List<GameObject>();
 
-    //        //Adds Horde Monsters to List
-    //        case FieldToTarget.HORDE_MONSTERS:
-    //            targets.AddRange(fieldManager.getAllHordeMonsters());
-    //            break;
+        switch (targetGroup)
+        {
+            //Adds Player Monsters to List
+            case FieldToTarget.PLAYER_MONSTERS:
+                targets.AddRange(fieldManager.getAllPlayerMonsters());
+                break;
 
-    //        //ALL MONSTERS ON FIELD
-    //        default:
-    //            targets.AddRange(fieldManager.getAllPlayerMonsters());
-    //            targets.AddRange(fieldManager.getAllHordeMonsters());
-    //            break;
-    //    }
+            //Adds Horde Monsters to List
+            case FieldToTarget.HORDE_MONSTERS:
+                targets.AddRange(fieldManager.getAllHordeMonsters());
+                break;
 
-    //    return targets.ToArray();
-    //}
+            //ALL MONSTERS ON FIELD
+            default:
+                targets.AddRange(fieldManager.getAllPlayerMonsters());
+                targets.AddRange(fieldManager.getAllHordeMonsters());
+                break;
+        }
 
-
+        finalList.AddRange(targets);
+        yield return null;
+    }
 }

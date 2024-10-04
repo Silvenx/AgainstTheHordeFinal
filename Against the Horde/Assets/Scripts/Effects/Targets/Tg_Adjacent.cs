@@ -6,7 +6,6 @@ using UnityEngine;
 public class Tg_Adjacent : Target
 {
     public MonstersToTarget targetGroup;
-
     public enum MonstersToTarget
     {
         LEFT_AND_RIGHT,
@@ -14,63 +13,73 @@ public class Tg_Adjacent : Target
         RIGHT
     }
 
+    //------------------------//
+
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
-        yield return null;
+        finalList.Clear();
+        // Start the coroutine to handle player selection and wait for it to complete
+        yield return GameManager.Instance.StartCoroutine(GetMyTargets(thisCard));
     }
 
+    // Method to retrieve selected targets after selection is complete
     public override GameObject[] getTargets()
     {
-        return null;
+        return finalList.ToArray();
     }
 
-    //public override GameObject[] TargetAquisition(GameObject thisCard = null)
-    //{
-    //    FieldManager fieldManager = GameManager.Instance.fieldManager;
-    //    //Find Card's Position on the Field
-    //    (bool, int) fieldSlot = fieldManager.getCardsFieldSlotPosition(thisCard);
-    //    int fieldSlotCount = fieldManager.playerMonsterSlots.Count;
+    //--------------------------------------Targeting Logic--------------------------------------//
 
-    //    //Debug.Log("IsPlayerField = " + fieldSlot.Item1 + ". FieldSlotPosition = " + fieldSlot.Item2);
+    public IEnumerator GetMyTargets(GameObject thisCard = null)
+    {
+        FieldManager fieldManager = GameManager.Instance.fieldManager;
+        //Find Card's Position on the Field
+        (bool, int) fieldSlot = fieldManager.getCardsFieldSlotPosition(thisCard);
+        int fieldSlotCount = fieldManager.playerMonsterSlots.Count;
 
-    //    List<GameObject> targets = new List<GameObject>();
+        //Debug.Log("IsPlayerField = " + fieldSlot.Item1 + ". FieldSlotPosition = " + fieldSlot.Item2);
 
-    //    switch (targetGroup)
-    //    {
-    //        //Targets Monster LEFT of current monster
-    //        case MonstersToTarget.LEFT:
-    //            //If monster is currently is not left-most slot
-    //            if (fieldSlot.Item2 != 0)
-    //            {
-    //                targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, (fieldSlot.Item2 - 1)));
-    //            }
-    //            break;
+        List<GameObject> targets = new List<GameObject>();
 
-    //        //Targets Monster RIGHT of current monster
-    //        case MonstersToTarget.RIGHT:
-    //            //If monster is currently is not left-most slot
-    //            if (fieldSlot.Item2 != fieldSlotCount)
-    //            {
-    //                targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, (fieldSlot.Item2 + 1)));
-    //            }
-    //            break;
+        switch (targetGroup)
+        {
+            //Targets Monster LEFT of current monster
+            case MonstersToTarget.LEFT:
+                //If monster is currently is not left-most slot
+                if (fieldSlot.Item2 != 0)
+                {
+                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, (fieldSlot.Item2 - 1)));
+                }
+                break;
+
+            //Targets Monster RIGHT of current monster
+            case MonstersToTarget.RIGHT:
+                //If monster is currently is not left-most slot
+                if (fieldSlot.Item2 != fieldSlotCount)
+                {
+                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, (fieldSlot.Item2 + 1)));
+                }
+                break;
 
 
-    //        //Targets both LEFT and RIGHT monsters of current monster
-    //        default:
-    //            //If monster is currently is not left-most slot
-    //            if (fieldSlot.Item2 != 0)
-    //            {
-    //                targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, fieldSlot.Item2 - 1));
-    //            }
-    //            //If monster is currently is not left-most slot
-    //            if (fieldSlot.Item2 != fieldSlotCount)
-    //            {
-    //                targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, fieldSlot.Item2 + 1));
-    //            }
-    //            break;
-    //    }
-    //    return targets.ToArray();
-    //}
+            //Targets both LEFT and RIGHT monsters of current monster
+            default:
+                //If monster is currently is not left-most slot
+                if (fieldSlot.Item2 != 0)
+                {
+                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, fieldSlot.Item2 - 1));
+                }
+                //If monster is currently is not left-most slot
+                if (fieldSlot.Item2 != fieldSlotCount)
+                {
+                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, fieldSlot.Item2 + 1));
+                }
+                break;
+        }
+
+        finalList.AddRange(targets);
+
+        yield return null;
+    }
 
 }

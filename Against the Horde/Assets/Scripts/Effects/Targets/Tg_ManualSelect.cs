@@ -8,6 +8,8 @@ public class Tg_ManualSelect : Target
 {
     public FieldToTarget targetGroup;
     public int numberOfTargets = 1; // default to 1 just in case
+    public bool canTargetSelf = true;
+    public bool canSelectSameCardMoreThanOnce = false;
 
     public enum FieldToTarget
     {
@@ -16,10 +18,8 @@ public class Tg_ManualSelect : Target
         HORDE_MONSTERS
     }
 
-    public bool canTargetSelf = true;
-    public bool canSelectSameTargetTwice = false;
 
-
+    //------------------------//
 
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
@@ -27,6 +27,14 @@ public class Tg_ManualSelect : Target
         // Start the coroutine to handle player selection and wait for it to complete
         yield return GameManager.Instance.StartCoroutine(HandlePlayerSelection(thisCard));
     }
+
+    // Method to retrieve selected targets after selection is complete
+    public override GameObject[] getTargets()
+    {
+        return finalList.ToArray();
+    }
+
+    //--------------------------------------Targeting Logic--------------------------------------//
 
     private IEnumerator HandlePlayerSelection(GameObject thisCard)
     {
@@ -91,7 +99,7 @@ public class Tg_ManualSelect : Target
                         if (objectsUnderMouse.Contains(card))
                         {
                             //If I can not select a card more than once & this card has already been selected
-                            if (!canSelectSameTargetTwice && finalList.Contains(card))
+                            if (!canSelectSameCardMoreThanOnce && finalList.Contains(card))
                             {
                                 Debug.Log("Can not choose this target: " + card.name);
                                 //Don't add card to list
@@ -118,9 +126,5 @@ public class Tg_ManualSelect : Target
         }
     }
 
-    // Method to retrieve selected targets after selection is complete
-    public override GameObject[] getTargets()
-    {
-        return finalList.ToArray();
-    }
+    
 }

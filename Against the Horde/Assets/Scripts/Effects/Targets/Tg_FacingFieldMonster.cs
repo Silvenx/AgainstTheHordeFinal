@@ -13,6 +13,14 @@ public class Tg_FacingFieldMonster : Target
         yield return GameManager.Instance.StartCoroutine(GetMyTargets(thisCard));
     }
 
+    // Method to retrieve selected targets after selection is complete
+    public override GameObject[] getTargets()
+    {
+        return finalList.ToArray();
+    }
+
+    //--------------------------------------Targeting Logic--------------------------------------//
+
     public IEnumerator GetMyTargets(GameObject thisCard = null)
     {
         FieldManager fieldManager = GameManager.Instance.fieldManager;
@@ -33,9 +41,5 @@ public class Tg_FacingFieldMonster : Target
         yield return null;
     }
 
-    // Method to retrieve selected targets after selection is complete
-    public override GameObject[] getTargets()
-    {
-        return finalList.ToArray();
-    }
+    
 }
