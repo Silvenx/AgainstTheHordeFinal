@@ -2,15 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Target/Target_AdjacentFieldMonsters")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Target/Target_AdjacentFieldSlots")]
 public class Tg_Adjacent : Target
 {
-    public MonstersToTarget targetGroup;
-    public enum MonstersToTarget
+    public SlotsToTarget targetGroup;
+    public TargetType targetType;
+
+    public enum SlotsToTarget
     {
         LEFT_AND_RIGHT,
         LEFT,
         RIGHT
+    }
+    public enum TargetType
+    {
+        FIELDSLOT,
+        MONSTERSONFIELDSLOT
     }
 
     //------------------------//
@@ -34,7 +41,7 @@ public class Tg_Adjacent : Target
     {
         FieldManager fieldManager = GameManager.Instance.fieldManager;
         //Find Card's Position on the Field
-        (bool, int) fieldSlot = fieldManager.getCardsFieldSlotPosition(thisCard);
+        (bool isOnPlayerField, int fieldSlotPos) fieldSlot = fieldManager.getCardsFieldSlotPosition(thisCard);
         int fieldSlotCount = fieldManager.playerMonsterSlots.Count;
 
         //Debug.Log("IsPlayerField = " + fieldSlot.Item1 + ". FieldSlotPosition = " + fieldSlot.Item2);
@@ -44,35 +51,71 @@ public class Tg_Adjacent : Target
         switch (targetGroup)
         {
             //Targets Monster LEFT of current monster
-            case MonstersToTarget.LEFT:
-                //If monster is currently is not left-most slot
-                if (fieldSlot.Item2 != 0)
+            case SlotsToTarget.LEFT:
+                //If placed monster is currently is not left-most slot
+                if (fieldSlot.fieldSlotPos != 0)
                 {
-                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, (fieldSlot.Item2 - 1)));
+                    //Do I fetch the field slot GameObject OR monster card GameObject on that field slot
+                    switch (targetType)
+                    {
+                        case TargetType.FIELDSLOT:
+                            targets.Add(fieldManager.getFieldSlotAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos-1)));
+                            break;
+                        case TargetType.MONSTERSONFIELDSLOT:
+                            targets.Add(fieldManager.getMonsterAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos - 1)));
+                            break;
+                    }
                 }
                 break;
 
             //Targets Monster RIGHT of current monster
-            case MonstersToTarget.RIGHT:
-                //If monster is currently is not left-most slot
-                if (fieldSlot.Item2 != fieldSlotCount)
+            case SlotsToTarget.RIGHT:
+                //If placed monster is currently is not left-most slot
+                if (fieldSlot.fieldSlotPos != fieldSlotCount)
                 {
-                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, (fieldSlot.Item2 + 1)));
+                    //Do I fetch the field slot GameObject OR monster card GameObject on that field slot
+                    switch (targetType)
+                    {
+                        case TargetType.FIELDSLOT:
+                            targets.Add(fieldManager.getFieldSlotAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos + 1)));
+                            break;
+                        case TargetType.MONSTERSONFIELDSLOT:
+                            targets.Add(fieldManager.getMonsterAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos + 1)));
+                            break;
+                    }
                 }
                 break;
 
 
             //Targets both LEFT and RIGHT monsters of current monster
             default:
-                //If monster is currently is not left-most slot
-                if (fieldSlot.Item2 != 0)
+                //If placed monster is currently is not left-most slot
+                if (fieldSlot.fieldSlotPos != 0)
                 {
-                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, fieldSlot.Item2 - 1));
+                    //Do I fetch the field slot GameObject OR monster card GameObject on that field slot
+                    switch (targetType)
+                    {
+                        case TargetType.FIELDSLOT:
+                            targets.Add(fieldManager.getFieldSlotAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos - 1)));
+                            break;
+                        case TargetType.MONSTERSONFIELDSLOT:
+                            targets.Add(fieldManager.getMonsterAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos - 1)));
+                            break;
+                    }
                 }
-                //If monster is currently is not left-most slot
-                if (fieldSlot.Item2 != fieldSlotCount)
+                //If placed monster is currently is not left-most slot
+                if (fieldSlot.fieldSlotPos != fieldSlotCount)
                 {
-                    targets.Add(fieldManager.getMonsterAt(fieldSlot.Item1, fieldSlot.Item2 + 1));
+                    //Do I fetch the field slot GameObject OR monster card GameObject on that field slot
+                    switch (targetType)
+                    {
+                        case TargetType.FIELDSLOT:
+                            targets.Add(fieldManager.getFieldSlotAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos + 1)));
+                            break;
+                        case TargetType.MONSTERSONFIELDSLOT:
+                            targets.Add(fieldManager.getMonsterAt(fieldSlot.isOnPlayerField, (fieldSlot.fieldSlotPos + 1)));
+                            break;
+                    }
                 }
                 break;
         }

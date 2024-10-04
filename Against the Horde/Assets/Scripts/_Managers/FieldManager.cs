@@ -124,6 +124,21 @@ public class FieldManager : MonoBehaviour
         }
         return toReturn;
     }
+    public GameObject getFieldSlotAt(bool isPlayerMonsterField, int slotPosition)
+    {
+        //If wanting to get from player field...
+        if (isPlayerMonsterField)
+        {
+            //Get slot at that position
+            return playerMonsterSlots[slotPosition];
+        }
+        //If wanting to get from horde field...
+        else //(!isPlayerMonsterField)
+        {
+            //Get slot at that position
+            return hordeMonsterSlots[slotPosition];
+        }
+    }
     public bool isMonsterOnPlayerField(GameObject cardObject)
     {
         if (getAllPlayerMonsters().Contains(cardObject))

@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af44ad4c04a6754d90fe712a92fe345, type: 3}
-  m_Name: Adjacent_LR_Slots
+  m_Script: {fileID: 11500000, guid: ce530789bf4966e43b87a9da42219b31, type: 3}
+  m_Name: Adj_L&R_Mon
   m_EditorClassIdentifier: 
-  slotsToTarget: 0
+  targetGroup: 0
+  targetType: 1
