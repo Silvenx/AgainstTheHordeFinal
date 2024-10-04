@@ -263,11 +263,35 @@ public class CardDetails : MonoBehaviour
     //-------------------------------------------- Card Condition Functions --------------------------------------------//
 
 
-    public void AddCondition(ConditionType conditionType, int value, bool isActive)
+    public void AddCondition(ConditionType conditionType, int value)
     //Add a condition to a card
     {
-        card.conditions.Add(new Condition(conditionType, value, isActive));
+        //Debug fix value to 1
+        if (value <= 0)
+        {
+            Debug.LogWarning("Value for updating existing condition was " + value + ", which is below 1. Updating to 1.");
+            value = 1;
+        }
+
+        //Check if condition is already existing and replace/update values accordingly
+        foreach (Condition c in card.conditions)
+        {
+            //If that condition already exists...
+            if (c.conditionType == conditionType)
+            {
+                //Update condition's value
+                c.value += value;
+                return;
+            }
+        }
+        //If condition doesn't exist on this card...
+        //Create new condition and add it to list of conditions
+        card.conditions.Add(new Condition(conditionType, value, true));
+
         Debug.Log($"{conditionType} added with value {value} to {card.cardName}");
+
+        //TODO: switch case for every condition type, applying values/bool as appropriate.
+        //& cleaning up list incase duplicates exist as well as incorrect values for conditions
     }
 
     public void RemoveCondition(ConditionType conditionType)

@@ -7,13 +7,9 @@ public class Ef_AddCardToField : Effect
 {
     // The card to summon (can be set dynamically in the ScriptableObject, e.g., Elite Guard)
     public CardObjects cardToSummon;
-    //public WhichField whichField;
 
-    //public enum WhichField
-    //{
-    //    PLAYERFIELD,
-    //    HORDEFIELD
-    //}
+
+    //------------------------//
 
     public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {

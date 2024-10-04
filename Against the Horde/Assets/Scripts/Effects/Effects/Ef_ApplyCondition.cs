@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Effects/Add Condition")]
-public class Ef_AddCondition : Effect
+[CreateAssetMenu(menuName = "ScriptableObjects/Effects/Condition_Apply")]
+public class Ef_ApplyCondition : Effect
 {
     //Amount to increase attack power by
-    public int divineShield;
+
+    public ConditionType conditionToGive;
+    public int val = 0;
 
     public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
@@ -23,13 +25,13 @@ public class Ef_AddCondition : Effect
                 CardDetails d = o.GetComponent<CardDetails>();
                 if (d != null)
                 {
-                    d.AddCondition(ConditionType.DivineShield, divineShield, true);
+                    d.AddCondition(conditionToGive, val);
                 }
             }
         }
         else
         {
-            Debug.LogError("Target is not of type Tg_ManualSelect");
+            Debug.LogError("No target exists for adding condition: "+conditionToGive);
         }
     }
 }

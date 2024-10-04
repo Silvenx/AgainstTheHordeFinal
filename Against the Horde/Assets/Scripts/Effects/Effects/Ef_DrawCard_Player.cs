@@ -5,19 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Effects/DrawCard_Player")]
 public class Ef_DrawCard_Player : Effect
 {
-    public int numberOfCards = 1;
+    //Number of Cards to draw from top of deck
+    public int cardsToDraw = 1;
 
 
-    public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
+    //------------------------//
+
+    public override IEnumerator ActivateEffect(Target target = null, GameObject thisCard = null)
     {
+        //Manager
+        PlayerManager playerManager = GameManager.Instance.playerManager;
+
+        //Draw a card
+        playerManager.DrawCardFromTopOfDeck(cardsToDraw);
+
         yield return null;
     }
-
-    //public override void ActivateEffect(Target target, GameObject thisCard = null)
-    //{
-    //    PlayerManager playerManager = GameManager.Instance.playerManager;
-
-    //    playerManager.DrawCardFromTopOfDeck(numberOfCards);
-    //}
-
 }
