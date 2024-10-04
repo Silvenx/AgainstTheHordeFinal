@@ -14,6 +14,8 @@ public class CardDetails : MonoBehaviour
     [Header("UI Fields")]
     public Image cardBorderImage;
     public Image cardCharacterArtImage;
+    public Image divineShieldArt;
+    public Image toughArt;
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI cardDescriptionText;
     public TextMeshProUGUI manaCostText;
@@ -151,6 +153,7 @@ public class CardDetails : MonoBehaviour
         rect.anchoredPosition = Vector2.zero;
 
         this.ActivateCardEffect(TriggerType.PLAY);
+        UpdateCardUI();
         //currentCoroutine = CharacterManager.LerpObjectMovement(this.gameObject, rect.anchoredPosition, Vector2.zero, 2f, 1.5f);
         //StartCoroutine(currentCoroutine);
     }
@@ -200,6 +203,7 @@ public class CardDetails : MonoBehaviour
             Debug.Log("Divine shield blocks the damage");
             damage = 0;
             RemoveCondition(ConditionType.DivineShield);
+            UpdateCardUI();
             return;
         }
         else if (hasTough)
@@ -291,7 +295,7 @@ public class CardDetails : MonoBehaviour
         //If condition doesn't exist on this card...
         //Create new condition and add it to list of conditions
         card.conditions.Add(new Condition(conditionType, value));
-
+        UpdateCardUI();
         Debug.Log($"{conditionType} added with value {value} to {card.cardName}");
 
         //TODO: switch case for every condition type, applying values/bool as appropriate.
@@ -302,6 +306,7 @@ public class CardDetails : MonoBehaviour
     //remove a condition completely from a card
     {
         card.conditions.RemoveAll(c => c.conditionType == conditionType);
+        UpdateCardUI();
         Debug.Log($"{conditionType} removed from {card.cardName}");
     }
 
@@ -330,6 +335,7 @@ public class CardDetails : MonoBehaviour
         {
             Debug.LogWarning($"{conditionType} not found on {card.cardName}");
         }
+        UpdateCardUI();
     }
 
     //--------------------------------------------------- Card Effects ---------------------------------------------------//
@@ -375,7 +381,26 @@ public class CardDetails : MonoBehaviour
             attackText.text = damage.ToString();
         }
 
-        //TODO: Change Colour of text if current /= base. otherwise set colour to normal
+        if (HasCondition(ConditionType.DivineShield))
+        {
+            divineShieldArt.gameObject.SetActive(true);
+        }
+        else
+        {
+            divineShieldArt.gameObject.SetActive(false);
+        }
+
+        if (HasCondition(ConditionType.Tough) && transform.parent != null && transform.parent.CompareTag("FieldSlot"))
+        {
+            toughArt.gameObject.SetActive(true);
+        }
+        else
+        {
+            toughArt.gameObject.SetActive(false);
+        }
+
+
+        //TODO: Change Colour of circle if current /= base. otherwise set colour to normal
     }
     private void SetCardUI(Sprite borderImage, Sprite characterArtImage, string cardName, string cardDescription, int manaCost, int health, int damage)
     {

@@ -29,6 +29,6 @@ MonoBehaviour:
     onPlaySound: {fileID: 0}
     abilities:
     - trigger: 1
-      effect: {fileID: 11400000, guid: 8a4423466bc389a458042cfa0f539acb, type: 2}
-      target: {fileID: 0}
+      effect: {fileID: 11400000, guid: d719f58a61abbcf4582e96b5b6b132a7, type: 2}
+      target: {fileID: 11400000, guid: 9fe0ccbbd6e30454fb506b0fb31bc600, type: 2}
     conditions: []
