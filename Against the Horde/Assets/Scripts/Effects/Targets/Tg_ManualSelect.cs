@@ -16,14 +16,16 @@ public class Tg_ManualSelect : Target
         HORDE_MONSTERS
     }
 
+    public bool canTargetSelf = true;
+    public bool canSelectSameTargetTwice = false;
 
-
-    private List<GameObject> selectedTargets = new List<GameObject>();
+    private List<GameObject> finalList = new List<GameObject>();
 
 
 
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
+        finalList.Clear();
         // Start the coroutine to handle player selection and wait for it to complete
         yield return GameManager.Instance.StartCoroutine(HandlePlayerSelection(thisCard));
     }
@@ -52,12 +54,27 @@ public class Tg_ManualSelect : Target
                 break;
         }
 
+        //If not allowed to target self, remove thisCard from list of potential targets
+        if (!canTargetSelf)
+        {
+            //If list of potential targets includes this card
+            if (potentialTargets.Contains(thisCard))
+            {
+                potentialTargets.Remove(thisCard);
+            }
+        }
+
+        //If no potential targets, end selection method
+        if (potentialTargets.Count == 0)
+        {
+            yield return null;
+        }
 
         // FUTURE: Add in highlight targets here
 
-        selectedTargets.Clear();
+        finalList.Clear();
 
-        while (selectedTargets.Count < numberOfTargets)
+        while (finalList.Count < numberOfTargets)
         {
             // Wait for player input
             bool haveTargetList = false;
@@ -77,10 +94,21 @@ public class Tg_ManualSelect : Target
                         //Check if one of those objects is a card in the potential list of targets
                         if (objectsUnderMouse.Contains(card))
                         {
-                            selectedTargets.Add(card);
-                            Debug.Log("Card "+card.name+" was successfully found.");
-                            haveTargetList = true;
-                            break;
+                            //If I can not select a card more than once & this card has already been selected
+                            if (!canSelectSameTargetTwice && potentialTargets.Contains(card))
+                            {
+                                //Don't add card to list
+                                break;
+                            }
+                            //Otherwise, good to add card to list
+                            else
+                            {
+                                //Add card to list of selectabled objects
+                                finalList.Add(card);
+                                Debug.Log("Card " + card.name + " was successfully found.");
+                                haveTargetList = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -96,6 +124,6 @@ public class Tg_ManualSelect : Target
     // Method to retrieve selected targets after selection is complete
     public override GameObject[] getTargets()
     {
-        return selectedTargets.ToArray();
+        return finalList.ToArray();
     }
 }

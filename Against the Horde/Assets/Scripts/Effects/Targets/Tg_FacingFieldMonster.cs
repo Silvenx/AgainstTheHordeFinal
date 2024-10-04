@@ -9,6 +9,7 @@ public class Tg_FacingFieldMonster : Target
 
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
+        finaList.Clear();
         // Start the coroutine to handle player selection and wait for it to complete
         yield return GameManager.Instance.StartCoroutine(GetMyTargets(thisCard));
     }
@@ -17,7 +18,7 @@ public class Tg_FacingFieldMonster : Target
     {
         FieldManager fieldManager = GameManager.Instance.fieldManager;
         //Find Card's Position on the Field.
-        //Bool = isCardonPlayer's Field
+        //bool = isCardonPlayer's Field. int = where on field that card is (0 = left most)
         (bool, int) fieldSlot = fieldManager.getCardsFieldSlotPosition(thisCard);
 
         List<GameObject> targets = new List<GameObject>();
