@@ -10,25 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7654bdcfb9ef09b46aa859ad7d0b746e, type: 3}
-  m_Name: Miretoad
+  m_Name: EliteGuard
   m_EditorClassIdentifier: 
   card:
-    borderArt: {fileID: 21300000, guid: 576d7b80865e8d140973e51e27ed7aec, type: 3}
-    characterArt: {fileID: 21300000, guid: b9d7524117fc03149a579743b4989f61, type: 3}
-    cardName: Miretoad
-    cardDescription: 'Summon: gain divine shield'
-    baseManaCost: 0
+    borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
+    characterArt: {fileID: 21300000, guid: 9c16c7b0ab36944499fee4a411ab7f30, type: 3}
+    cardName: Elite Guard
+    cardDescription: 
+    baseManaCost: 2
     currentEnergyCost: 0
     baseHealth: 3
     maximumHealth: 0
     currentHealth: 0
-    baseAttack: 3
+    baseAttack: 1
     currentAttack: 0
     cardType: 0
-    cardAllegiance: 1
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}
-    abilities:
-    - trigger: 1
-      effect: {fileID: 11400000, guid: d719f58a61abbcf4582e96b5b6b132a7, type: 2}
-      target: {fileID: 11400000, guid: 1c71795b7051bfd408c7af17803d0dda, type: 2}
+    abilities: []
     conditions: []

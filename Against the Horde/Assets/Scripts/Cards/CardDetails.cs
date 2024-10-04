@@ -197,7 +197,7 @@ public class CardDetails : MonoBehaviour
         {
             Debug.Log("Divine shield blocks the damage");
             damage = 0;
-            //FIX THIS UP
+            RemoveCondition(ConditionType.DivineShield);
         }
         else if (toughReduction > 0)
         {

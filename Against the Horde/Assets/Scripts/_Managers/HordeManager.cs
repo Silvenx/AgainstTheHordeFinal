@@ -7,6 +7,7 @@ public class HordeManager : CharacterManager
 
     [Header("Horde Specific")]
     public PlayerManager playerManager;
+    public CardDetails cardDetails;
 
     public void GameSetup(DeckObjects deck)
     {
@@ -40,6 +41,7 @@ public class HordeManager : CharacterManager
             {
                 cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
                 Debug.Log($"Horde card placed in slot {applicableFieldSlots[0].name}");
+                //cardObject.GetComponent<CardDetails>().ActivateCardEffect(TriggerType.PLAY);//JP 03.10.24 - This is somewhere else, oops. 
             }
 
             //If none are found then the card is discarded
