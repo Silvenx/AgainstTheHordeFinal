@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea597b4f6a327004c8c35db52a47bbfb, type: 3}
   m_Name: PlayerDraw_1
   m_EditorClassIdentifier: 
-  numberOfCards: 1
+  cardsToDraw: 2

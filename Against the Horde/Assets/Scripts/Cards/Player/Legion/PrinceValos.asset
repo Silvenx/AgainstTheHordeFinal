@@ -31,7 +31,7 @@ MonoBehaviour:
     abilities:
     - trigger: 1
       effect: {fileID: 11400000, guid: 3b876f4b8392307428411d3a3fbf92d5, type: 2}
-      target: {fileID: 11400000, guid: a65bb4f5fa370d4429927f112c3634ea, type: 2}
+      target: {fileID: 11400000, guid: eace43ae6a7ff9f4abb8bdef253a7c19, type: 2}
     - trigger: 3
       effect: {fileID: 11400000, guid: 005521caac7e1604284a5572e6978342, type: 2}
       target: {fileID: 11400000, guid: 1a1d76a3925c3ae43b7bbce339ae0a2f, type: 2}

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac20ae08de0442f408a0535812101369, type: 3}
   m_Name: GiveDivineShield
   m_EditorClassIdentifier: 
-  divineShield: 1
+  conditionToGive: 7
+  val: 0
