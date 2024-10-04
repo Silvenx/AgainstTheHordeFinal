@@ -6,18 +6,18 @@ using UnityEngine;
 public class Ef_DealDamage : Effect
 {
     //DamageToDeal
-    public int damage = 4;
+    public int damage = 1;
+
+
+    //------------------------//
 
     public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
-        yield return null;
-    }
+        yield return GameManager.Instance.StartCoroutine(target.TargetAquisition(thisCard));
 
-    //public override void ActivateEffect(Target target, GameObject thisCard)
-    //{
-    //    foreach (GameObject o in target.TargetAquisition())
-    //    {
-    //        o.GetComponent<CardDetails>().TakeLifeDamage(damage);
-    //    }
-    //}
+        foreach (GameObject o in target.getTargets())
+        {
+            o.GetComponent<CardDetails>().TakeLifeDamage(damage);
+        }
+    }
 }

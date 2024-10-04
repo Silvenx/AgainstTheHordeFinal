@@ -189,21 +189,25 @@ public class CardDetails : MonoBehaviour
 
     public void TakeLifeDamage(int damage)
     {
+        bool hasDivineShield = HasCondition(ConditionType.DivineShield);
+        bool hasTough = HasCondition(ConditionType.Tough);
         //Divine shield if statement
-        int divineShield = GetConditionValue(ConditionType.DivineShield);
-        int toughReduction = GetConditionValue(ConditionType.Tough);
+        //int divineShield = GetConditionValue(ConditionType.DivineShield);
+        //int toughReduction = GetConditionValue(ConditionType.Tough);
 
-        if (divineShield > 0)
+        if (hasDivineShield)
         {
             Debug.Log("Divine shield blocks the damage");
             damage = 0;
             RemoveCondition(ConditionType.DivineShield);
+            return;
         }
-        else if (toughReduction > 0)
+        else if (hasTough)
         {
+            int toughVal = GetConditionValue(ConditionType.Tough);
             //May need to remove or leave this in future depending on whether we need tough to stack
-            Debug.Log($"Reducing damage by {toughReduction} due to Tough.");
-            damage -= toughReduction;
+            Debug.Log($"Reducing damage by {toughVal} due to Tough.");
+            damage -= toughVal;
         }
 
         ModifyCurrentHealth(-damage);
@@ -286,7 +290,7 @@ public class CardDetails : MonoBehaviour
         }
         //If condition doesn't exist on this card...
         //Create new condition and add it to list of conditions
-        card.conditions.Add(new Condition(conditionType, value, true));
+        card.conditions.Add(new Condition(conditionType, value));
 
         Debug.Log($"{conditionType} added with value {value} to {card.cardName}");
 

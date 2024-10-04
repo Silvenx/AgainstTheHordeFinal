@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c941bc2212a3508438da279d397c5bdf, type: 3}
-  m_Name: AddZealToHand_1
+  m_Script: {fileID: 11500000, guid: 5bdac31b2f84a604ea1792acd42e0237, type: 3}
+  m_Name: 4Damage
   m_EditorClassIdentifier: 
-  whereDoesCardComeFrom: 0
-  cardsToAddToHand:
-  - {fileID: 11400000, guid: a0092cd78fac9bf4c82e7d2576093307, type: 2}
+  damage: 4

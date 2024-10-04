@@ -71,16 +71,31 @@ public class Deck
     //Removes specific card from deck and returns it if card exists in deck
     public Card TakeCard(Card card)
     {
-        Card c = null;
-        //If card exists in the deck
-        if (getDeck().Contains(card))
+        foreach (Card crd in getDeck())
         {
-            //Removes card from deck
-            cardList.Remove(card);
-            //Gives card
-            c = card;
+            //Checks if card exists in deck by matching name (mydeck.Contains wasn't working)
+            if (crd.cardName.Contains(card.cardName))
+            {
+                Debug.Log("Card with name: " + card.cardName+". Does infact exist");
+                //Removes card from deck
+                cardList.Remove(crd);
+                //Gives card
+                return crd;
+            }
         }
-        return c;
+        ////If card exists in the deck
+        //if (getDeck().Contains(card))
+        //{
+        //    Debug.Log("Deck does in fact contain: " + card.cardName);
+        //    //Removes card from deck
+        //    cardList.Remove(card);
+        //    //Gives card
+        //    c = card;
+        //}
+
+        //Debug.Log("Trying to find: " + card.cardName + ". Found: " + c);
+
+        return null;
     }
 
     private Card checkTopCard()

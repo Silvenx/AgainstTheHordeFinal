@@ -20,13 +20,13 @@ public class Condition
 {
     public ConditionType conditionType; // The type of condition 
     public int value; // The value associated with the condition, stacks essentially
-    public bool isActive;
+    //public bool isActive;
 
-    public Condition(ConditionType conditionType, int value, bool isActive)
+    public Condition(ConditionType conditionType, int value)
     {
         this.conditionType = conditionType;
         this.value = value;
-        this.isActive = isActive;
+        //this.isActive = isActive;
     }
 }
 

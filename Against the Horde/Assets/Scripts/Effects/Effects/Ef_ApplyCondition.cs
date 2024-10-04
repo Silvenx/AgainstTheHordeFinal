@@ -6,8 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Effects/Condition_Apply")]
 public class Ef_ApplyCondition : Effect
 {
-    //Amount to increase attack power by
-
     public ConditionType conditionToGive;
     public int val = 0;
 
