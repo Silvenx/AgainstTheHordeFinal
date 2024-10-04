@@ -27,3 +27,7 @@ MonoBehaviour:
     cardType: 0
     cardAllegiance: 1
     onPlaySound: {fileID: 0}
+    abilities: []
+    conditions:
+    - conditionType: 6
+      value: 1

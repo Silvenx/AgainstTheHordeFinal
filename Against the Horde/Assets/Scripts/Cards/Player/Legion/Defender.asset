@@ -27,8 +27,5 @@ MonoBehaviour:
     cardType: 0
     cardAllegiance: 0
     onPlaySound: {fileID: 0}
-    abilities:
-    - trigger: 1
-      effect: {fileID: 11400000, guid: 005521caac7e1604284a5572e6978342, type: 2}
-      target: {fileID: 11400000, guid: 1c71795b7051bfd408c7af17803d0dda, type: 2}
+    abilities: []
     conditions: []

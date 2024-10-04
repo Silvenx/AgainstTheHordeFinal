@@ -18,9 +18,6 @@ MonoBehaviour:
     cardName: Purple Tonk
     cardDescription: 'Tough Retaliate 1 '
     baseManaCost: 0
-    conditions:
-    - conditionType: 0
-      value: 1
     currentEnergyCost: 0
     baseHealth: 5
     maximumHealth: 0
@@ -30,3 +27,7 @@ MonoBehaviour:
     cardType: 0
     cardAllegiance: 1
     onPlaySound: {fileID: 0}
+    abilities: []
+    conditions:
+    - conditionType: 0
+      value: 1
