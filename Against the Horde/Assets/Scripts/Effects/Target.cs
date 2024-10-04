@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class Target : ScriptableObject
 {
+    //List to be retrieved
+    protected List<GameObject> finalList = new List<GameObject>();
+
     public abstract IEnumerator TargetAquisition(GameObject thisCard = null);
 
     public abstract GameObject[] getTargets();

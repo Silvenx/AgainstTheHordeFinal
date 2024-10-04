@@ -19,8 +19,6 @@ public class Tg_ManualSelect : Target
     public bool canTargetSelf = true;
     public bool canSelectSameTargetTwice = false;
 
-    private List<GameObject> finalList = new List<GameObject>();
-
 
 
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
@@ -72,8 +70,6 @@ public class Tg_ManualSelect : Target
 
         // FUTURE: Add in highlight targets here
 
-        finalList.Clear();
-
         while (finalList.Count < numberOfTargets)
         {
             // Wait for player input
@@ -95,8 +91,9 @@ public class Tg_ManualSelect : Target
                         if (objectsUnderMouse.Contains(card))
                         {
                             //If I can not select a card more than once & this card has already been selected
-                            if (!canSelectSameTargetTwice && potentialTargets.Contains(card))
+                            if (!canSelectSameTargetTwice && finalList.Contains(card))
                             {
+                                Debug.Log("Can not choose this target: " + card.name);
                                 //Don't add card to list
                                 break;
                             }

@@ -5,11 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Target/Target_FacingFieldMonster")]
 public class Tg_FacingFieldMonster : Target
 {
-    public List<GameObject> finaList = new List<GameObject>();
 
     public override IEnumerator TargetAquisition(GameObject thisCard = null)
     {
-        finaList.Clear();
+        finalList.Clear();
         // Start the coroutine to handle player selection and wait for it to complete
         yield return GameManager.Instance.StartCoroutine(GetMyTargets(thisCard));
     }
@@ -29,7 +28,7 @@ public class Tg_FacingFieldMonster : Target
         catch (UnityException e) { Debug.LogWarning("No monster on opposite side of this card. Targeting failed." + e); }
 
 
-        finaList.AddRange(targets);
+        finalList.AddRange(targets);
 
         yield return null;
     }
@@ -37,6 +36,6 @@ public class Tg_FacingFieldMonster : Target
     // Method to retrieve selected targets after selection is complete
     public override GameObject[] getTargets()
     {
-        return finaList.ToArray();
+        return finalList.ToArray();
     }
 }
