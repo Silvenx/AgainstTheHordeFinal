@@ -1341,7 +1341,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 800.27, y: 319.93}
   m_EdgeRadius: 0
 --- !u!50 &559049171
 Rigidbody2D:
@@ -5074,6 +5074,7 @@ MonoBehaviour:
   maxHandSize: 12
   distanceBetweenCardsInHand: 45
   cardBeingMoved: {fileID: 0}
+  objectsUnderMouseOnClickCardObject: []
   deckPositionRelativeToHand: {fileID: 1576971190}
 --- !u!114 &1768198608
 MonoBehaviour:
@@ -5147,6 +5148,7 @@ MonoBehaviour:
   lifeforce: 30
   lifeforceText: {fileID: 40921014}
   playerManager: {fileID: 1768198607}
+  cardDetails: {fileID: 0}
 --- !u!1 &1880093931
 GameObject:
   m_ObjectHideFlags: 0

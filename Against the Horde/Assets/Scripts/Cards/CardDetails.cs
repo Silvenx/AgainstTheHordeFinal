@@ -158,6 +158,11 @@ public class CardDetails : MonoBehaviour
         //StartCoroutine(currentCoroutine);
     }
 
+    public void PlaySpellCard()
+    {
+        this.ActivateCardEffect(TriggerType.PLAY);
+    }
+
 
     //Increase or Decreases the Mana Cost of the card
     public void ModifyManaCost(int amountToIncrease)
@@ -254,9 +259,6 @@ public class CardDetails : MonoBehaviour
 
     public void CardDeath()
     {
-
-
-
         //Check if the card is player
         bool isCardAllegiancePlayer = card.cardAllegiance == Card.ALLEGIANCE.PLAYER;
 
@@ -357,6 +359,7 @@ public class CardDetails : MonoBehaviour
                 StartCoroutine(ability.effect.ActivateEffect(ability.target, this.gameObject));
             }
         }
+
     }
 
 

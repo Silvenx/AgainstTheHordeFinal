@@ -113,7 +113,7 @@ public class CardEventTrigger : EventTrigger
             gameManager.ModifyCurrentEnergy(-thisCard.currentEnergyCost);
             //Make it so player can't drag card anymore
             cDetails.canDrag = false;
-            
+
 
             ///Trigger Card's OnPlay() Effects
             //TODO
@@ -130,38 +130,63 @@ public class CardEventTrigger : EventTrigger
     {
         //Grab the Spell play area
         GameObject spellPlayArea = GameObject.Find("Field_SpellPlayArea");
-        GameObject spellHoldArea = GameObject.Find("Field_SpellHoldArea");
+        GameObject spellHoldArea = GameObject.Find("Field_SpellHold");
         CardDetails cDetails = GetComponent<CardDetails>();
 
-        if (pointOverSpellPlayArea == true)
+        //Get mouse position
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        //2D raycast
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
+        Debug.Log("Number of objects hit: " + hits.Length);
+
+        bool spellPlaced = false;
+
+        //I think check mana and spell type here? or nah
+
+        foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log("YAY!");
-            //remove from hand
-            playerManager.RemoveCardFromHand(this.gameObject);
+            if (hit.collider != null && hit.collider.gameObject == spellPlayArea)
+            {
+                Debug.Log("Spell found the play area");
 
-            //Move card to spell hold area
-            transform.SetParent(spellHoldArea.transform, false);
-            transform.localPosition = Vector3.zero;
+                //remove from hand
+                playerManager.RemoveCardFromHand(this.gameObject);
 
-            // Disable dragging
-            cDetails.canDrag = false;
+                //Need to check here what type of spell
+                bool requiresManualTargeting = false;
+                foreach (var ability in thisCard.abilities)
+                {
+                    if (ability.target is Tg_ManualSelect)
+                    {
+                        requiresManualTargeting = true;
+                        break;
+                    }
+                }
 
-            // Spend Mana
-            gameManager.ModifyCurrentEnergy(-thisCard.currentEnergyCost);
+                if (requiresManualTargeting)
+                {
+                    //Move card to spell hold area
+                    transform.SetParent(spellHoldArea.transform, false);
+                    transform.localPosition = Vector3.zero;
+                    cDetails.PlaySpellCard();
+                    //cDetails.CardDeath(); - moved to playspell
+                }
+                // Disable dragging
+                cDetails.canDrag = false;
+
+                // Spend Mana
+                gameManager.ModifyCurrentEnergy(-thisCard.currentEnergyCost);
+
+                spellPlaced = true;
+                break;
+            }
         }
-        else
+        if (!spellPlaced)
         {
-            Debug.Log("BOO");
+            Debug.Log("spell failed to hit the area");
             playerManager.OrganiseHand(playerManager.cardMoveSpeed * 2f);
         }
-        // Start target selection
-        //StartTargetSelection();
-
-        //Check if over the spell play area
-        //Move card to the spell hold area
-        //activate its effect
-        ////discard should be inside the effect
-
     }
 
     private void ObjectFollowMousePointer()
@@ -174,7 +199,9 @@ public class CardEventTrigger : EventTrigger
     //----------------Card Enter Field Slot Events----------------//
 
     private GameObject selectedFieldSlot;
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    //JP 05.10.24 - No longer used, removed
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("FieldSlot"))
         {
@@ -187,7 +214,7 @@ public class CardEventTrigger : EventTrigger
             Debug.Log("Spell area alerrrrrrrt!");
             pointOverSpellPlayArea = true;
         }
-    }
+    }*/
     private void OnTriggerExit2D(Collider2D collision)
     {
         // Check if we exited a field slot
