@@ -378,6 +378,26 @@ public class GameManager : MonoBehaviour
         currentEnergyText.text = currentEnergy.ToString();
     }
 
+    //Updates current energy variable and UI
+    public void SetMaxEnergy(int newMaxEnergyValue, bool isDebug)
+    {
+        if (!isDebug)
+        {
+            if (newMaxEnergyValue > 10)
+            {
+                newMaxEnergyValue = 10;
+            }
+            maxEnergy = newMaxEnergyValue;
+            maxEnergyText.text = maxEnergy.ToString();
+        }
+        else if (isDebug)
+        {
+            maxEnergy = newMaxEnergyValue;
+            maxEnergyText.text = maxEnergy.ToString();
+        }
+        Debug.Log("Max Energy set to: " + maxEnergy);
+    }
+
     //--------------------------------------------------- COMBAT PROCESSING ---------------------------------------------------//
 
     //Processes the combat between monsters

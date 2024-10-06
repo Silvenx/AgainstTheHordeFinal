@@ -12,7 +12,7 @@ public class CardEventTrigger : EventTrigger
     private Canvas myCanvas;
     private Card thisCard;
     private bool pointerOverCard = false; ////Branch1.0-Added variable
-    private bool pointOverSpellPlayArea = false;
+    //private bool pointOverSpellPlayArea = false;
 
     private void Start()
     {
@@ -53,7 +53,6 @@ public class CardEventTrigger : EventTrigger
     public override void OnEndDrag(PointerEventData data)
     {
         PlayDraggedCard();
-
     }
 
     //Called every frame during a drag
@@ -200,21 +199,20 @@ public class CardEventTrigger : EventTrigger
 
     private GameObject selectedFieldSlot;
 
-    //JP 05.10.24 - No longer used, removed
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("FieldSlot"))
         {
             selectedFieldSlot = collision.gameObject;
         }
 
+        /*JP 06.10.24 - Using Raycasting instead, so removed this logic
         // Check if we entered the spell play area
         if (collision.gameObject.CompareTag("SpellPlayArea"))
         {
-            Debug.Log("Spell area alerrrrrrrt!");
             pointOverSpellPlayArea = true;
-        }
-    }*/
+        }*/
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         // Check if we exited a field slot
@@ -226,10 +224,10 @@ public class CardEventTrigger : EventTrigger
             }
         }
         // Check if we exited the spell play area
-        if (collision.gameObject.CompareTag("SpellPlayArea"))
+        /*if (collision.gameObject.CompareTag("SpellPlayArea"))
         {
             pointOverSpellPlayArea = false;
-        }
+        }*/
     }
 
     //--------------------------------On Clicks--------------------------------//
