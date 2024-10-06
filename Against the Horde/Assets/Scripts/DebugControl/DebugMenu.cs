@@ -29,6 +29,14 @@ public class DebugMenu : MonoBehaviour
         playerManager.DrawCardFromTopOfDeck();
     }
 
+    public void DebugDrawFullHand()
+    {
+        int maxCardsInHand = playerManager.maxHandSize;
+        int currentHandSize = playerManager.playerHand.Count;
+        int cardsToDraw = maxCardsInHand - currentHandSize;
+        playerManager.DrawCardFromTopOfDeck(cardsToDraw);
+    }
+
     public void DebugSetEnergyHigh()
     {
         int energyToSet = 55;

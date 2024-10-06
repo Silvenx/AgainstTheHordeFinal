@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
         ROUNDEND
     }
 
+    [Header("CursorSkin")]
+    public Texture2D mainCursorTexture;
+    public Vector2 hotspot = Vector2.zero;
+    public CursorMode cursorMode = CursorMode.Auto;
+
     [Header("Misc")]
     public GameObject magnifiedCard;
     public float timeToWaitForMagnifiedCard = 1.5f;
@@ -136,6 +141,9 @@ public class GameManager : MonoBehaviour
 
         //Enters the first round of the game
         SetTurnPhase(TurnPhase.STARTROUND);
+
+        //Set the default cursor
+        SetMainCursorSkin();
     }
 
     //-----------------------------------------------------------------------------------------------------//
@@ -448,6 +456,18 @@ public class GameManager : MonoBehaviour
 
         //Apply it inversely to the player lifeforce
         playerManager.ModifyCharacterLifeForce(-damage);
+    }
+    //----------------------------------------------- MOUSE POINTER -----------------------------------------------//
+
+    void SetMainCursorSkin()
+    {
+        Cursor.SetCursor(mainCursorTexture, hotspot, cursorMode);
+    }
+
+    void OnDisable()
+    {
+        // Reset the cursor to the default if GameManager is disabled or exits
+        Cursor.SetCursor(null, Vector2.zero, cursorMode);
     }
 
     //--------------------------------------------------- MISC ---------------------------------------------------//
