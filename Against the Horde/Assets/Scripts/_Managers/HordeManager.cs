@@ -28,6 +28,7 @@ public class HordeManager : CharacterManager
     {
         //Select Card Object
         GameObject cardObject = gameManager.CreateCardObject(card);
+        var cardDetails = cardObject.GetComponent<CardDetails>();
 
         //JP 07.10.24 - Adjusted to Case statement
         switch (card.cardType)
@@ -52,9 +53,15 @@ public class HordeManager : CharacterManager
                 break;
 
             case Card.CARDTYPE.SPELL:
-                //Play card
+                //Play the spell
+                //THIS IS CURRENTLY FAILING - i think it's on targeting? It is running through though and not crashing the game.
+                Debug.Log($"Card details: {cardDetails}");
+                Debug.Log($"Card Object: {cardObject}");
+                Debug.Log($"Card Details: {cardObject?.GetComponent<CardDetails>()}");
+                this.cardDetails.ActivateCardEffect(TriggerType.PLAY);
                 //FUTURE: Allow for reaction time
-                //Discard card
+                //Discard the spell
+                FieldManager.SendCardObjectToGraveyard(cardObject, false);
                 break;
 
 
