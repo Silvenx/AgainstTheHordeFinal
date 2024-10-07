@@ -26,46 +26,85 @@ public class HordeManager : CharacterManager
 
     private void PlayHordeCard(Card card)
     {
-        //Create Card Object
+        //Select Card Object
         GameObject cardObject = gameManager.CreateCardObject(card);
 
-        //JP 28.09.24 - Added if on monster
-        //FUTURE: Does this need to be case?
-        if (card.cardType == Card.CARDTYPE.MONSTER)
+        //JP 07.10.24 - Adjusted to Case statement
+        switch (card.cardType)
         {
-            //Calls the method to find gameslots available against a player and then just free
-            List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
+            case Card.CARDTYPE.MONSTER:
+                //Calls the method to find gameslots available against a player and then just free
+                List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
 
-            //If a free slot is found it's played here
-            if (applicableFieldSlots.Count > 0)
-            {
-                cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
-                Debug.Log($"Horde card placed in slot {applicableFieldSlots[0].name}");
-                //cardObject.GetComponent<CardDetails>().ActivateCardEffect(TriggerType.PLAY);//JP 03.10.24 - This is somewhere else, oops. 
-            }
+                //If a free slot is found it's played here
+                if (applicableFieldSlots.Count > 0)
+                {
+                    cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
+                    Debug.Log($"Horde card placed in slot {applicableFieldSlots[0].name}");
+                }
 
-            //If none are found then the card is discarded
-            else
-            {
-                Debug.Log("All horde slots are full. Sending card to graveyard.");
-                FieldManager.SendCardObjectToGraveyard(cardObject, false);
-            }
-        }
-        //JP 28.09.24 - Added in field play
-        else if (card.cardType == Card.CARDTYPE.FIELD)
-        {
-            List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
-            cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
-        }
-        else
-        {
-            //JP 28.09.24 - Discard the card
-            //FUTURE: Add spell effects here, probably again in case
-            FieldManager.SendCardObjectToGraveyard(cardObject, false);
-        }
+                //If none are found then the card is discarded
+                else
+                {
+                    Debug.Log("All horde slots are full. Sending card to graveyard.");
+                    FieldManager.SendCardObjectToGraveyard(cardObject, false);
+                }
+                break;
 
+            case Card.CARDTYPE.SPELL:
+                //Play card
+                //FUTURE: Allow for reaction time
+                //Discard card
+                break;
+
+
+            case Card.CARDTYPE.FIELD:
+                List<GameObject> applicableFieldCardSlot = fieldManager.ApplicableFieldSlotsToPlay(false, card);
+                cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldCardSlot[0]);
+                break;
+        }
     }
 
+    /*
+            if (card.cardType == Card.CARDTYPE.MONSTER)
+            {
+                //Calls the method to find gameslots available against a player and then just free
+                List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
+
+                //If a free slot is found it's played here
+                if (applicableFieldSlots.Count > 0)
+                {
+                    cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
+                    Debug.Log($"Horde card placed in slot {applicableFieldSlots[0].name}");
+                    //cardObject.GetComponent<CardDetails>().ActivateCardEffect(TriggerType.PLAY);//JP 03.10.24 - This is somewhere else, oops. 
+                }
+
+                //If none are found then the card is discarded
+                else
+                {
+                    Debug.Log("All horde slots are full. Sending card to graveyard.");
+                    FieldManager.SendCardObjectToGraveyard(cardObject, false);
+                }
+            }
+            //JP 28.09.24 - Added in field play
+            else if (card.cardType == Card.CARDTYPE.FIELD)
+            {
+                List<GameObject> applicableFieldSlots = fieldManager.ApplicableFieldSlotsToPlay(false, card);
+                cardObject.GetComponent<CardDetails>().PlayThisCardOnFieldSlot(applicableFieldSlots[0]);
+            }
+            else if (card.cardType == Card.CARDTYPE.SPELL)
+            {
+
+            }
+            else
+            {
+                //JP 28.09.24 - Discard the card
+                //FUTURE: Add spell effects here, probably again in case
+                FieldManager.SendCardObjectToGraveyard(cardObject, false);
+            }
+
+        }
+    */
     public Card getTopCardFromDeck(int amountToGet)
     {
         return myDeck.TakeTopCard();
