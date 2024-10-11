@@ -48,7 +48,7 @@ public class HordeManager : CharacterManager
                 else
                 {
                     Debug.Log("All horde slots are full. Sending card to graveyard.");
-                    FieldManager.SendCardObjectToGraveyard(cardObject, false);
+                    cardObject.GetComponent<CardDetails>().CardDeath();
                 }
                 break;
 
@@ -58,10 +58,12 @@ public class HordeManager : CharacterManager
                 Debug.Log($"Card details: {cardDetails}");
                 Debug.Log($"Card Object: {cardObject}");
                 Debug.Log($"Card Details: {cardObject?.GetComponent<CardDetails>()}");
-                this.cardDetails.ActivateCardEffect(TriggerType.PLAY);
+                cardObject.GetComponent<CardDetails>().PlaySpellCard();
+                //this.cardDetails.ActivateCardEffect(TriggerType.PLAY);
                 //FUTURE: Allow for reaction time
                 //Discard the spell
-                FieldManager.SendCardObjectToGraveyard(cardObject, false);
+                //JP 11.10.24 - Not needed, called in activate effect script, then graveyard script sorts out allegience
+                //cardObject.GetComponent<CardDetails>().CardDeath();
                 break;
 
 

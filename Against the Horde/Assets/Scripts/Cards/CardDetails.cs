@@ -267,7 +267,7 @@ public class CardDetails : MonoBehaviour
         //this.gameObject.GetComponent<EffectTriggers>().OnDeath();
 
         //remove from field
-        FieldManager.SendCardObjectToGraveyard(this.gameObject, isCardAllegiancePlayer);
+        FieldManager.SendCardObjectToGraveyard(this.gameObject);
 
         ResetCardStatsToBase();
     }

@@ -293,18 +293,22 @@ public class FieldManager : MonoBehaviour
         return false;
     }
 
-    public static void SendCardObjectToGraveyard(GameObject cardToRemove, bool isCardAllegiancePlayer)
+    public static void SendCardObjectToGraveyard(GameObject cardToRemove)
     {
+        //Grab the field Manager script so the card can be assigned to the graveyard
         FieldManager fieldManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<FieldManager>();
 
-        //Place card in player's graveyard
-        if (isCardAllegiancePlayer)
+        CardDetails cardDetails = cardToRemove.GetComponent<CardDetails>();
+        Card cardData = cardDetails.card;
+
+
+        if (cardData.cardAllegiance == Card.ALLEGIANCE.PLAYER)
         {
             fieldManager.playerGraveyardList.Add(cardToRemove);
             cardToRemove.transform.SetParent(fieldManager.playerGraveyardSlot.transform, false);
         }
         //Place card in horde's graveyard
-        else
+        if (cardData.cardAllegiance == Card.ALLEGIANCE.HORDE)
         {
             fieldManager.hordeGraveyardList.Add(cardToRemove);
             cardToRemove.transform.SetParent(fieldManager.hordeGraveyardSlot.transform, false);

@@ -83,7 +83,7 @@ public class PlayerManager : CharacterManager
         {
             CreateNewCardAndMoveToHand(myDeck.TakeCard(card));
         }
-        catch (System.NullReferenceException) { Debug.LogWarning("Card: "+card.cardName+". does not exist in the player's deck."); }
+        catch (System.NullReferenceException) { Debug.LogWarning("Card: " + card.cardName + ". does not exist in the player's deck."); }
     }
 
     private List<GameObject> getCardPositions()
@@ -126,11 +126,11 @@ public class PlayerManager : CharacterManager
         }
 
         //If hand is at capacity and there are no cards to draw
-        else 
+        else
         {
-            Debug.Log("Card discarded as hand is full:"+cardToDraw.cardName);
+            Debug.Log("Card discarded as hand is full:" + cardToDraw.cardName);
             GameObject cardObject = gameManager.CreateCardObject(cardToDraw);
-            FieldManager.SendCardObjectToGraveyard(cardObject, true);
+            FieldManager.SendCardObjectToGraveyard(cardObject);
         }
 
         //If there are no cards to draw
