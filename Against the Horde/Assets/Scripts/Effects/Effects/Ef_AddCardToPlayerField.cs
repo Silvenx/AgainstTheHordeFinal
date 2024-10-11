@@ -23,7 +23,7 @@ public class Ef_AddCardToField : Effect
         if (cardToSummon != null)
         {
             // Find available slots on the player's field
-            foreach(GameObject slot in targets)
+            foreach (GameObject slot in targets)
             {
                 //Debug.Log("Slot Position = " + slot.name);
                 //If slot doesn't have a monster already there...
@@ -37,10 +37,10 @@ public class Ef_AddCardToField : Effect
                 }
                 else
                 {
-                    Debug.LogWarning("Slot: '"+slot.name+"' is already taken by another monster.");
+                    Debug.LogWarning("Slot: '" + slot.name + "' is already taken by another monster.");
                 }
             }
-            
+
         }
         else
         {

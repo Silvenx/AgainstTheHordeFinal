@@ -26,4 +26,10 @@ MonoBehaviour:
     baseAttack: 0
     currentAttack: 0
     cardType: 1
+    cardAllegiance: 0
     onPlaySound: {fileID: 0}
+    abilities:
+    - trigger: 0
+      effect: {fileID: 0}
+      target: {fileID: 0}
+    conditions: []
