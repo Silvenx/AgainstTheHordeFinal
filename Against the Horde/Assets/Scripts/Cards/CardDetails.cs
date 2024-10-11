@@ -175,6 +175,7 @@ public class CardDetails : MonoBehaviour
         }
         UpdateCardUI();
     }
+
     //Increase or Decreases the Current Health of the card
     public void ModifyCurrentHealth(int amountToIncrease)
     {
@@ -347,7 +348,15 @@ public class CardDetails : MonoBehaviour
         //Exit if card has no abilities
         if (card.abilities == null) { return; }
 
-        //Check every ability listed on this card
+        //Start the coroutine to handle the ability order and discard
+        StartCoroutine(ProcessCardEffect(eventType));
+    }
+
+    private IEnumerator ProcessCardEffect(TriggerType eventType)
+    {
+        //This method handles ability order and discard
+
+        //Go through every ability listed on this card
         for (int i = 0; i < card.abilities.Count; i++)
         {
             var ability = card.abilities[i];
@@ -356,12 +365,17 @@ public class CardDetails : MonoBehaviour
             if (ability.trigger == eventType)
             {
                 //Trigger the ability
-                StartCoroutine(ability.effect.ActivateEffect(ability.target, this.gameObject));
+                yield return StartCoroutine(ability.effect.ActivateEffect(ability.target, this.gameObject));
             }
         }
 
-    }
+        //After going through all the abilities, if it's a spell discard it
+        if (card.cardType == Card.CARDTYPE.SPELL)
+        {
+            CardDeath();
+        }
 
+    }
 
     //--------------------------------------------------- Modify UI ---------------------------------------------------//
 
