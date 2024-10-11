@@ -6034,8 +6034,8 @@ MonoBehaviour:
   cardObjectPool: {fileID: 356552769}
   turnCount: 0
   currentTurn: 0
-  maxEnergy: 1
-  currentEnergy: 1
+  maxEnergy: 0
+  currentEnergy: 0
   energyGrowthCap: 10
   currentEnergyText: {fileID: 691371940}
   maxEnergyText: {fileID: 686145669}
