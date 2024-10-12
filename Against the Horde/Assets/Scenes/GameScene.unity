@@ -2666,6 +2666,7 @@ RectTransform:
   - {fileID: 239743324}
   - {fileID: 782175485}
   - {fileID: 259638290}
+  - {fileID: 1665905242}
   - {fileID: 356552770}
   - {fileID: 1654244802}
   - {fileID: 2021365786}
@@ -5913,6 +5914,41 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1281128623619727535, guid: f2b11272f9bad92438cb59f6059dc932, type: 3}
   m_PrefabInstance: {fileID: 1656264634}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1665905241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1665905242}
+  m_Layer: 5
+  m_Name: Mulligan_Area
+  m_TagString: MulliganArea
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1665905242
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665905241}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 931334047}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.00000011921, y: 0}
+  m_SizeDelta: {x: 228.18, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1671455126 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1281128623619727535, guid: f2b11272f9bad92438cb59f6059dc932, type: 3}
@@ -6040,6 +6076,7 @@ MonoBehaviour:
   currentEnergyText: {fileID: 691371940}
   maxEnergyText: {fileID: 686145669}
   turnCountText: {fileID: 0}
+  mulliganArea: {fileID: 1665905241}
   mainCursorTexture: {fileID: 2800000, guid: 05e999dc8626ef8459b569b052d1b8ff, type: 3}
   hotspot: {x: 0, y: 0}
   cursorMode: 0

@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI maxEnergyText;
     public TextMeshProUGUI turnCountText;
 
+    [Header("UI Objects")]
+    public GameObject mulliganArea;
+
     public enum TurnPhase
     {
         STARTROUND,         //Starts a new round, triggers On turn start card effects
@@ -249,16 +252,18 @@ public class GameManager : MonoBehaviour
     }
 
     private IEnumerator PhaseMulliganCoroutine()
-    //
+    //Handles the mulligan process
     {
+
         int finalStartingHandSize = playerManager.startingHandSize - 1;
 
         //Starting hand size is how many cards are there prior to the mull
-
+        //Draw the first set of cards without the pity 1 drop
         playerManager.DrawCardFromTopOfDeck(finalStartingHandSize);
+        //Draws the pity one drop or a regular card
         playerManager.DrawCardEnsuringOneCostCard();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
         NextPhase();
 

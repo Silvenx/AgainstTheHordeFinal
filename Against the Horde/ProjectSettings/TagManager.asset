@@ -10,6 +10,7 @@ TagManager:
   - FieldSlot
   - SpellPlayArea
   - SpellHoldArea
+  - MulliganArea
   layers:
   - Default
   - TransparentFX
