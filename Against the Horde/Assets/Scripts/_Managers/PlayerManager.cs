@@ -26,16 +26,17 @@ public class PlayerManager : CharacterManager
         //Populate Deck in game & Shuffle
         myDeck = new Deck(deck);
 
-        //Draw Cards to Hand from top of deck
-        DrawCardFromTopOfDeck(startingHandSize - 2); //minus 1 because method after ensures next draw is a 1 cost
-                                                     //minus another 1 because turnphase will trigger another card draw
-                                                     //Draws 1 card. If 1 cost card doesn't exist in player's hand, will force draw a random 1 cost from deck
-        DrawCardEnsuringOneCostCard();
-
+        //Draw Cards to Hand from top of deck //JP 12.10.24 - Removed, moved to GameManager to handle Mull
+        //minus 1 because method after ensures next draw is a 1 cost
+        //minus another 1 because turnphase will trigger another card draw
+        //Draws 1 card. If 1 cost card doesn't exist in player's hand, will force draw a random 1 cost from deck
+        //DrawCardFromTopOfDeck(startingHandSize - 2);
+        //DrawCardEnsuringOneCostCard();
     }
+    public void DrawCardEnsuringOneCostCard()
     //Checks hand if 1 cost card exists, if not draws a 1 cost card, if so draws top card
-    protected void DrawCardEnsuringOneCostCard()
     {
+
         //Check to see if hand has a 1 cost hand
         bool oneCostCardExistsInHand = false;
         foreach (GameObject o in playerHand)
@@ -63,9 +64,8 @@ public class PlayerManager : CharacterManager
             DrawCardFromDeck(oneCostCard);
         }
     }
-
-    //Draws Multiple Cards
     public void DrawCardFromTopOfDeck(int amountToDraw)
+    //Draws Multiple Cards
     {
         for (int i = 0; i < amountToDraw; i++)
         {

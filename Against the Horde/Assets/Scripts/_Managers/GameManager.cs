@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Runtime.Serialization.Json;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 
@@ -38,22 +39,15 @@ public class GameManager : MonoBehaviour
 
     public enum TurnPhase
     {
-        //New round begins
-        STARTROUND,
-        //Automated "start of turn" effects trigger
-        HORDEDRAWANDPLAY,
-        //Player can play cards
-        DRAW,
-        //NPC draws and plays card. If player can react to spell, allow so
-        STANDBY,
-        //Player draws card
-        PLAY,
-        //Player chooses to end turn
-        COMBAT,
-        //Final turn resolutions
-        PLAYEREND,
-        //Combat between all monsters ensues & lifepoint damage
-        ROUNDEND
+        STARTROUND,         //Starts a new round, triggers On turn start card effects
+        MULLIGAN,           //On the first turn, the player may discard and redraw cards
+        HORDEDRAWANDPLAY,   //Horde draws their cards and plays it, activates on draw effects, reactions would probably go here
+        PLAYERDRAW,         //Player draws cards, activates on draw effects
+        STANDBY,            //Reserved - not used yet
+        PLAYERPLAY,         //Player plays cards at this phase and chooses when to end turn
+        COMBAT,             //Combat occurs, left to right at the same time
+        PLAYEREND,          //End of turn effects activate
+        ROUNDEND            //Goes to next round, reserved for the future
     }
 
     [Header("CursorSkin")]
@@ -90,7 +84,6 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("PlayerManager not found in the scene.");
             }
         }
-
         // Ensure CardDatabase is assigned
         if (cardDatabase == null)
         {
@@ -106,7 +99,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject o = Instantiate(cardPrefab, cardObjectPool.transform);
             o.SetActive(false);
-
         }
     }
     public GameObject CreateCardObject(Card card)
@@ -150,8 +142,8 @@ public class GameManager : MonoBehaviour
 
     //----------------------------------------Game Round Management----------------------------------------//
 
+    public void NextPhase()
     //Cycles to next turn phase
-    public void NextTurnPhase()
     {
         //If at final turn phase
         if (currentTurn == TurnPhase.ROUNDEND)
@@ -169,47 +161,52 @@ public class GameManager : MonoBehaviour
         TriggerTurnPhasesMethod(currentTurn);
     }
 
-    //Manually triggers specific turnphase
     public void SetTurnPhase(TurnPhase newTurnPhase)
+    //Manually triggers specific turnphase
     {
         currentTurn = newTurnPhase;
         TriggerTurnPhasesMethod(newTurnPhase);
     }
+
     private void TriggerTurnPhasesMethod(TurnPhase newTurnPhase)
     {
-        Debug.Log($"Current Turn Phase: {currentTurn}"); // Log current turn phase
+        Debug.Log($"Turn {turnCount}, Phase: {currentTurn}"); // Log current turn phase
         switch (currentTurn)
         {
             case TurnPhase.STARTROUND:
-                EnterNewRound();
+                PhaseStartRound();
+                break;
+
+            case TurnPhase.MULLIGAN:
+                PhaseMulligan();
                 break;
 
             case TurnPhase.HORDEDRAWANDPLAY:
-                HordeDrawAndPlay();
+                PhaseHordeDrawAndPlay();
                 break;
 
-            case TurnPhase.DRAW:
-                PlayerDraw();
+            case TurnPhase.PLAYERDRAW:
+                PhasePlayerDraw();
                 break;
 
             case TurnPhase.STANDBY:
-                StartOfTurnEffectTrigger();
+                PhaseStandby();
                 break;
 
-            case TurnPhase.PLAY:
-                PlayerGainControl();
+            case TurnPhase.PLAYERPLAY:
+                PhasePlayerPlay();
                 break;
 
             case TurnPhase.COMBAT:
-                CombatPhase();
+                PhaseCombat();
                 break;
 
             case TurnPhase.PLAYEREND:
-                EndOfTurnEffectTrigger();
+                PhasePlayerEnd();
                 break;
 
             case TurnPhase.ROUNDEND:
-                EndOfRound();
+                PhaseRoundEnd();
                 break;
 
             default:
@@ -219,8 +216,7 @@ public class GameManager : MonoBehaviour
 
     //--------------------------------------------------- ROUND LOGIC ---------------------------------------------------//
 
-
-    private void EnterNewRound()
+    private void PhaseStartRound()
     {
         //Increase Round Counter
         turnCount += 1;
@@ -233,17 +229,50 @@ public class GameManager : MonoBehaviour
         SetCurrentEnergy(maxEnergy);
         maxEnergyText.text = maxEnergy.ToString();
 
+        //FUTURE: Add start of turn effects
+
         //Next Phase (Automatic)
-        NextTurnPhase();
+        NextPhase();
     }
-    private void HordeDrawAndPlay()
+
+    private void PhaseMulligan()
+    //Handles the Mulligan of the player's hand on turn one
+    {
+        if (turnCount == 1)
+        {
+            StartCoroutine(PhaseMulliganCoroutine());
+        }
+        else if (turnCount > 1)
+        {
+            NextPhase();
+        }
+    }
+
+    private IEnumerator PhaseMulliganCoroutine()
+    //
+    {
+        int finalStartingHandSize = playerManager.startingHandSize - 1;
+
+        //Starting hand size is how many cards are there prior to the mull
+
+        playerManager.DrawCardFromTopOfDeck(finalStartingHandSize);
+        playerManager.DrawCardEnsuringOneCostCard();
+
+        yield return new WaitForSeconds(2f);
+
+        NextPhase();
+
+    }
+
+
+    private void PhaseHordeDrawAndPlay()
     {
         //Horde Draw
         hordeManager.HordePlayFromDeck();
         //If card is spell & player has card that can "react", pause turn, trigger PlayerReachToSpell()
 
         //Next Phase (Automatic)
-        NextTurnPhase();
+        NextPhase();
     }
     private void PlayerReactToSpell()
     {
@@ -252,23 +281,24 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void PlayerDraw()
+    private void PhasePlayerDraw()
     {
         //Draw top card from deck
         playerManager.DrawCardFromTopOfDeck();
 
         //Next Phase (Automatic)
-        NextTurnPhase();
+        NextPhase();
     }
 
-    private void StartOfTurnEffectTrigger()
+    private void PhaseStandby()
     {
-        //DO STUFF
+        //Turn start won't be here
+        //Reserved for maybe later use
 
         //Next Phase (Automatic)
-        NextTurnPhase();
+        NextPhase();
     }
-    private void PlayerGainControl()
+    private void PhasePlayerPlay()
     {
         //DO STUFF
         foreach (GameObject card in playerManager.playerHand)
@@ -277,7 +307,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private void EndOfTurnEffectTrigger()
+    private void PhasePlayerEnd()
     {
         //FUTURE: Remove player's ability to control cards
 
@@ -308,17 +338,17 @@ public class GameManager : MonoBehaviour
         }
 
         //Next Phase (Automatic)
-        NextTurnPhase();
+        NextPhase();
     }
-    private void CombatPhase()
+    private void PhaseCombat()
     {
         //Triggers Combat Timers and combat etc
-        StartCoroutine(CombatPhaseCoroutine());
+        StartCoroutine(PhaseCombatCoroutine());
 
         //NextTurnPhase(); //JP 28.09.24 - Removed, in the CombatPhaseCoroutine Coroutine now
     }
 
-    private IEnumerator CombatPhaseCoroutine()
+    private IEnumerator PhaseCombatCoroutine()
     {
         //Loop through each player and horde monster slot
         for (int i = 0; i < fieldManager.playerMonsterSlots.Count; i++)
@@ -369,13 +399,13 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.5f);
         }
-        NextTurnPhase();
+        NextPhase();
     }
 
-    private void EndOfRound()
+    private void PhaseRoundEnd()
     {
         //Next Phase (Automatic)
-        NextTurnPhase();
+        NextPhase();
     }
 
     //--------------------------------------------------- ENERGY CHECKS ---------------------------------------------------//
@@ -523,9 +553,9 @@ public class GameManager : MonoBehaviour
 
     public void EndTurnButtonPress()
     {
-        if (currentTurn == TurnPhase.PLAY)
+        if (currentTurn == TurnPhase.PLAYERPLAY)
         {
-            NextTurnPhase();
+            NextPhase();
         }
         else
         {

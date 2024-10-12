@@ -37,7 +37,7 @@ public class CardEventTrigger : EventTrigger
         HideMagnifiedCard();
 
         //Ends Drag if card is not interactable
-        if (GetComponent<CardDetails>().canDrag == false || gameManager.currentTurn != GameManager.TurnPhase.PLAY) { data.pointerDrag = null; return; }
+        if (GetComponent<CardDetails>().canDrag == false || gameManager.currentTurn != GameManager.TurnPhase.PLAYERPLAY) { data.pointerDrag = null; return; }
 
         //Marks card as currently being moved
         playerManager.cardBeingMoved = this.gameObject;
@@ -238,7 +238,7 @@ public class CardEventTrigger : EventTrigger
     public override void OnPointerEnter(PointerEventData data)
     {
         //If card exists in hand && is play phase
-        if (playerManager.playerHand.Contains(this.gameObject) && gameManager.currentTurn == GameManager.TurnPhase.PLAY)
+        if (playerManager.playerHand.Contains(this.gameObject) && gameManager.currentTurn == GameManager.TurnPhase.PLAYERPLAY)
         {
             //Lerp card up slightly if card is in hand
             GetComponent<Animator>().SetBool("PokeUp", true);
