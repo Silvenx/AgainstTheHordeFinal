@@ -12,7 +12,8 @@ public enum ConditionType
     Challenge,       //Once per turn, can choose another oppositng monster to be moved in front of this
     Silence,         //While silenced, all effects and conditions no longer activate
     Fragile,         //If monster takes damage or deals damage, it dies
-    Cleave           //During combat, damage is dealt to monsters adjacent to the targeted monster
+    Cleave,          //During combat, damage is dealt to monsters adjacent to the targeted monster
+    Retaliate        //In combat, when a monster takes damage from another, deal damage equal to the retaliate stacks back
 }
 
 [System.Serializable]

@@ -69,13 +69,32 @@ public class PlayerManager : CharacterManager
     {
         for (int i = 0; i < amountToDraw; i++)
         {
-            //Get Card from top of deck & draw it
-            CreateNewCardAndMoveToHand(myDeck.TakeTopCard());
+            int deckSize = myDeck.getDeckSize();
+            //Check if there's a card to draw
+            if (deckSize > 0)
+            {
+                CreateNewCardAndMoveToHand(myDeck.TakeTopCard());
+            }
+            else
+            {
+                Debug.Log("No cards to draw");
+            }
+
+            //FUTURE: Probably need to make this a coroutine to add a delay into drawing each card
         }
     }
     public void DrawCardFromTopOfDeck()
     {
-        CreateNewCardAndMoveToHand(myDeck.TakeTopCard());
+        int deckSize = myDeck.getDeckSize();
+        //Check if card exists to draw, if not don't do anything
+        if (deckSize > 0)
+        {
+            CreateNewCardAndMoveToHand(myDeck.TakeTopCard());
+        }
+        else
+        {
+            Debug.Log("No cards to draw");
+        }
     }
     public void DrawCardFromDeck(Card card)
     {

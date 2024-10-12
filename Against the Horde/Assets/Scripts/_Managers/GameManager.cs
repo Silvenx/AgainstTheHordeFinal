@@ -279,7 +279,6 @@ public class GameManager : MonoBehaviour
     }
     private void EndOfTurnEffectTrigger()
     {
-        Debug.Log("Bout to do end turn stuff!");
         //FUTURE: Remove player's ability to control cards
 
         //Go through all player monsters left to right and apply end of round effects
@@ -316,7 +315,7 @@ public class GameManager : MonoBehaviour
         //Triggers Combat Timers and combat etc
         StartCoroutine(CombatPhaseCoroutine());
 
-        //NextTurnPhase(); //JP 28.09.24 - Removed, in the Coroutine now
+        //NextTurnPhase(); //JP 28.09.24 - Removed, in the CombatPhaseCoroutine Coroutine now
     }
 
     private IEnumerator CombatPhaseCoroutine()
@@ -444,6 +443,9 @@ public class GameManager : MonoBehaviour
 
         int playerCardPower = playerCard.card.currentAttack;
         int hordeCardPower = hordeCard.card.currentAttack;
+        int hordeRetaliateStacks = hordeCard.GetConditionValue(ConditionType.Retaliate);
+        int playerRetaliateStacks = playerCard.GetConditionValue(ConditionType.Retaliate);
+
 
         //If both player and horde have quick or niether do
         if (playerCard.HasCondition(ConditionType.Quick) && hordeCard.HasCondition(ConditionType.Quick) ||
@@ -452,20 +454,29 @@ public class GameManager : MonoBehaviour
             //Deal damage to both at the same time
             playerCard.TakeLifeDamage(hordeCardPower);
             hordeCard.TakeLifeDamage(playerCardPower);
+            //Retaliate happens immediately after and is separate
+            playerCard.TakeLifeDamage(hordeRetaliateStacks);
+            hordeCard.TakeLifeDamage(playerRetaliateStacks);
+
         }
         //If Player has quick and Horde Doesn't
         else if (playerCard.HasCondition(ConditionType.Quick) && hordeCard.HasCondition(ConditionType.Quick) == false)
         {
             //Deal damage to the horde card
             hordeCard.TakeLifeDamage(playerCardPower);
+            //Player still takes retaliate damage, not avoided by quick
+            playerCard.TakeLifeDamage(hordeRetaliateStacks);
+
         }
         //If horde has quick and player doesn't
         else if (hordeCard.HasCondition(ConditionType.Quick) && playerCard.HasCondition(ConditionType.Quick) == false)
         {
             //Deal damage to the horde card
             playerCard.TakeLifeDamage(hordeCardPower);
+            //Horde still takes retaliate damage, not avoided by quick
+            hordeCard.TakeLifeDamage(playerRetaliateStacks);
         }
-        //on kill trigger probably should go in ModifyHealth
+        //FUTURE: Add in on kill here i think
     }
 
     //Process horde dealing face damage with a monster
