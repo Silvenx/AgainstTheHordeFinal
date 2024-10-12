@@ -7,5 +7,6 @@ public enum TriggerType
     KILL,
     ENEMYSPELLCAST,
     MYSPELLCAST,
-    DAMAGED
+    DAMAGED,
+    ENDTURN
 }

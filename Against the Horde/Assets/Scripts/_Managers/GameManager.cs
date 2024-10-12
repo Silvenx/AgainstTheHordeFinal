@@ -41,18 +41,18 @@ public class GameManager : MonoBehaviour
         //New round begins
         STARTROUND,
         //Automated "start of turn" effects trigger
-        STANDBY,
-        //Player draws card
-        DRAW,
-        //NPC draws and plays card. If player can react to spell, allow so
         HORDEDRAWANDPLAY,
         //Player can play cards
+        DRAW,
+        //NPC draws and plays card. If player can react to spell, allow so
+        STANDBY,
+        //Player draws card
         PLAY,
         //Player chooses to end turn
-        PLAYEREND,
-        //Combat between all monsters ensues & lifepoint damage
         COMBAT,
         //Final turn resolutions
+        PLAYEREND,
+        //Combat between all monsters ensues & lifepoint damage
         ROUNDEND
     }
 
@@ -177,6 +177,7 @@ public class GameManager : MonoBehaviour
     }
     private void TriggerTurnPhasesMethod(TurnPhase newTurnPhase)
     {
+        Debug.Log($"Current Turn Phase: {currentTurn}"); // Log current turn phase
         switch (currentTurn)
         {
             case TurnPhase.STARTROUND:
@@ -199,12 +200,12 @@ public class GameManager : MonoBehaviour
                 PlayerGainControl();
                 break;
 
-            case TurnPhase.PLAYEREND:
-                EndOfTurnEffectTrigger();
-                break;
-
             case TurnPhase.COMBAT:
                 CombatPhase();
+                break;
+
+            case TurnPhase.PLAYEREND:
+                EndOfTurnEffectTrigger();
                 break;
 
             case TurnPhase.ROUNDEND:
@@ -278,8 +279,34 @@ public class GameManager : MonoBehaviour
     }
     private void EndOfTurnEffectTrigger()
     {
-        //Remove player's ability to control cards
-        //Trigger card effects in play that are "end of turn"
+        Debug.Log("Bout to do end turn stuff!");
+        //FUTURE: Remove player's ability to control cards
+
+        //Go through all player monsters left to right and apply end of round effects
+
+        foreach (GameObject playerSlot in fieldManager.playerMonsterSlots)
+        {
+            if (playerSlot.transform.childCount > 0)
+            {
+                CardDetails playerCard = playerSlot.transform.GetChild(0).GetComponent<CardDetails>();
+                playerCard.ActivateCardEffect(TriggerType.ENDTURN);
+            }
+        }
+
+        foreach (GameObject hordeSlot in fieldManager.hordeMonsterSlots)
+        {
+            if (hordeSlot.transform.childCount > 0)
+            {
+                CardDetails hordeCard = hordeSlot.transform.GetChild(0).GetComponent<CardDetails>();
+                hordeCard.ActivateCardEffect(TriggerType.ENDTURN);
+            }
+        }
+
+        if (fieldManager.fieldCardSlot.transform.childCount > 0)
+        {
+            CardDetails fieldCard = fieldManager.fieldCardSlot.transform.GetChild(0).GetComponent<CardDetails>();
+            fieldCard.ActivateCardEffect(TriggerType.ENDTURN);
+        }
 
         //Next Phase (Automatic)
         NextTurnPhase();
@@ -289,8 +316,7 @@ public class GameManager : MonoBehaviour
         //Triggers Combat Timers and combat etc
         StartCoroutine(CombatPhaseCoroutine());
 
-        //Next Phase (Automatic)
-        //NextTurnPhase(); //JP 28.09.24 - Removed, iIn the Coroutine now
+        //NextTurnPhase(); //JP 28.09.24 - Removed, in the Coroutine now
     }
 
     private IEnumerator CombatPhaseCoroutine()
@@ -347,11 +373,8 @@ public class GameManager : MonoBehaviour
         NextTurnPhase();
     }
 
-
     private void EndOfRound()
     {
-        //DO STUFF
-
         //Next Phase (Automatic)
         NextTurnPhase();
     }
@@ -457,7 +480,7 @@ public class GameManager : MonoBehaviour
         //Apply it inversely to the player lifeforce
         playerManager.ModifyCharacterLifeForce(-damage);
     }
-    //----------------------------------------------- MOUSE POINTER -----------------------------------------------//
+    //---------------------------------------------- MOUSE POINTER -----------------------------------------------//
 
     void SetMainCursorSkin()
     {
@@ -470,6 +493,22 @@ public class GameManager : MonoBehaviour
         Cursor.SetCursor(null, Vector2.zero, cursorMode);
     }
 
-    //--------------------------------------------------- MISC ---------------------------------------------------//
+    //-------------------------------------------------- BUTTONS --------------------------------------------------//
+
+    public void EndTurnButtonPress()
+    {
+        if (currentTurn == TurnPhase.PLAY)
+        {
+            NextTurnPhase();
+        }
+        else
+        {
+            Debug.Log("Can't End Turn, it's not Play Phase");
+        }
+    }
+
+
+
+    //--------------------------------------------------- MISC ----------------------------------------------------//
 
 }

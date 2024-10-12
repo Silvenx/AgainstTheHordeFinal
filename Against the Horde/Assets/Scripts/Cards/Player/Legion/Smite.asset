@@ -29,7 +29,7 @@ MonoBehaviour:
     cardAllegiance: 0
     onPlaySound: {fileID: 0}
     abilities:
-    - trigger: 0
+    - trigger: 1
       effect: {fileID: 0}
       target: {fileID: 0}
     conditions: []

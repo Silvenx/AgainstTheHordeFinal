@@ -31,4 +31,7 @@ MonoBehaviour:
     - trigger: 1
       effect: {fileID: 11400000, guid: d719f58a61abbcf4582e96b5b6b132a7, type: 2}
       target: {fileID: 11400000, guid: 9fe0ccbbd6e30454fb506b0fb31bc600, type: 2}
+    - trigger: 8
+      effect: {fileID: 11400000, guid: 856e59493b773dc4bac9470c4e912292, type: 2}
+      target: {fileID: 11400000, guid: 1c71795b7051bfd408c7af17803d0dda, type: 2}
     conditions: []

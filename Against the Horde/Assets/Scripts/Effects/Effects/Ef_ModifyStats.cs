@@ -33,10 +33,30 @@ public class Ef_ModifyStats : Effect
                     CardDetails d = o.GetComponent<CardDetails>();
                     if (d != null)
                     {
+                        // Store previous stats for logging
+                        int previousAttack = d.card.currentAttack;
+                        int previousManaCost = d.card.currentEnergyCost;
+                        int previousCurrentHealth = d.card.currentHealth;
+
                         d.ModifyAttack(power);
                         d.ModifyManaCost(energy);
                         d.ModifyMaximumHealth(health);
                         d.ModifyCurrentHealth(health);
+
+                        // Log the changes
+                        Debug.Log($"Modified stats for {d.card.cardName}:");
+                        if (power != 0)
+                        {
+                            Debug.Log($"- Attack: {previousAttack} -> {d.card.currentAttack} (Change: {power})");
+                        }
+                        if (energy != 0)
+                        {
+                            Debug.Log($"- Mana Cost: {previousManaCost} -> {d.card.currentEnergyCost} (Change: {energy})");
+                        }
+                        if (health != 0)
+                        {
+                            Debug.Log($"- Current Health: {previousCurrentHealth} -> {d.card.currentHealth} (Change: {health})");
+                        }
                     }
                 }
                 catch (System.Exception) { Debug.LogWarning("Target is not of type Tg_ManualSelect"); }

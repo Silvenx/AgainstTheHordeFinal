@@ -2486,7 +2486,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1731242701}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EndOfTurnEffectTrigger
+        m_MethodName: EndTurnButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6119,7 +6119,7 @@ MonoBehaviour:
   hordeManager: {fileID: 1768198610}
   handParentObject: {fileID: 76973177}
   playerHand: []
-  startingHandSize: 6
+  startingHandSize: 4
   maxHandSize: 12
   distanceBetweenCardsInHand: 45
   cardBeingMoved: {fileID: 0}
