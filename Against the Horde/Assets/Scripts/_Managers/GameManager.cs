@@ -445,11 +445,26 @@ public class GameManager : MonoBehaviour
         int playerCardPower = playerCard.card.currentAttack;
         int hordeCardPower = hordeCard.card.currentAttack;
 
-        //FUTURE: Quick would need to be done here as an if statement
-        //Deal damage to eachother at the same time
-        playerCard.TakeLifeDamage(hordeCardPower);
-        hordeCard.TakeLifeDamage(playerCardPower);
-
+        //If both player and horde have quick or niether do
+        if (playerCard.HasCondition(ConditionType.Quick) && hordeCard.HasCondition(ConditionType.Quick) ||
+        playerCard.HasCondition(ConditionType.Quick) == false && hordeCard.HasCondition(ConditionType.Quick) == false)
+        {
+            //Deal damage to both at the same time
+            playerCard.TakeLifeDamage(hordeCardPower);
+            hordeCard.TakeLifeDamage(playerCardPower);
+        }
+        //If Player has quick and Horde Doesn't
+        else if (playerCard.HasCondition(ConditionType.Quick) && hordeCard.HasCondition(ConditionType.Quick) == false)
+        {
+            //Deal damage to the horde card
+            hordeCard.TakeLifeDamage(playerCardPower);
+        }
+        //If horde has quick and player doesn't
+        else if (hordeCard.HasCondition(ConditionType.Quick) && playerCard.HasCondition(ConditionType.Quick) == false)
+        {
+            //Deal damage to the horde card
+            playerCard.TakeLifeDamage(hordeCardPower);
+        }
         //on kill trigger probably should go in ModifyHealth
     }
 
