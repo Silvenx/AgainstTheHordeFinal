@@ -31,3 +31,5 @@ MonoBehaviour:
     conditions:
     - conditionType: 0
       value: 1
+    - conditionType: 13
+      value: 1

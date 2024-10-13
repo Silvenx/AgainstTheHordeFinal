@@ -317,12 +317,24 @@ public class GameManager : MonoBehaviour
         //FUTURE: Remove player's ability to control cards
 
         //Go through all player monsters left to right and apply end of round effects
+        CardDetails cardDetails = GameObject.FindObjectOfType<CardDetails>();
 
         foreach (GameObject playerSlot in fieldManager.playerMonsterSlots)
         {
             if (playerSlot.transform.childCount > 0)
             {
                 CardDetails playerCard = playerSlot.transform.GetChild(0).GetComponent<CardDetails>();
+
+                //Check if it has regeneration, regen if it does, then reduce it by 1
+                if (playerCard.HasCondition(ConditionType.Regenerate))
+                {
+                    int regenValue = playerCard.GetConditionValue(ConditionType.Regenerate);
+                    playerCard.HealLife(regenValue);
+                    int newRegenValue = regenValue - 1;
+                    playerCard.ModifyConditionValue(ConditionType.Regenerate, newRegenValue);
+                }
+
+                //Activate end turn effects
                 playerCard.ActivateCardEffect(TriggerType.ENDTURN);
             }
         }
@@ -332,6 +344,16 @@ public class GameManager : MonoBehaviour
             if (hordeSlot.transform.childCount > 0)
             {
                 CardDetails hordeCard = hordeSlot.transform.GetChild(0).GetComponent<CardDetails>();
+
+                //Check if it has regeneration, regen if it does, then reduce it by 1
+                if (hordeCard.HasCondition(ConditionType.Regenerate))
+                {
+                    int regenValue = hordeCard.GetConditionValue(ConditionType.Regenerate);
+                    hordeCard.HealLife(regenValue);
+                    int newRegenValue = regenValue - 1;
+                    hordeCard.ModifyConditionValue(ConditionType.Regenerate, newRegenValue);
+                }
+
                 hordeCard.ActivateCardEffect(TriggerType.ENDTURN);
             }
         }

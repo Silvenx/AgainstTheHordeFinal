@@ -230,7 +230,7 @@ public class CardDetails : MonoBehaviour
 
     public void HealLife(int healing)
     {
-
+        ModifyCurrentHealth(healing);
     }
 
 
