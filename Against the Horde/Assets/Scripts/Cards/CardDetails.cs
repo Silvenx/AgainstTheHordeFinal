@@ -16,6 +16,11 @@ public class CardDetails : MonoBehaviour
     public Image cardCharacterArtImage;
     public Image divineShieldArt;
     public Image toughArt;
+    public Image rarityB;
+    public Image rarityC;
+    public Image rarityR;
+    public Image rarityE;
+    public Image rarityL;
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI cardDescriptionText;
     public TextMeshProUGUI manaCostText;
@@ -44,6 +49,7 @@ public class CardDetails : MonoBehaviour
         this.card.currentAttack = card.baseAttack;
 
         this.card.cardType = cardDetails.cardType;
+        this.card.cardRarity = cardDetails.cardRarity;
 
         this.card.borderArt = cardDetails.borderArt;
         this.card.characterArt = cardDetails.characterArt;
@@ -55,7 +61,7 @@ public class CardDetails : MonoBehaviour
         this.card.abilities = cardDetails.abilities;
 
         //Applies new card details to UI of this card gameobject
-        SetCardUI(card.borderArt, card.characterArt, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack);
+        SetCardUI(card.borderArt, card.characterArt, card.cardName, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack, card.cardRarity);
     }
 
     //Modifies base stats
@@ -125,7 +131,7 @@ public class CardDetails : MonoBehaviour
     //Retreieves all card details
     public Card GetCardDetails()
     {
-        return new Card(card.cardName, card.cardType, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack, card.conditions);
+        return new Card(card.cardName, card.cardType, card.cardRarity, card.cardDescription, card.baseManaCost, card.baseHealth, card.baseAttack, card.conditions);
     }
 
 
@@ -419,13 +425,14 @@ public class CardDetails : MonoBehaviour
 
         //TODO: Change Colour of circle if current /= base. otherwise set colour to normal
     }
-    private void SetCardUI(Sprite borderImage, Sprite characterArtImage, string cardName, string cardDescription, int manaCost, int health, int damage)
+    private void SetCardUI(Sprite borderImage, Sprite characterArtImage, string cardName, string cardDescription, int manaCost, int health, int damage, Card.CARDRARITY cardRarity)
     {
         cardNameText.text = cardName;
         cardDescriptionText.text = cardDescription;
         //SetsImage
         cardBorderImage.overrideSprite = borderImage;
         cardCharacterArtImage.overrideSprite = characterArtImage;
+
 
         //Applies stat fields with values
         UpdateCardUI(manaCost, health, damage);
@@ -442,6 +449,39 @@ public class CardDetails : MonoBehaviour
         {
             manaCostText.gameObject.SetActive(true);
         }
+
+        // Disable all rarity images first just in case
+        rarityB.gameObject.SetActive(false);
+        rarityC.gameObject.SetActive(false);
+        rarityR.gameObject.SetActive(false);
+        rarityE.gameObject.SetActive(false);
+        rarityL.gameObject.SetActive(false);
+
+        // Enable the correct rarity image based on the card's rarity
+        switch (cardRarity)
+        {
+            case Card.CARDRARITY.NONE:
+                break;
+            case Card.CARDRARITY.BASIC:
+                rarityB.gameObject.SetActive(true);
+                break;
+            case Card.CARDRARITY.COMMON:
+                rarityC.gameObject.SetActive(true);
+                break;
+            case Card.CARDRARITY.RARE:
+                rarityR.gameObject.SetActive(true);
+                break;
+            case Card.CARDRARITY.EPIC:
+                rarityE.gameObject.SetActive(true);
+                break;
+            case Card.CARDRARITY.LEGENDARY:
+                rarityL.gameObject.SetActive(true);
+                break;
+            default:
+                Debug.LogWarning("Unknown rarity type.");
+                break;
+        }
+
     }
 
 }

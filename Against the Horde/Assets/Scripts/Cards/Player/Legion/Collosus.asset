@@ -25,6 +25,7 @@ MonoBehaviour:
     baseAttack: 9
     currentAttack: 0
     cardType: 0
+    cardRarity: 2
     cardAllegiance: 0
     onPlaySound: {fileID: 0}
     abilities: []

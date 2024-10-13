@@ -25,6 +25,7 @@ public class Card
 
     //Card Type
     public CARDTYPE cardType;
+    public CARDRARITY cardRarity;
     public ALLEGIANCE cardAllegiance;
     public enum CARDTYPE
     {
@@ -33,6 +34,15 @@ public class Card
         FIELD,
         EQUIPMENT,
         ENCHANTMENT
+    }
+    public enum CARDRARITY
+    {
+        NONE,
+        BASIC,
+        COMMON,
+        RARE,
+        EPIC,
+        LEGENDARY
     }
     public enum ALLEGIANCE
     {
@@ -75,6 +85,7 @@ public class Card
         this.currentAttack = co.card.baseAttack;
 
         this.cardType = co.card.cardType;
+        this.cardRarity = co.card.cardRarity;
         this.cardAllegiance = co.card.cardAllegiance;
 
         this.characterArt = co.card.characterArt;
@@ -87,7 +98,7 @@ public class Card
         this.conditions = new List<Condition>(co.card.conditions);
     }
 
-    public Card(string cardName, CARDTYPE cardType, string cardDescription, int manaCost, int health, int attack, List<Condition> initialConditions)
+    public Card(string cardName, CARDTYPE cardType, CARDRARITY cardRarity, string cardDescription, int manaCost, int health, int attack, List<Condition> initialConditions)
     {
         //Applies base details
         this.cardName = cardName;
@@ -103,6 +114,7 @@ public class Card
         this.currentAttack = attack;
 
         this.cardType = cardType;
+        this.cardRarity = cardRarity;
 
         this.conditions = initialConditions ?? new List<Condition>();
 
