@@ -325,13 +325,37 @@ public class GameManager : MonoBehaviour
             {
                 CardDetails playerCard = playerSlot.transform.GetChild(0).GetComponent<CardDetails>();
 
+                //Should do bleeding, then burning, then regenerate and combine together then change health so heal cancels out burn etc
+                int regenValue = 0;
+                int regenHealing = 0;
+
+                int burnValue = 0;
+                int burnDamage = 0;
+
+                int bleedValue = 0;
+                int bleedDamage = 0;
+
+                if (playerCard.HasCondition(ConditionType.Burn))
+                {
+                    burnValue = playerCard.GetConditionValue(ConditionType.Burn);
+                    //Burn hitsplat value, but want the actual number to change at the same time
+                    burnDamage = burnValue * 2;
+                }
+
+                if (playerCard.HasCondition(ConditionType.Bleed))
+                {
+                    bleedValue = playerCard.GetConditionValue(ConditionType.Bleed);
+                    //Bleed hitsplat value, but want the actual number to change at the same time
+                }
+
+
                 //Check if it has regeneration, regen if it does, then reduce it by 1
                 if (playerCard.HasCondition(ConditionType.Regenerate))
                 {
-                    int regenValue = playerCard.GetConditionValue(ConditionType.Regenerate);
+                    regenValue = playerCard.GetConditionValue(ConditionType.Regenerate);
                     playerCard.HealLife(regenValue);
-                    int newRegenValue = regenValue - 1;
-                    playerCard.ModifyConditionValue(ConditionType.Regenerate, newRegenValue);
+                    int finalRegenValue = regenValue - 1;
+                    playerCard.ModifyConditionValue(ConditionType.Regenerate, finalRegenValue);
                 }
 
                 //Activate end turn effects
