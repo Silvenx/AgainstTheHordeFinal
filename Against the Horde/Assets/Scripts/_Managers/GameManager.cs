@@ -337,25 +337,54 @@ public class GameManager : MonoBehaviour
 
                 if (playerCard.HasCondition(ConditionType.Burn))
                 {
+                    //FUTURE: Burn hitsplat value, but want the actual number to change at the same time
+                    //Get the burn value then double it for the effect
                     burnValue = playerCard.GetConditionValue(ConditionType.Burn);
-                    //Burn hitsplat value, but want the actual number to change at the same time
                     burnDamage = burnValue * 2;
+
+                    //Reduce the burn stack on the card by 2
+                    burnValue -= 2;
+                    playerCard.ModifyConditionValue(ConditionType.Burn, burnValue);
                 }
 
                 if (playerCard.HasCondition(ConditionType.Bleed))
                 {
+                    //FUTURE: Bleed hitsplat value, but want the actual number to change at the same time
+                    //Get the bleed value
                     bleedValue = playerCard.GetConditionValue(ConditionType.Bleed);
-                    //Bleed hitsplat value, but want the actual number to change at the same time
-                }
+                    bleedDamage = bleedValue;
 
+                    //Reduce the bleed stack on the card by 1
+                    bleedValue -= 1;
+                    playerCard.ModifyConditionValue(ConditionType.Bleed, bleedValue);
+                }
 
                 //Check if it has regeneration, regen if it does, then reduce it by 1
                 if (playerCard.HasCondition(ConditionType.Regenerate))
                 {
+                    //FUTURE: Regen healing value, but want the actual number to change at the same time
+                    //Get the regen value
                     regenValue = playerCard.GetConditionValue(ConditionType.Regenerate);
-                    playerCard.HealLife(regenValue);
+                    regenHealing = regenValue;
+
+                    //reduce the regen stack on the card by 1
                     int finalRegenValue = regenValue - 1;
                     playerCard.ModifyConditionValue(ConditionType.Regenerate, finalRegenValue);
+                }
+
+                //Final condition calculations
+                int lifeAdjustment = regenHealing - burnDamage - bleedDamage;
+
+                //If life adjustment is healing
+                if (lifeAdjustment > 0)
+                {
+                    playerCard.HealLife(lifeAdjustment);
+                }
+
+                //If life adjustment is damage
+                if (lifeAdjustment < 0)
+                {
+                    playerCard.TakeLifeDamage(lifeAdjustment);
                 }
 
                 //Activate end turn effects
