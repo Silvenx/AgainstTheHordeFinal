@@ -315,111 +315,112 @@ public class GameManager : MonoBehaviour
     private void PhasePlayerEnd()
     {
         //FUTURE: Remove player's ability to control cards
-
-        //Go through all player monsters left to right and apply end of round effects
         CardDetails cardDetails = GameObject.FindObjectOfType<CardDetails>();
+        StartCoroutine(PhasePlayerEndCoroutine());
+    }
 
+    private IEnumerator PhasePlayerEndCoroutine()
+    {
         foreach (GameObject playerSlot in fieldManager.playerMonsterSlots)
         {
+            Debug.Log("Processing an end turn slot");
             if (playerSlot.transform.childCount > 0)
             {
                 CardDetails playerCard = playerSlot.transform.GetChild(0).GetComponent<CardDetails>();
-
-                //Should do bleeding, then burning, then regenerate and combine together then change health so heal cancels out burn etc
-                int regenValue = 0;
-                int regenHealing = 0;
-
-                int burnValue = 0;
-                int burnDamage = 0;
-
-                int bleedValue = 0;
-                int bleedDamage = 0;
-
-                if (playerCard.HasCondition(ConditionType.Burn))
-                {
-                    //FUTURE: Burn hitsplat value, but want the actual number to change at the same time
-                    //Get the burn value then double it for the effect
-                    burnValue = playerCard.GetConditionValue(ConditionType.Burn);
-                    burnDamage = burnValue * 2;
-
-                    //Reduce the burn stack on the card by 2
-                    burnValue -= 2;
-                    playerCard.ModifyConditionValue(ConditionType.Burn, burnValue);
-                }
-
-                if (playerCard.HasCondition(ConditionType.Bleed))
-                {
-                    //FUTURE: Bleed hitsplat value, but want the actual number to change at the same time
-                    //Get the bleed value
-                    bleedValue = playerCard.GetConditionValue(ConditionType.Bleed);
-                    bleedDamage = bleedValue;
-
-                    //Reduce the bleed stack on the card by 1
-                    bleedValue -= 1;
-                    playerCard.ModifyConditionValue(ConditionType.Bleed, bleedValue);
-                }
-
-                //Check if it has regeneration, regen if it does, then reduce it by 1
-                if (playerCard.HasCondition(ConditionType.Regenerate))
-                {
-                    //FUTURE: Regen healing value, but want the actual number to change at the same time
-                    //Get the regen value
-                    regenValue = playerCard.GetConditionValue(ConditionType.Regenerate);
-                    regenHealing = regenValue;
-
-                    //reduce the regen stack on the card by 1
-                    int finalRegenValue = regenValue - 1;
-                    playerCard.ModifyConditionValue(ConditionType.Regenerate, finalRegenValue);
-                }
-
-                //Final condition calculations
-                int lifeAdjustment = regenHealing - burnDamage - bleedDamage;
-
-                //If life adjustment is healing
-                if (lifeAdjustment > 0)
-                {
-                    playerCard.HealLife(lifeAdjustment);
-                }
-
-                //If life adjustment is damage
-                if (lifeAdjustment < 0)
-                {
-                    playerCard.TakeLifeDamage(lifeAdjustment);
-                }
-
-                //Activate end turn effects
-                playerCard.ActivateCardEffect(TriggerType.ENDTURN);
+                yield return StartCoroutine(ProcessEndTurnForCard(playerCard));
             }
         }
-
         foreach (GameObject hordeSlot in fieldManager.hordeMonsterSlots)
         {
             if (hordeSlot.transform.childCount > 0)
             {
                 CardDetails hordeCard = hordeSlot.transform.GetChild(0).GetComponent<CardDetails>();
-
-                //Check if it has regeneration, regen if it does, then reduce it by 1
-                if (hordeCard.HasCondition(ConditionType.Regenerate))
-                {
-                    int regenValue = hordeCard.GetConditionValue(ConditionType.Regenerate);
-                    hordeCard.HealLife(regenValue);
-                    int newRegenValue = regenValue - 1;
-                    hordeCard.ModifyConditionValue(ConditionType.Regenerate, newRegenValue);
-                }
-
-                hordeCard.ActivateCardEffect(TriggerType.ENDTURN);
+                yield return StartCoroutine(ProcessEndTurnForCard(hordeCard));
             }
         }
-
         if (fieldManager.fieldCardSlot.transform.childCount > 0)
         {
             CardDetails fieldCard = fieldManager.fieldCardSlot.transform.GetChild(0).GetComponent<CardDetails>();
-            fieldCard.ActivateCardEffect(TriggerType.ENDTURN);
+            yield return StartCoroutine(ProcessEndTurnForCard(fieldCard));
         }
 
         //Next Phase (Automatic)
         NextPhase();
     }
+
+    private IEnumerator ProcessEndTurnForCard(CardDetails card)
+    {
+
+        //Should do bleeding, then burning, then regenerate and combine together then change health so heal cancels out burn etc
+        int regenValue = 0;
+        int regenHealing = 0;
+
+        int burnValue = 0;
+        int burnDamage = 0;
+
+        int bleedValue = 0;
+        int bleedDamage = 0;
+
+        if (card.HasCondition(ConditionType.Burn))
+        {
+            //FUTURE: Burn hitsplat value, but want the actual number to change at the same time
+            //Get the burn value then double it for the effect
+            burnValue = card.GetConditionValue(ConditionType.Burn);
+            burnDamage = burnValue * 2;
+
+            //Reduce the burn stack on the card by 2
+            burnValue -= 2;
+            card.ModifyConditionValue(ConditionType.Burn, burnValue);
+        }
+
+        if (card.HasCondition(ConditionType.Bleed))
+        {
+            //FUTURE: Bleed hitsplat value, but want the actual number to change at the same time
+            //Get the bleed value
+            bleedValue = card.GetConditionValue(ConditionType.Bleed);
+            bleedDamage = bleedValue;
+
+            //Reduce the bleed stack on the card by 1
+            bleedValue -= 1;
+            card.ModifyConditionValue(ConditionType.Bleed, bleedValue);
+        }
+
+        //Check if it has regeneration, regen if it does, then reduce it by 1
+        if (card.HasCondition(ConditionType.Regenerate))
+        {
+            //FUTURE: Regen healing value, but want the actual number to change at the same time
+            //Get the regen value
+            regenValue = card.GetConditionValue(ConditionType.Regenerate);
+            regenHealing = regenValue;
+
+            //reduce the regen stack on the card by 1
+            int finalRegenValue = regenValue - 1;
+            card.ModifyConditionValue(ConditionType.Regenerate, finalRegenValue);
+        }
+
+        //Final condition calculations
+        Debug.Log($"processing regen {regenHealing} - burn {burnDamage} - bleed {bleedDamage} = {regenHealing - burnDamage - bleedDamage} ");
+        int lifeAdjustment = regenHealing - burnDamage - bleedDamage;
+
+        //If life adjustment is healing
+        if (lifeAdjustment > 0)
+        {
+            card.HealLife(lifeAdjustment);
+        }
+
+        //If life adjustment is damage
+        if (lifeAdjustment < 0)
+        {
+            card.TakeLifeDamage(lifeAdjustment);
+        }
+
+        //Activate end turn effects
+        card.ActivateCardEffect(TriggerType.ENDTURN);
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+
     private void PhaseCombat()
     {
         //Triggers Combat Timers and combat etc
