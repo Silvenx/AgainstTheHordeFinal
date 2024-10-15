@@ -281,6 +281,7 @@ public class PlayerManager : CharacterManager
 
     public void DamagePlayerLifeforce(int damage)
     {
+        //future: add damage lifeforce damage event here
         ModifyCharacterLifeForce(-damage);
     }
 
