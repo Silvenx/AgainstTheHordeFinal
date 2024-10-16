@@ -18,10 +18,12 @@ public class Ef_ModifyStats : Effect
 
         // Get the selected targets after selection is complete
         GameObject[] targets = target.getTargets();
-        //foreach(GameObject o in target.getTargets())
-        //{
-        //    Debug.Log("Targets = "+o);
-        //}
+
+        ThisEffect(targets, thisCard);
+    }
+
+    public override void ThisEffect(GameObject[] targets, GameObject thisCard)
+    {
         // If list of targets is populated
         if (targets != null || targets.Length == 0)
         {

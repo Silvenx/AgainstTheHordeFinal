@@ -6,4 +6,6 @@ public abstract class Effect : ScriptableObject
 {
     //For effects with no target
     public abstract IEnumerator ActivateEffect(Target targets, GameObject thisCard);
+
+    public abstract void ThisEffect(GameObject[] targets, GameObject thisCard);
 }

@@ -15,6 +15,13 @@ public class Ef_ApplyCondition : Effect
         yield return GameManager.Instance.StartCoroutine(target.TargetAquisition(thisCard));
 
         GameObject[] targets = target.getTargets();
+
+        ThisEffect(targets, thisCard);
+        
+    }
+
+    public override void ThisEffect(GameObject[] targets, GameObject thisCard)
+    {
         // Get the selected targets after selection is complete
         if (targets != null)
         {
@@ -29,7 +36,7 @@ public class Ef_ApplyCondition : Effect
         }
         else
         {
-            Debug.LogError("No target exists for adding condition: "+conditionToGive);
+            Debug.LogError("No target exists for adding condition: " + conditionToGive);
         }
     }
 }

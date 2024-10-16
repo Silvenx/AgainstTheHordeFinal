@@ -15,7 +15,14 @@ public class Ef_DealDamage : Effect
     {
         yield return GameManager.Instance.StartCoroutine(target.TargetAquisition(thisCard));
 
-        foreach (GameObject o in target.getTargets())
+        GameObject[] targets = target.getTargets();
+
+        ThisEffect(targets, thisCard);
+    }
+
+    public override void ThisEffect(GameObject[] targets, GameObject thisCard)
+    {
+        foreach (GameObject o in targets)
         {
             o.GetComponent<CardDetails>().TakeLifeDamage(damage);
         }

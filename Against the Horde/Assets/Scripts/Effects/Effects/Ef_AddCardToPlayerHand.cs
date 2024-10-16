@@ -22,8 +22,13 @@ public class Ef_AddCardToPlayerHand : Effect
 
     public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
+        ThisEffect();
 
+        yield return null;
+    }
 
+    public override void ThisEffect(GameObject[] targets = null, GameObject thisCard = null)
+    {
         //If cards have been assigned to this SO
         if (cardsToAddToHand != null)
         {
@@ -34,8 +39,6 @@ public class Ef_AddCardToPlayerHand : Effect
         {
             Debug.LogError($"Card not assigned to Effect Scriptable Object");
         }
-
-        yield return null;
     }
 
     public void PutCardToHand()

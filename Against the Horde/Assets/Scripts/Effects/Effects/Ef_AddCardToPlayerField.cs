@@ -19,6 +19,11 @@ public class Ef_AddCardToField : Effect
         // Get the selected targets after selection is complete
         GameObject[] targets = target.getTargets();
 
+        ThisEffect(targets, thisCard);
+    }
+
+    public override void ThisEffect(GameObject[] targets, GameObject thisCard)
+    {
         // Check if card to summon is set in the ScriptableObject
         if (cardToSummon != null)
         {
@@ -46,6 +51,5 @@ public class Ef_AddCardToField : Effect
         {
             Debug.LogError("Card to summon is not assigned in the effect ScriptableObject.");
         }
-
     }
 }

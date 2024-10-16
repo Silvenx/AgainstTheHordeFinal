@@ -13,12 +13,17 @@ public class Ef_DrawCard_Player : Effect
 
     public override IEnumerator ActivateEffect(Target target = null, GameObject thisCard = null)
     {
+        ThisEffect();
+
+        yield return null;
+    }
+
+    public override void ThisEffect(GameObject[] targets = null, GameObject thisCard = null)
+    {
         //Manager
         PlayerManager playerManager = GameManager.Instance.playerManager;
 
         //Draw a card
         playerManager.DrawCardFromTopOfDeck(cardsToDraw);
-
-        yield return null;
     }
 }
