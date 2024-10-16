@@ -42,7 +42,7 @@ public class Ef_Choose : Effect
         GameObject choiceButtonsParent = playerManager.choiceButtonsParent;
         List<GameObject> choiceButtons = playerManager.choiceButtons;
 
-        
+
         //Move buttonPos to match card's position on field
         buttonPos.anchoredPosition = thisCard.GetComponent<RectTransform>().anchoredPosition;
         //have dummy card's details update
@@ -58,7 +58,7 @@ public class Ef_Choose : Effect
 
         //List<Button> buttonElements = new List<Button>();
         //Turn on choice buttons (method reside in player manager)
-        Debug.Log("Total ability count: "+abilities.Count);
+        Debug.Log("Total ability count: " + abilities.Count);
         for (int i = 0; i < abilities.Count; i++)
         {
             Debug.Log("current ability: " + abilities[i].effect.effDesc);
@@ -83,10 +83,9 @@ public class Ef_Choose : Effect
 
     private void CallEffect(int i, GameObject thisCard)
     {
-        Debug.Log("Calling Effect: "+abilities[i].effect);
+        Debug.Log("Calling Effect: " + abilities[i].effect);
 
-        abilities[i].effect.ActivateEffect(abilities[i].target, thisCard);
-        //thisCard.GetComponent<CardDetails>().TriggerCardEffect(abilities[currenti].effect, abilities[currenti].target, thisCard);
+        GameManager.Instance.StartCoroutine(abilities[i].effect.ActivateEffect(abilities[i].target, thisCard));
     }
 
     public void HideChoiceMenu()
