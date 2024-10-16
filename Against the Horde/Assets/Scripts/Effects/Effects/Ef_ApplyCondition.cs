@@ -9,6 +9,9 @@ public class Ef_ApplyCondition : Effect
     public ConditionType conditionToGive;
     public int val = 0;
 
+
+    //------------------------//
+
     public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
         // Start the target selection coroutine and wait for it to complete

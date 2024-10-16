@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Effects/AddCard_ToPlayerHand_FromNothing")]
 public class Ef_AddCardToPlayerHand : Effect
 {
-
     public FromWhere whereDoesCardComeFrom;
     //Card to create and add to player hand
     public List<CardObjects> cardsToAddToHand;

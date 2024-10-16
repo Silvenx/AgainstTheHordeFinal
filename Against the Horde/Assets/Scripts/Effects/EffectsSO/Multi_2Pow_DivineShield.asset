@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324380a6d2f7091498e15dbca39fa963, type: 3}
   m_Name: Multi_2Pow_DivineShield
   m_EditorClassIdentifier: 
+  effectDescription: Give 2 Power and Divine Shield
   effects:
   - {fileID: 11400000, guid: 005521caac7e1604284a5572e6978342, type: 2}
   - {fileID: 11400000, guid: d719f58a61abbcf4582e96b5b6b132a7, type: 2}

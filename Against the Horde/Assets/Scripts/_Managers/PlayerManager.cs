@@ -14,6 +14,13 @@ public class PlayerManager : CharacterManager
     public int maxHandSize = 12;
     public float distanceBetweenCardsInHand = 35f;
 
+    [Header("Misc")]
+    public GameObject darkenScreen;
+    public GameObject choiceButtonCardDisplay;
+    public RectTransform choiceButtonsPos;
+    public GameObject choiceButtonsParent;
+    public List<GameObject> choiceButtons;
+
     [HideInInspector]
     public GameObject cardBeingMoved;
     [HideInInspector]

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Effects/Multi_Effect")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Effects/Effect_Multiple")]
 public class Ef_MultipleEffects : Effect
 {
     // List of effects to do

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c941bc2212a3508438da279d397c5bdf, type: 3}
   m_Name: DrawSmiteFromDeck
   m_EditorClassIdentifier: 
+  effectDescription: Draw Smite
   whereDoesCardComeFrom: 1
   cardsToAddToHand:
   - {fileID: 11400000, guid: 3124942d59815be47b41e5dca7ed7043, type: 2}

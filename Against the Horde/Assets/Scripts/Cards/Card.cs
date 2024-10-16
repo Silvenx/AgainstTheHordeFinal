@@ -53,16 +53,7 @@ public class Card
     //Audio
     public AudioClip onPlaySound;
     //TODO: Add other audio
-
-
-    //Triggers and Effects
-    [System.Serializable]
-    public class Ability
-    {
-        public TriggerType trigger;
-        public Effect effect;
-        public Target target;
-    }
+    
 
     [Header("Card Abilities")]
     public List<Ability> abilities;
@@ -138,4 +129,13 @@ public class Card
 
         this.cardType = cardType;
     }
+}
+
+//Triggers and Effects
+[System.Serializable]
+public class Ability
+{
+    public TriggerType trigger;
+    public Effect effect;
+    public Target target;
 }

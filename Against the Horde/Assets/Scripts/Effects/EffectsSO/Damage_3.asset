@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdac31b2f84a604ea1792acd42e0237, type: 3}
   m_Name: Damage_3
   m_EditorClassIdentifier: 
+  effectDescription: Deal 3 damage
   damage: 3

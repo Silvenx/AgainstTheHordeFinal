@@ -11,6 +11,9 @@ public class Ef_ModifyStats : Effect
     public int power = 0;
     public int health = 0;
 
+
+    //------------------------//
+
     public override IEnumerator ActivateEffect(Target target, GameObject thisCard)
     {
         // Start the target selection coroutine and wait for it to complete

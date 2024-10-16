@@ -23,6 +23,8 @@ public class Ef_DrawCard_Player : Effect
         //Manager
         PlayerManager playerManager = GameManager.Instance.playerManager;
 
+        Debug.Log("DREW A CARD");
+
         //Draw a card
         playerManager.DrawCardFromTopOfDeck(cardsToDraw);
     }

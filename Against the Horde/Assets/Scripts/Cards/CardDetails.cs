@@ -388,6 +388,12 @@ public class CardDetails : MonoBehaviour
 
     }
 
+    public IEnumerator TriggerCardEffect(Effect eff, Target target, GameObject thisCard)
+    {
+        //Trigger the ability
+        yield return StartCoroutine(eff.ActivateEffect(target, thisCard));
+    }
+
     //--------------------------------------------------- Modify UI ---------------------------------------------------//
 
     //Updates this Card's UI stat text fields with new/current stats
