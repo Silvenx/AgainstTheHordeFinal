@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7654bdcfb9ef09b46aa859ad7d0b746e, type: 3}
-  m_Name: DivineWarbanner
+  m_Name: Forge
   m_EditorClassIdentifier: 
   card:
-    borderArt: {fileID: 21300000, guid: a9bc16c4a0cb3864f9db1a2dbbac38a1, type: 3}
-    characterArt: {fileID: 21300000, guid: d9191f3499be1e446b522120857222dc, type: 3}
-    cardName: Divine Warbanner
-    cardDescription: 'Summon: give adjacent monsters divine shield '
-    baseManaCost: 4
+    borderArt: {fileID: 21300000, guid: 7ad71f278930dd74686aeacce809af2d, type: 3}
+    characterArt: {fileID: 21300000, guid: 1e02ab2627d100442ba7404dd396c1b1, type: 3}
+    cardName: Forge
+    cardDescription: Give a monster 1 power and 1 life
+    baseManaCost: 1
     currentEnergyCost: 0
-    baseHealth: 2
+    baseHealth: 0
     maximumHealth: 0
     currentHealth: 0
-    baseAttack: 2
+    baseAttack: 0
     currentAttack: 0
-    cardType: 0
-    cardRarity: 3
+    cardType: 1
+    cardRarity: 1
     cardAllegiance: 0
     onPlaySound: {fileID: 0}
     abilities:
     - trigger: 1
-      effect: {fileID: 11400000, guid: d719f58a61abbcf4582e96b5b6b132a7, type: 2}
-      target: {fileID: 11400000, guid: 1a1d76a3925c3ae43b7bbce339ae0a2f, type: 2}
+      effect: {fileID: 11400000, guid: 42058ccf57260ac4bb3c585f36dd40de, type: 2}
+      target: {fileID: 11400000, guid: 9fe0ccbbd6e30454fb506b0fb31bc600, type: 2}
     conditions: []
