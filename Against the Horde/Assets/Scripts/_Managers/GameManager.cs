@@ -231,12 +231,42 @@ public class GameManager : MonoBehaviour
         //Sets refreshes current mana value and updates UI
         SetCurrentEnergy(maxEnergy);
         maxEnergyText.text = maxEnergy.ToString();
+        //Run the coroutine that does the start of round effects
+        StartCoroutine(PhaseStartRoundCoroutine());
+    }
 
-        //FUTURE: Add start of turn effects
+    private IEnumerator PhaseStartRoundCoroutine()
+    {
+        foreach (GameObject playerSlot in fieldManager.playerMonsterSlots)
+        {
+            Debug.Log("Processing a start turn slot");
+            if (playerSlot.transform.childCount > 0)
+            {
+                CardDetails playerCard = playerSlot.transform.GetChild(0).GetComponent<CardDetails>();
+                playerCard.ActivateCardEffect(TriggerType.TURNSTART);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        foreach (GameObject hordeSlot in fieldManager.hordeMonsterSlots)
+        {
+            if (hordeSlot.transform.childCount > 0)
+            {
+                CardDetails hordeCard = hordeSlot.transform.GetChild(0).GetComponent<CardDetails>();
+                hordeCard.ActivateCardEffect(TriggerType.TURNSTART);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        if (fieldManager.fieldCardSlot.transform.childCount > 0)
+        {
+            CardDetails fieldCard = fieldManager.fieldCardSlot.transform.GetChild(0).GetComponent<CardDetails>();
+            fieldCard.ActivateCardEffect(TriggerType.TURNSTART);
+            yield return new WaitForSeconds(0.5f);
+        }
 
-        //Next Phase (Automatic)
         NextPhase();
     }
+
+
 
     private void PhaseMulligan()
     //Handles the Mulligan of the player's hand on turn one

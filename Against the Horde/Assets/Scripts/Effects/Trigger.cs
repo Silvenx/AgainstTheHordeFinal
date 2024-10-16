@@ -8,5 +8,6 @@ public enum TriggerType
     ENEMYSPELLCAST,
     MYSPELLCAST,
     DAMAGED,
-    ENDTURN
+    ENDTURN,
+    TURNSTART
 }
