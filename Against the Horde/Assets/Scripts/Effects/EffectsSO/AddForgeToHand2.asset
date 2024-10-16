@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c941bc2212a3508438da279d397c5bdf, type: 3}
+  m_Name: AddForgeToHand2
+  m_EditorClassIdentifier: 
+  whereDoesCardComeFrom: 0
+  cardsToAddToHand:
+  - {fileID: 11400000, guid: 8bc17f54b65fbba4d88e689924d5f9e1, type: 2}
+  - {fileID: 11400000, guid: 8bc17f54b65fbba4d88e689924d5f9e1, type: 2}
