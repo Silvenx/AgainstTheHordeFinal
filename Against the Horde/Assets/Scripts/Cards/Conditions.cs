@@ -14,7 +14,7 @@ public enum ConditionType
     Fragile,         //If monster takes damage or deals damage, it dies
     Cleave,          //During combat, damage is dealt to monsters adjacent to the targeted monster
     Retaliate,       //In combat, when a monster takes damage from another, deal damage equal to the retaliate stacks back
-    Burn,            //This monster takes two damage per stack of burning. At the end of the turn reduce the stacks by two
+    Burn,            //This monster takes one damage per stack of burning. At the end of the turn remove burn.
     Equip,           //This card's power, life, and effects are applied to the card it's attached to
     Evolve,          //When triggered, this card dies and is replaced with it's evolution
     Stun,            //This monster cannot attack. At the end of the turn reduce the stacks by one

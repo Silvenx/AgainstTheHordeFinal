@@ -328,6 +328,7 @@ public class GameManager : MonoBehaviour
             {
                 CardDetails playerCard = playerSlot.transform.GetChild(0).GetComponent<CardDetails>();
                 yield return StartCoroutine(ProcessEndTurnForCard(playerCard));
+                yield return new WaitForSeconds(0.5f);
             }
         }
         foreach (GameObject hordeSlot in fieldManager.hordeMonsterSlots)
@@ -336,12 +337,14 @@ public class GameManager : MonoBehaviour
             {
                 CardDetails hordeCard = hordeSlot.transform.GetChild(0).GetComponent<CardDetails>();
                 yield return StartCoroutine(ProcessEndTurnForCard(hordeCard));
+                yield return new WaitForSeconds(0.5f);
             }
         }
         if (fieldManager.fieldCardSlot.transform.childCount > 0)
         {
             CardDetails fieldCard = fieldManager.fieldCardSlot.transform.GetChild(0).GetComponent<CardDetails>();
             yield return StartCoroutine(ProcessEndTurnForCard(fieldCard));
+            yield return new WaitForSeconds(0.5f);
         }
 
         //Next Phase (Automatic)
@@ -366,10 +369,10 @@ public class GameManager : MonoBehaviour
             //FUTURE: Burn hitsplat value, but want the actual number to change at the same time
             //Get the burn value then double it for the effect
             burnValue = card.GetConditionValue(ConditionType.Burn);
-            burnDamage = burnValue * 2;
+            burnDamage = burnValue;
 
             //Reduce the burn stack on the card by 2
-            burnValue -= 2;
+            burnValue = 0;
             card.ModifyConditionValue(ConditionType.Burn, burnValue);
         }
 
@@ -411,13 +414,13 @@ public class GameManager : MonoBehaviour
         //If life adjustment is damage
         if (lifeAdjustment < 0)
         {
-            card.TakeLifeDamage(lifeAdjustment);
+            card.TakeLifeDamage(-lifeAdjustment);
         }
 
         //Activate end turn effects
         card.ActivateCardEffect(TriggerType.ENDTURN);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return null;
     }
 
 

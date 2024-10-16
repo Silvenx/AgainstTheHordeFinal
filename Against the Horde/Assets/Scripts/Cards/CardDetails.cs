@@ -334,6 +334,11 @@ public class CardDetails : MonoBehaviour
 
     public void ModifyConditionValue(ConditionType conditionType, int newValue)
     {
+        if (newValue < 0)
+        {
+            newValue = 0;
+        }
+
         Condition condition = card.conditions.Find(c => c.conditionType == conditionType);
         if (condition != null)
         {
