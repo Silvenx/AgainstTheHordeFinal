@@ -25,10 +25,11 @@ MonoBehaviour:
     baseAttack: 4
     currentAttack: 0
     cardType: 0
+    cardRarity: 0
     cardAllegiance: 1
     onPlaySound: {fileID: 0}
     abilities:
-    - trigger: 1
-      effect: {fileID: 11400000, guid: d719f58a61abbcf4582e96b5b6b132a7, type: 2}
-      target: {fileID: 11400000, guid: 1c71795b7051bfd408c7af17803d0dda, type: 2}
+    - trigger: 2
+      effect: {fileID: 11400000, guid: a53f38a93d2ffb14c9b21e85fecc4836, type: 2}
+      target: {fileID: 11400000, guid: db147888e76b60b4596be93125eb118e, type: 2}
     conditions: []

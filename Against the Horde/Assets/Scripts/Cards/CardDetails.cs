@@ -236,6 +236,11 @@ public class CardDetails : MonoBehaviour
 
     public void HealLife(int healing)
     {
+        if (HasCondition(ConditionType.Poison))
+        {
+            healing = 0;
+        }
+
         ModifyCurrentHealth(healing);
     }
 
@@ -269,8 +274,8 @@ public class CardDetails : MonoBehaviour
         //Check if the card is player
         bool isCardAllegiancePlayer = card.cardAllegiance == Card.ALLEGIANCE.PLAYER;
 
-        //FUTURE: Trigger special on-death affects should a card have them (might have to be earlier though)
-        //this.gameObject.GetComponent<EffectTriggers>().OnDeath();
+        //Trigger on death effects
+        this.ActivateCardEffect(TriggerType.DEATH);
 
         //remove from field
         FieldManager.SendCardObjectToGraveyard(this.gameObject);

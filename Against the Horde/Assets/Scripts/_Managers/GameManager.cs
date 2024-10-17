@@ -394,6 +394,8 @@ public class GameManager : MonoBehaviour
         int bleedValue = 0;
         int bleedDamage = 0;
 
+        int poisonValue = 0;
+
         if (card.HasCondition(ConditionType.Burn))
         {
             //FUTURE: Burn hitsplat value, but want the actual number to change at the same time
@@ -421,7 +423,7 @@ public class GameManager : MonoBehaviour
         //Check if it has regeneration, regen if it does, then reduce it by 1
         if (card.HasCondition(ConditionType.Regenerate))
         {
-            //FUTURE: Regen healing value, but want the actual number to change at the same time
+            //FUTURE: Regen healing value, but want the actual number to change at the same time (if poison 0 then)
             //Get the regen value
             regenValue = card.GetConditionValue(ConditionType.Regenerate);
             regenHealing = regenValue;
@@ -429,6 +431,17 @@ public class GameManager : MonoBehaviour
             //reduce the regen stack on the card by 1
             int finalRegenValue = regenValue - 1;
             card.ModifyConditionValue(ConditionType.Regenerate, finalRegenValue);
+        }
+
+        //Check if it has poison, then reduce it by 1
+        if (card.HasCondition(ConditionType.Poison))
+        {
+            //Get the poison value
+            poisonValue = card.GetConditionValue(ConditionType.Poison);
+
+            //reduce the poison stack on the card by 1
+            poisonValue -= 1;
+            card.ModifyConditionValue(ConditionType.Poison, poisonValue);
         }
 
         //Final condition calculations
@@ -486,6 +499,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"Slot {i + 1} - Player's {playerCardDetails.card.cardName} fights Horde's {hordeCardDetails.card.cardName}");
 
                 MonsterCombat(playerCardDetails, hordeCardDetails);
+                yield return new WaitForSeconds(0.5f);
             }
 
             //If player has one but horde doesn't
@@ -496,6 +510,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"Slot {i + 1} - Player's {playerCardDetails.card.cardName} hits face");
 
                 PlayerMonsterDealsLifeForceDamage(playerCardDetails);
+                yield return new WaitForSeconds(0.5f);
 
             }
             //If horde has one but player doesn't
@@ -506,12 +521,12 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"Slot {i + 1} - Horde's {hordeCardDetails.card.cardName} hits face");
 
                 HordeMonsterDealsLifeForceDamage(hordeCardDetails);
+                yield return new WaitForSeconds(0.5f);
             }
             else
             {
                 Debug.Log($"Slot {i + 1} - No monsters present on either side.");
             }
-            yield return new WaitForSeconds(0.5f);
         }
         NextPhase();
     }
