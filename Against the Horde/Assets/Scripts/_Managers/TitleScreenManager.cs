@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class TitleScreenManager : MonoBehaviour
 {
-    public GameObject titleMenu;
-    public GameObject factionMenu;
+    public List<GameObject> menuList;
+
+    public void OpenMenu(GameObject menuToOpen)
+    {
+        foreach (GameObject menu in menuList)
+        {
+            menu.SetActive(menu == menuToOpen);
+        }
+    }
+
     public void OpenFactionMenu()
     {
-        factionMenu.SetActive(true);
-
-        titleMenu.SetActive(false);
+        OpenMenu(menuList.Find(menu => menu.name == "Faction_Menu"));
     }
 
     public void OpenTitleMenu()
     {
-        titleMenu.SetActive(true);
+        OpenMenu(menuList.Find(menu => menu.name == "Title_Menu"));
+    }
 
-        factionMenu.SetActive(false);
+    public void OpenLegionMenu()
+    {
+        OpenMenu(menuList.Find(menu => menu.name == "Legion_Menu"));
     }
 
 }
