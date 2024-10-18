@@ -14,6 +14,4 @@ public class SceneLoaderManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
-
-
 }
