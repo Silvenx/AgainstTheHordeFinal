@@ -9,6 +9,7 @@ public class DebugMenu : MonoBehaviour
     public PlayerManager playerManager;
     public GameManager gameManager;
     public GameObject debugMenu;
+    public HordeManager hordeManager;
 
     public void DebugToggleDebugMenu()
     {
@@ -42,6 +43,12 @@ public class DebugMenu : MonoBehaviour
         int energyToSet = 55;
         gameManager.SetCurrentEnergy(energyToSet);
         gameManager.SetMaxEnergy(energyToSet, true);
+    }
+
+    public void DebugHordeDrawCard()
+    {
+        Debug.Log("Debug Menu - Horde Drawing Card");
+        hordeManager.HordePlayFromDeck();
     }
 
 }
